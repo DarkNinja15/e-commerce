@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:admin_panel/screens/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Color.fromRGBO(204, 82, 88 , 1),
         body: Center(
       child: Image(image: AssetImage('assets/logo1.png')),
     ));

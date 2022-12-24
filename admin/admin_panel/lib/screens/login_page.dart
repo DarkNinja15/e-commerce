@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
                 child: const Text(
                   'Welcome\nBack',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.black87,
                     fontSize: 33,
                     fontWeight: FontWeight.bold,
                   ),
@@ -108,7 +108,7 @@ class LoginPage extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: (size.height * 0.5) * 0.07,
+                              height: (size.height * 0.7) * 0.09,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -118,9 +118,10 @@ class LoginPage extends StatelessWidget {
                                     child: const Text(
                                       'Forgot Password',
                                       style: TextStyle(
+                                        fontStyle: FontStyle.italic,
                                         decoration: TextDecoration.underline,
-                                        color: Colors.black,
-                                        fontSize: 18,
+                                        color: Colors.blue,
+                                        fontSize: 14,
                                       ),
                                     )),
                               ],

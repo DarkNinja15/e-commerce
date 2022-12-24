@@ -18,10 +18,36 @@ class _HomePageState extends State<HomePage> {
   TextEditingController pricecontroller = TextEditingController();
 
   _selectImage() async {
-    Uint8List im = await Shared().imagepicker(ImageSource.gallery);
-    setState(() {
-      image = im;
-    });
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Select the path"),
+        content:
+            const Text("Choose the path from where you want to pick the image"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () async {
+              Navigator.of(ctx).pop();
+              Uint8List im = await Shared().imagepicker(ImageSource.camera);
+              setState(() {
+                image = im;
+              });
+            },
+            child: const Text("Camera"),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(ctx).pop();
+              Uint8List im = await Shared().imagepicker(ImageSource.gallery);
+              setState(() {
+                image = im;
+              });
+            },
+            child: const Text("Gallery"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

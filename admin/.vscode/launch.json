@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "admin_panel",
+            "cwd": "admin_panel",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "admin_panel (profile mode)",
+            "cwd": "admin_panel",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "admin_panel (release mode)",
+            "cwd": "admin_panel",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

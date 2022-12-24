@@ -1,20 +1,27 @@
 import 'dart:ui';
 
-import 'package:admin_panel/authentication/authmethods.dart';
+import 'package:admin_panel/auth&database/authmethods.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -60,7 +67,8 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           children: [
                             TextField(
-                              controller: widget.emailController,
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
                               style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   fillColor: Colors.grey.shade100,
@@ -78,9 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                               height: (size.height * 0.5) * 0.07,
                             ),
                             TextField(
-                              controller: widget.passwordController,
+                              controller: passwordController,
                               style: const TextStyle(),
-                              // obscureText: true,
+                              obscureText: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 // filled: true,
@@ -116,9 +124,8 @@ class _LoginPageState extends State<LoginPage> {
                                       onPressed: () async {
                                         String res =
                                             await AuthMethods().logmein(
-                                          email: widget.emailController.text,
-                                          password:
-                                              widget.passwordController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
                                         );
                                         if (res == 'Success') {
                                           // navigate

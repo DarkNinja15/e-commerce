@@ -1,7 +1,36 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class HomePage extends StatelessWidget {
+import '../shared/shared_properties.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Uint8List? image;
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController desccontroller = TextEditingController();
+  TextEditingController pricecontroller = TextEditingController();
+
+  _selectImage() async {
+    Uint8List im = await Shared().imagepicker(ImageSource.gallery);
+    setState(() {
+      image = im;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    namecontroller.dispose();
+    pricecontroller.dispose();
+    desccontroller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +54,16 @@ class HomePage extends StatelessWidget {
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.1,
                   vertical: MediaQuery.of(context).size.width * 0.05),
-              child: const Image(
-                image: AssetImage('assets/logo1.png'),
-                fit: BoxFit.contain,
-              ),
+              child: image == null
+                  ? const Image(
+                      image: AssetImage('assets/logo1.png'),
+                      fit: BoxFit.contain,
+                    )
+                  : Image(
+                      image: MemoryImage(
+                        image!,
+                      ),
+                    ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -49,7 +84,7 @@ class HomePage extends StatelessWidget {
                     backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
                     child: IconButton(
                       color: Colors.white,
-                      onPressed: () {},
+                      onPressed: _selectImage,
                       icon: const Icon(
                         Icons.add_a_photo,
                       ),
@@ -65,6 +100,7 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.1),
               child: TextField(
+                controller: namecontroller,
                 style: const TextStyle(),
                 decoration: InputDecoration(
                   fillColor: Colors.grey.shade100,
@@ -87,7 +123,9 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.1),
               child: TextField(
+                controller: desccontroller,
                 style: const TextStyle(),
+                maxLines: 3,
                 decoration: InputDecoration(
                   fillColor: Colors.grey.shade100,
                   // filled: true,
@@ -109,6 +147,8 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.1),
               child: TextField(
+                controller: pricecontroller,
+                keyboardType: TextInputType.number,
                 style: const TextStyle(),
                 decoration: InputDecoration(
                   fillColor: Colors.grey.shade100,
@@ -137,7 +177,8 @@ class HomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.1),
+                    horizontal: MediaQuery.of(context).size.width * 0.1,
+                    vertical: MediaQuery.of(context).size.width * 0.05),
                 child: const Center(
                   child: Text(
                     'Add Product to Database',

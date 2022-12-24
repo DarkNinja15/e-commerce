@@ -1,15 +1,26 @@
 import 'dart:ui';
 
+import 'package:admin_panel/authentication/authmethods.dart';
+import 'package:admin_panel/screens/home_page.dart';
+import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     // print(MediaQuery.of(context).size.width);
     // print(MediaQuery.of(context).padding.top);
+
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -49,6 +60,7 @@ class LoginPage extends StatelessWidget {
                         child: Column(
                           children: [
                             TextField(
+                              controller: widget.emailController,
                               style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   fillColor: Colors.grey.shade100,
@@ -66,11 +78,12 @@ class LoginPage extends StatelessWidget {
                               height: (size.height * 0.5) * 0.07,
                             ),
                             TextField(
+                              controller: widget.passwordController,
                               style: const TextStyle(),
-                              obscureText: true,
+                              // obscureText: true,
                               decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
-                                filled: true,
+                                // filled: true,
                                 hintText: "Password",
                                 icon: const Icon(
                                   Icons.password,
@@ -100,7 +113,30 @@ class LoginPage extends StatelessWidget {
                                   backgroundColor: const Color(0xff4c505b),
                                   child: IconButton(
                                       color: Colors.white,
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        String res =
+                                            await AuthMethods().logmein(
+                                          email: widget.emailController.text,
+                                          password:
+                                              widget.passwordController.text,
+                                        );
+                                        if (res == 'Success') {
+                                          // navigate
+                                          // print('success');
+                                          if (!mounted) return;
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomePage(),
+                                            ),
+                                          );
+                                        } else {
+                                          Shared().snackbar(
+                                            message: res,
+                                            context: context,
+                                          );
+                                        }
+                                      },
                                       icon: const Icon(
                                         Icons.arrow_forward,
                                       )),

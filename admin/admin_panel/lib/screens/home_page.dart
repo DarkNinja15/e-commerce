@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:admin_panel/auth&database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -194,7 +195,7 @@ class _HomePageState extends State<HomePage> {
               height: 20,
             ),
             InkWell(
-              onTap: () {},
+              onTap: _addProd,
               child: Container(
                 height: 40,
                 width: double.infinity,
@@ -220,5 +221,31 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _addProd() async {
+    final res = await Database().addProduct(
+      namecontroller.text,
+      desccontroller.text,
+      pricecontroller.text,
+      image,
+    );
+    if (res != "Success") {
+      Shared().snackbar(
+        message: res,
+        context: context,
+      );
+    } else {
+      Shared().snackbar(
+        message: "Product added to database",
+        context: context,
+      );
+    }
+    setState(() {
+      namecontroller.text = "";
+      desccontroller.text = "";
+      pricecontroller.text = "";
+      image = null;
+    });
   }
 }

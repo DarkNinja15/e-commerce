@@ -7,10 +7,10 @@ class StorageMethods {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   // add image to firebase storage
-  Future<String> uploadImagetoStorage(String childname, Uint8List file) async {
+  Future<String> uploadImagetoStorage(
+      String childname, Uint8List file, String prodId) async {
     // create folder name childname and inside that create a folder of userid in which file is stored
-    Reference ref =
-        firebaseStorage.ref().child(childname).child(auth.currentUser!.uid);
+    Reference ref = firebaseStorage.ref().child(childname).child(prodId);
 
     // putting file in uid folder.
     UploadTask uploadTask = ref.putData(file);

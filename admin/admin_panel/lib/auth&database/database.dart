@@ -18,9 +18,10 @@ class Database {
       return "Please enter all details.";
     }
     try {
-      final photoUrl =
-          await StorageMethods().uploadImagetoStorage('products', image);
       String prodId = const Uuid().v1();
+      final photoUrl = await StorageMethods()
+          .uploadImagetoStorage('products', image, prodId);
+
       Product product = Product(
         id: prodId,
         photoUrl: photoUrl,

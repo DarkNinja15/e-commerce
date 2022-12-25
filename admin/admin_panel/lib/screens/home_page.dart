@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:admin_panel/auth&database/database.dart';
 import 'package:admin_panel/shared/loading.dart';
+import 'package:admin_panel/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -77,6 +78,7 @@ class _HomePageState extends State<HomePage> {
             body: Loading(),
           )
         : Scaffold(
+            drawer: const Drawerc(),
             appBar: AppBar(
               title: const Text('Add a Product'),
               centerTitle: true,
@@ -141,6 +143,7 @@ class _HomePageState extends State<HomePage> {
                     child: TextField(
                       controller: namecontroller,
                       style: const TextStyle(),
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         fillColor: Colors.grey.shade100,
                         // filled: true,
@@ -163,6 +166,7 @@ class _HomePageState extends State<HomePage> {
                         horizontal: MediaQuery.of(context).size.width * 0.1),
                     child: TextField(
                       controller: desccontroller,
+                      keyboardType: TextInputType.text,
                       style: const TextStyle(),
                       maxLines: 3,
                       decoration: InputDecoration(

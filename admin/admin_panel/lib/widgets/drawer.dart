@@ -1,4 +1,5 @@
 import 'package:admin_panel/screens/add_seller_screen.dart';
+import 'package:admin_panel/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 class Drawerc extends StatelessWidget {
@@ -17,7 +18,13 @@ class Drawerc extends StatelessWidget {
                 Icons.shopping_bag_outlined,
               ),
               title: const Text('Add a Product'),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(
@@ -31,6 +38,19 @@ class Drawerc extends StatelessWidget {
                 Icons.person_add,
               ),
               title: const Text('Add a seller'),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const AddSeller(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.book,
+              ),
+              title: const Text('View Orders'),
               onTap: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(

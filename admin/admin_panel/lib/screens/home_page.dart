@@ -308,6 +308,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _addProd() async {
+    if (namecontroller.text.isEmpty ||
+        desccontroller.text.isEmpty ||
+        pricecontroller.text.isEmpty ||
+        image == null ||
+        quantitycontroller.text.isEmpty ||
+        discountcontroller.text.isEmpty ||
+        dplcontroller.text.isEmpty) {
+      Shared().snackbar(
+        message: "Please Enter all the details.",
+        context: context,
+      );
+      return;
+    }
     setState(() {
       isLoading = true;
     });
@@ -320,6 +333,16 @@ class _HomePageState extends State<HomePage> {
       double.parse(discountcontroller.text),
       int.parse(dplcontroller.text),
     );
+    setState(() {
+      namecontroller.text = "";
+      desccontroller.text = "";
+      pricecontroller.text = "";
+      discountcontroller.text = "";
+      dplcontroller.text = "";
+      quantitycontroller.text = "";
+      image = null;
+      isLoading = false;
+    });
     if (res != "Success") {
       Shared().snackbar(
         message: res,
@@ -331,15 +354,5 @@ class _HomePageState extends State<HomePage> {
         context: context,
       );
     }
-    setState(() {
-      namecontroller.text = "";
-      desccontroller.text = "";
-      pricecontroller.text = "";
-      discountcontroller.text = "";
-      dplcontroller.text = "";
-      quantitycontroller.text = "";
-      image = null;
-      isLoading = false;
-    });
   }
 }

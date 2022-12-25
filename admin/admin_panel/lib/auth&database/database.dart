@@ -17,13 +17,10 @@ class Database {
     int discountProductLimit,
   ) async {
     String res = "Some error Occured";
-    if (name.isEmpty || desc.isEmpty || price.isEmpty || image == null) {
-      return "Please enter all details.";
-    }
     try {
       String prodId = const Uuid().v1();
       final photoUrl = await StorageMethods()
-          .uploadImagetoStorage('products', image, prodId);
+          .uploadImagetoStorage('products', image!, prodId);
 
       Product product = Product(
         id: prodId,

@@ -6,12 +6,18 @@ class Product {
   final String name;
   final String desc;
   final double price;
+  final int quantity;
+  final double discount;
+  final int discountProductLimit;
   Product({
     required this.id,
     required this.photoUrl,
     required this.name,
     required this.desc,
     required this.price,
+    required this.quantity,
+    this.discount = 0,
+    this.discountProductLimit = 0,
   });
 
   Product copyWith({
@@ -20,6 +26,9 @@ class Product {
     String? name,
     String? desc,
     double? price,
+    int? quantity,
+    double? discount,
+    int? discountProductLimit,
   }) {
     return Product(
       id: id ?? this.id,
@@ -27,6 +36,9 @@ class Product {
       name: name ?? this.name,
       desc: desc ?? this.desc,
       price: price ?? this.price,
+      quantity: quantity ?? this.quantity,
+      discount: discount ?? this.discount,
+      discountProductLimit: discountProductLimit ?? this.discountProductLimit,
     );
   }
 
@@ -38,6 +50,9 @@ class Product {
     result.addAll({'name': name});
     result.addAll({'desc': desc});
     result.addAll({'price': price});
+    result.addAll({'quantity': quantity});
+    result.addAll({'discount': discount});
+    result.addAll({'discountProductLimit': discountProductLimit});
 
     return result;
   }
@@ -49,6 +64,9 @@ class Product {
       name: map['name'] ?? '',
       desc: map['desc'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
+      quantity: map['quantity']?.toInt() ?? 0,
+      discount: map['discount']?.toDouble() ?? 0.0,
+      discountProductLimit: map['discountProductLimit']?.toInt() ?? 0,
     );
   }
 
@@ -59,7 +77,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, photoUrl: $photoUrl, name: $name, desc: $desc, price: $price)';
+    return 'Product(id: $id, photoUrl: $photoUrl, name: $name, desc: $desc, price: $price, quantity: $quantity, discount: $discount, discountProductLimit: $discountProductLimit)';
   }
 
   @override
@@ -71,7 +89,10 @@ class Product {
         other.photoUrl == photoUrl &&
         other.name == name &&
         other.desc == desc &&
-        other.price == price;
+        other.price == price &&
+        other.quantity == quantity &&
+        other.discount == discount &&
+        other.discountProductLimit == discountProductLimit;
   }
 
   @override
@@ -80,6 +101,9 @@ class Product {
         photoUrl.hashCode ^
         name.hashCode ^
         desc.hashCode ^
-        price.hashCode;
+        price.hashCode ^
+        quantity.hashCode ^
+        discount.hashCode ^
+        discountProductLimit.hashCode;
   }
 }

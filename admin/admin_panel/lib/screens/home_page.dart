@@ -19,6 +19,9 @@ class _HomePageState extends State<HomePage> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController desccontroller = TextEditingController();
   TextEditingController pricecontroller = TextEditingController();
+  TextEditingController quantitycontroller = TextEditingController();
+  TextEditingController discountcontroller = TextEditingController();
+  TextEditingController dplcontroller = TextEditingController();
 
   _selectImage() async {
     showDialog(
@@ -59,6 +62,9 @@ class _HomePageState extends State<HomePage> {
     namecontroller.dispose();
     pricecontroller.dispose();
     desccontroller.dispose();
+    quantitycontroller.dispose();
+    dplcontroller.dispose();
+    discountcontroller.dispose();
   }
 
   @override
@@ -200,6 +206,78 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 20,
                   ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.1),
+                    child: TextField(
+                      controller: quantitycontroller,
+                      keyboardType: TextInputType.number,
+                      style: const TextStyle(),
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade100,
+                        // filled: true,
+                        hintText: "Enter Quantitiy",
+                        icon: const Icon(
+                          Icons.production_quantity_limits_outlined,
+                          color: Colors.black,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.1),
+                    child: TextField(
+                      controller: discountcontroller,
+                      keyboardType: TextInputType.number,
+                      style: const TextStyle(),
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade100,
+                        // filled: true,
+                        hintText: "Enter Discount(%)",
+                        icon: const Icon(
+                          Icons.discount,
+                          color: Colors.black,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.1),
+                    child: TextField(
+                      controller: dplcontroller,
+                      keyboardType: TextInputType.number,
+                      style: const TextStyle(),
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade100,
+                        // filled: true,
+                        hintText: "Discount Product limit",
+                        icon: const Icon(
+                          Icons.label_outline,
+                          color: Colors.black,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   InkWell(
                     onTap: _addProd,
                     child: Container(
@@ -238,6 +316,9 @@ class _HomePageState extends State<HomePage> {
       desccontroller.text,
       pricecontroller.text,
       image,
+      int.parse(quantitycontroller.text),
+      double.parse(discountcontroller.text),
+      int.parse(dplcontroller.text),
     );
     if (res != "Success") {
       Shared().snackbar(
@@ -254,6 +335,9 @@ class _HomePageState extends State<HomePage> {
       namecontroller.text = "";
       desccontroller.text = "";
       pricecontroller.text = "";
+      discountcontroller.text = "";
+      dplcontroller.text = "";
+      quantitycontroller.text = "";
       image = null;
       isLoading = false;
     });

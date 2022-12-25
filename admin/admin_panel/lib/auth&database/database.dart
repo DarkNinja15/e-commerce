@@ -12,6 +12,9 @@ class Database {
     String desc,
     String price,
     Uint8List? image,
+    int quantity,
+    double discount,
+    int discountProductLimit,
   ) async {
     String res = "Some error Occured";
     if (name.isEmpty || desc.isEmpty || price.isEmpty || image == null) {
@@ -28,6 +31,9 @@ class Database {
         name: name,
         desc: desc,
         price: double.parse(price),
+        quantity: quantity,
+        discount: discount,
+        discountProductLimit: discountProductLimit,
       );
       firestore.collection('products').doc(prodId).set(
             product.toMap(),

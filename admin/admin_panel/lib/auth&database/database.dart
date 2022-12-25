@@ -1,12 +1,16 @@
 import 'package:admin_panel/auth&database/storage_methods.dart';
-import 'package:admin_panel/models/product.dart';
+import 'package:admin_panel/models/product_model.dart';
+import 'package:admin_panel/models/seller_model.dart' as model;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 class Database {
   final firestore = FirebaseFirestore.instance;
+  final auth = FirebaseAuth.instance;
 
+  // add a product to database
   Future<String> addProduct(
     String name,
     String desc,
@@ -44,6 +48,50 @@ class Database {
     } catch (e) {
       // print(e.toString());
       return e.toString();
+    }
+  }
+
+  // add a seller to database
+  Future<String> addSeller(
+    String name,
+    String phoneNum,
+    String address,
+    String email,
+    String password,
+  ) async {
+    // creat a seller
+    String res = "Some error Occured";
+    try {
+      UserCredential credential = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      model.Seller seller = model.Seller(
+        name: name,
+        phoneNum: phoneNum,
+        address: address,
+        email: email,
+      );
+
+      // add seller to firestore
+      await firestore.collection('sellers').doc(credential.user!.uid).set(
+            seller.toMap(),
+          );
+      res = "Success";
+      return res;
+    } on FirebaseAuthException catch (error) {
+      // print(error.code);
+      if (error.code == 'email-already-in-use') {
+        return 'Email already in use';
+      } else if (error.code == 'invalid-email') {
+        return 'Email Invalid';
+      } else if (error.code == 'weak-password') {
+        return 'Password too weak';
+      }
+      return 'Some error Occured';
+    } catch (e) {
+      return res;
     }
   }
 }

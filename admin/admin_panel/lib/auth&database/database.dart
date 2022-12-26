@@ -172,4 +172,21 @@ class Database {
       return e.toString();
     }
   }
+
+  // sign out of the app
+  Future<String> signoutoftheapp() async {
+    String res = "Some error Occured";
+    try {
+      await auth.signOut();
+      res = "Success";
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return res;
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
 }

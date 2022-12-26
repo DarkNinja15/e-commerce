@@ -117,7 +117,7 @@ class Database {
     final snap,
   ) async {
     if ((auth.currentUser!.uid) != snap['sellerUid']) {
-      return "Only the seller to which the products belong can change this.";
+      return "Only the seller to which the products belong can update the products.";
     }
     String res = "Some error Occured";
     try {
@@ -141,6 +141,26 @@ class Database {
       firestore.collection('products').doc(prodId).set(
             product.toMap(),
           );
+      res = "Success";
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
+
+  // delete product from database
+  Future<String> deleteProduct(String id, String sellerUid) async {
+    if (auth.currentUser!.uid != sellerUid) {
+      return "Only the seller to which the products belong can delete the products.";
+    }
+    String res = "Some error Occurred";
+    try {
+      await firestore.collection('products').doc(id).delete();
       res = "Success";
       return res;
     } on FirebaseException catch (_) {

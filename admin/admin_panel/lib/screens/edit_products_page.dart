@@ -64,6 +64,17 @@ class _EditProductState extends State<EditProduct> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    namecontroller.dispose();
+    desccontroller.dispose();
+    pricecontroller.dispose();
+    discountcontroller.dispose();
+    dplcontroller.dispose();
+    quantitycontroller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
@@ -86,6 +97,33 @@ class _EditProductState extends State<EditProduct> {
               backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
               title: const Text('Edit Product'),
               centerTitle: true,
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    bool ff = Shared().deleteProduct(
+                      context,
+                      widget.snap['id'],
+                      widget.snap['sellerUid'],
+                    );
+                    if (ff) {
+                      setState(() {
+                        namecontroller.text = "";
+                        desccontroller.text = "";
+                        pricecontroller.text = "";
+                        discountcontroller.text = "";
+                        dplcontroller.text = "";
+                        quantitycontroller.text = "";
+                        image = null;
+                        isLoading = false;
+                        photoUrl = '';
+                      });
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.delete_forever,
+                  ),
+                )
+              ],
             ),
             body: SingleChildScrollView(
               child: Column(

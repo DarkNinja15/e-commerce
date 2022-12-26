@@ -2,6 +2,8 @@ import 'package:admin_panel/screens/edit_products_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../shared/shared_properties.dart';
+
 class ProductTile extends StatelessWidget {
   final dynamic snap;
 
@@ -10,6 +12,26 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      startActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            // An action can be bigger than the others.
+            flex: 2,
+            onPressed: (_) {
+              Shared().deleteProduct(
+                context,
+                snap['id'],
+                snap['sellerUid'],
+              );
+            },
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            icon: Icons.edit,
+            label: 'Delete',
+          ),
+        ],
+      ),
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [

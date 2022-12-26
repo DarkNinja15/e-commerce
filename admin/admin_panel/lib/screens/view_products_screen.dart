@@ -18,6 +18,27 @@ class ViewProducts extends StatelessWidget {
         ),
         body: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1,
+                  vertical: MediaQuery.of(context).size.width * 0.1),
+              child: TextField(
+                style: const TextStyle(),
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.grey.shade100,
+                  // filled: true,
+                  hintText: "Search for a Product",
+                  icon: const Icon(
+                    Icons.search_rounded,
+                    color: Colors.black,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance

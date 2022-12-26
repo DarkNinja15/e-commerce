@@ -1,7 +1,7 @@
 import 'package:admin_panel/shared/loading.dart';
 import 'package:admin_panel/widgets/drawer.dart';
+import 'package:admin_panel/widgets/product_tile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class ViewProducts extends StatelessWidget {
@@ -41,9 +41,8 @@ class ViewProducts extends StatelessWidget {
                   return ListView.builder(
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: ((context, index) {
-                        return const ListTile(
-                          leading: Icon(Icons.abc),
-                          title: Text('data'),
+                        return ProductTile(
+                          snap: snapshot.data!.docs[index].data(),
                         );
                       }));
                 }),

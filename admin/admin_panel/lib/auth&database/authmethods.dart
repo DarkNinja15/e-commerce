@@ -37,4 +37,35 @@ class AuthMethods {
       return res;
     }
   }
+
+  // sign out of the app
+  Future<String> signoutoftheapp() async {
+    String res = "Some error Occured";
+    try {
+      await _auth.signOut();
+      res = "Success";
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return res;
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
+
+  // forgot password
+  Future<String> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(
+        email: email,
+      );
+      return 'Success';
+    } on FirebaseAuthException catch (e) {
+      return e.code.toString();
+    } catch (e) {
+      return e.toString();
+    }
+  }
 }

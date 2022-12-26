@@ -61,11 +61,8 @@ class ProductTile extends StatelessWidget {
               ),
             );
           },
-          leading: Hero(
-            tag: 'hero',
-            child: Image.network(
-              snap['photoUrl'],
-            ),
+          leading: Image.network(
+            snap['photoUrl'],
           ),
           title: Text(snap['name']),
           subtitle: Text(snap['desc']),

@@ -141,12 +141,9 @@ class _EditProductState extends State<EditProduct> {
                             fit: BoxFit.contain,
                           )
                         : photoUrl != ''
-                            ? Hero(
-                                tag: 'hero',
-                                child: Image(
-                                  image: NetworkImage(
-                                    photoUrl!,
-                                  ),
+                            ? Image(
+                                image: NetworkImage(
+                                  photoUrl!,
                                 ),
                               )
                             : const Image(

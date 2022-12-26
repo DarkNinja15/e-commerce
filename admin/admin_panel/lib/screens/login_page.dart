@@ -5,6 +5,8 @@ import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 
+import 'forgot_password.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -118,35 +120,36 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 CircleAvatar(
                                   radius: 30,
-                                  backgroundColor: const Color(0xff4c505b),
+                                  backgroundColor:
+                                      const Color.fromRGBO(204, 82, 88, 1),
                                   child: IconButton(
-                                      color: Colors.white,
-                                      onPressed: () async {
-                                        String res =
-                                            await AuthMethods().logmein(
-                                          email: emailController.text,
-                                          password: passwordController.text,
+                                    color: Colors.white,
+                                    onPressed: () async {
+                                      String res = await AuthMethods().logmein(
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                      );
+                                      if (res == 'Success') {
+                                        // navigate
+                                        // print('success');
+                                        if (!mounted) return;
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomePage(),
+                                          ),
                                         );
-                                        if (res == 'Success') {
-                                          // navigate
-                                          // print('success');
-                                          if (!mounted) return;
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomePage(),
-                                            ),
-                                          );
-                                        } else {
-                                          Shared().snackbar(
-                                            message: res,
-                                            context: context,
-                                          );
-                                        }
-                                      },
-                                      icon: const Icon(
-                                        Icons.arrow_forward,
-                                      )),
+                                      } else {
+                                        Shared().snackbar(
+                                          message: res,
+                                          context: context,
+                                        );
+                                      }
+                                    },
+                                    icon: const Icon(
+                                      Icons.arrow_forward,
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -157,13 +160,20 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ForgotPassword(),
+                                        ),
+                                      );
+                                    },
                                     child: const Text(
                                       'Forgot Password',
                                       style: TextStyle(
                                         fontStyle: FontStyle.italic,
                                         decoration: TextDecoration.underline,
-                                        color: Colors.blue,
+                                        color: Color.fromRGBO(204, 82, 88, 1),
                                         fontSize: 14,
                                       ),
                                     )),

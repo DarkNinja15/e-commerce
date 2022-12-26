@@ -2,6 +2,7 @@
     package="com.example.admin_panel">
    <application
         android:label="admin_panel"
+        android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

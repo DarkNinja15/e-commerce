@@ -3,6 +3,7 @@ import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/models/seller_model.dart' as model;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -19,6 +20,7 @@ class Database {
     int quantity,
     double discount,
     int discountProductLimit,
+    String sellerUid,
   ) async {
     String res = "Some error Occured";
     try {
@@ -35,6 +37,7 @@ class Database {
         quantity: quantity,
         discount: discount,
         discountProductLimit: discountProductLimit,
+        sellerUid: sellerUid,
       );
       firestore.collection('products').doc(prodId).set(
             product.toMap(),
@@ -59,10 +62,16 @@ class Database {
     String email,
     String password,
   ) async {
+    FirebaseApp secondaryApp = await Firebase.initializeApp(
+      name: 'SecondaryApp',
+      options: Firebase.app().options,
+    );
     // creat a seller
     String res = "Some error Occured";
     try {
-      UserCredential credential = await auth.createUserWithEmailAndPassword(
+      UserCredential credential =
+          await FirebaseAuth.instanceFor(app: secondaryApp)
+              .createUserWithEmailAndPassword(
         email: email,
         password: password,
       );

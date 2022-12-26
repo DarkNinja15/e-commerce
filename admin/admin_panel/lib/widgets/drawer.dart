@@ -1,5 +1,6 @@
 import 'package:admin_panel/screens/add_seller_screen.dart';
 import 'package:admin_panel/screens/home_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Drawerc extends StatelessWidget {
@@ -57,6 +58,16 @@ class Drawerc extends StatelessWidget {
                     builder: (context) => const AddSeller(),
                   ),
                 );
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.book,
+              ),
+              title: const Text('LogOut'),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                // Navigator
               },
             ),
           ],

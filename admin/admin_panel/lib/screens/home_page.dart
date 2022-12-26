@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:admin_panel/auth&database/database.dart';
 import 'package:admin_panel/shared/loading.dart';
 import 'package:admin_panel/widgets/drawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -336,6 +337,7 @@ class _HomePageState extends State<HomePage> {
       int.parse(quantitycontroller.text),
       double.parse(discountcontroller.text),
       int.parse(dplcontroller.text),
+      FirebaseAuth.instance.currentUser!.uid,
     );
     setState(() {
       namecontroller.text = "";

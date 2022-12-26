@@ -66,7 +66,7 @@ class Database {
       name: 'SecondaryApp',
       options: Firebase.app().options,
     );
-    // creat a seller
+    // create a seller
     String res = "Some error Occured";
     try {
       UserCredential credential =
@@ -101,6 +101,55 @@ class Database {
       return 'Some error Occured';
     } catch (e) {
       return res;
+    }
+  }
+
+  // update product model
+  Future<String> updateSeller(
+    String name,
+    String desc,
+    String price,
+    String image,
+    int quantity,
+    double discount,
+    int discountProductLimit,
+    Uint8List? newImage,
+    final snap,
+  ) async {
+    if ((auth.currentUser!.uid) != snap['sellerUid']) {
+      return "Only the seller to which the products belong can change this.";
+    }
+    String res = "Some error Occured";
+    try {
+      String prodId = snap['id'];
+      String photoUrl = '';
+      if (newImage != null) {
+        photoUrl = await StorageMethods()
+            .uploadImagetoStorage('products', newImage, prodId);
+      }
+      Product product = Product(
+        id: prodId,
+        photoUrl: newImage != null ? photoUrl : image,
+        name: name,
+        desc: desc,
+        price: double.parse(price),
+        quantity: quantity,
+        discount: discount,
+        discountProductLimit: discountProductLimit,
+        sellerUid: snap['sellerUid'],
+      );
+      firestore.collection('products').doc(prodId).set(
+            product.toMap(),
+          );
+      res = "Success";
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
     }
   }
 }

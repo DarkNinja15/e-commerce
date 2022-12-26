@@ -2,6 +2,7 @@ import 'package:admin_panel/auth&database/database.dart';
 import 'package:admin_panel/screens/add_seller_screen.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/screens/login_page.dart';
+import 'package:admin_panel/screens/view_order_screen.dart';
 import 'package:admin_panel/screens/view_products_screen.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class Drawerc extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => const AddSeller(),
+                    builder: (context) => const ViewOrder(),
                   ),
                 );
               },

@@ -130,7 +130,7 @@ class _EditProductState extends State<EditProduct> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    color: Colors.amber,
+                    color: Colors.transparent,
                     height: size * 0.35,
                     margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.1,
@@ -141,9 +141,12 @@ class _EditProductState extends State<EditProduct> {
                             fit: BoxFit.contain,
                           )
                         : photoUrl != ''
-                            ? Image(
-                                image: NetworkImage(
-                                  photoUrl!,
+                            ? Hero(
+                                tag: 'hero',
+                                child: Image(
+                                  image: NetworkImage(
+                                    photoUrl!,
+                                  ),
                                 ),
                               )
                             : const Image(
@@ -394,17 +397,25 @@ class _EditProductState extends State<EditProduct> {
       image,
       widget.snap,
     );
-    setState(() {
-      namecontroller.text = "";
-      desccontroller.text = "";
-      pricecontroller.text = "";
-      discountcontroller.text = "";
-      dplcontroller.text = "";
-      quantitycontroller.text = "";
-      image = null;
-      isLoading = false;
-      photoUrl = '';
-    });
+    if (res ==
+        'Only the seller to which the products belong can update the products.') {
+      setState(() {
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        namecontroller.text = "";
+        desccontroller.text = "";
+        pricecontroller.text = "";
+        discountcontroller.text = "";
+        dplcontroller.text = "";
+        quantitycontroller.text = "";
+        image = null;
+        isLoading = false;
+        photoUrl = '';
+      });
+    }
+
     if (res != "Success") {
       Shared().snackbar(
         message: res,

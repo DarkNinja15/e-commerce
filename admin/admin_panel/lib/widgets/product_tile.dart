@@ -54,9 +54,18 @@ class ProductTile extends StatelessWidget {
       ),
       child: Card(
         child: ListTile(
-          onTap: () {},
-          leading: Image.network(
-            snap['photoUrl'],
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => EditProduct(snap: snap),
+              ),
+            );
+          },
+          leading: Hero(
+            tag: 'hero',
+            child: Image.network(
+              snap['photoUrl'],
+            ),
           ),
           title: Text(snap['name']),
           subtitle: Text(snap['desc']),

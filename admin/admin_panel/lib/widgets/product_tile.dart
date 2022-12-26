@@ -19,7 +19,7 @@ class ProductTile extends StatelessWidget {
             onPressed: (_) {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const EditProduct(),
+                  builder: (context) => EditProduct(snap: snap),
                 ),
               );
             },

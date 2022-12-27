@@ -1,5 +1,5 @@
 import 'package:admin_panel/auth&database/database.dart';
-import 'package:admin_panel/shared/loading.dart';
+import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -94,12 +94,14 @@ class _EditCategoryState extends State<EditCategory> {
                                     height: 40,
                                     width: 150,
                                     decoration: BoxDecoration(
-                                      color: const Color.fromRGBO(255, 176, 57, 1),
+                                      color:
+                                          const Color.fromRGBO(255, 176, 57, 1),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     margin: EdgeInsets.symmetric(
                                         horizontal:
-                                            MediaQuery.of(context).size.width * 0.04,
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
                                         vertical:
                                             MediaQuery.of(context).size.width *
                                                 0.05),
@@ -140,12 +142,12 @@ class _EditCategoryState extends State<EditCategory> {
                   child: Container(
                     height: 60,
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [Colors.amberAccent, Colors.lightGreenAccent],),
-                        borderRadius: BorderRadius.circular(10)
-                    ),
+                          colors: [Colors.amberAccent, Colors.lightGreenAccent],
+                        ),
+                        borderRadius: BorderRadius.circular(10)),
                     child: ListTile(
                       title: Text(
                         cat[index],

@@ -1,5 +1,5 @@
 import 'package:admin_panel/auth&database/database.dart';
-import 'package:admin_panel/shared/loading.dart';
+import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:admin_panel/widgets/drawer.dart';
 import 'package:flutter/material.dart';

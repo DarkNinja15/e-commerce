@@ -27,7 +27,7 @@ class ProductTile extends StatelessWidget {
             },
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
-            icon: Icons.edit,
+            icon: Icons.delete,
             label: 'Delete',
           ),
         ],
@@ -54,15 +54,15 @@ class ProductTile extends StatelessWidget {
       ),
       child: Container(
         height: 80,
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        padding: EdgeInsets.all(3),
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.lightBlueAccent, Colors.lightGreenAccent],),
-          borderRadius: BorderRadius.circular(30)
-        ),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.lightBlueAccent, Colors.lightGreenAccent],
+            ),
+            borderRadius: BorderRadius.circular(30)),
         child: Center(
           child: ListTile(
             onTap: () {
@@ -81,9 +81,7 @@ class ProductTile extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: NetworkImage(snap['photoUrl']),
-                    fit: BoxFit.fill
-                ),
+                    image: NetworkImage(snap['photoUrl']), fit: BoxFit.fill),
               ),
             ),
             title: Text(snap['name']),
@@ -95,16 +93,12 @@ class ProductTile extends StatelessWidget {
                 Text(
                   '₹${snap['price']}',
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal
-                  ),
+                      fontWeight: FontWeight.bold, color: Colors.teal),
                 ),
                 Text(
                   '  Q:${snap['quantity']}',
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple
-                  ),
+                      fontWeight: FontWeight.bold, color: Colors.deepPurple),
                 ),
               ],
             ),

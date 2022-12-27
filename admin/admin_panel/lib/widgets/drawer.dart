@@ -1,10 +1,7 @@
-import 'package:admin_panel/auth&database/authmethods.dart';
 import 'package:admin_panel/screens/add_seller_screen.dart';
 import 'package:admin_panel/screens/edit_cattegories.dart';
 import 'package:admin_panel/screens/home_page.dart';
-import 'package:admin_panel/screens/login_page.dart';
 import 'package:admin_panel/screens/view_products_screen.dart';
-import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:admin_panel/widgets/logout.dart';
 import 'package:flutter/material.dart';
 
@@ -17,17 +14,18 @@ class Drawerc extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 30),
+          const SizedBox(
+            height: 30,
+          ),
           Container(
             width: 200,
             height: 200,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              image: const DecorationImage(
-                  image: AssetImage('assets/logo1.png')),
+              image: DecorationImage(image: AssetImage('assets/logo1.png')),
             ),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: const Icon(
               Icons.shopping_bag_outlined,
@@ -99,7 +97,7 @@ class Drawerc extends StatelessWidget {
             ),
             title: const Text('LogOut'),
             onTap: () {
-              Logout(context);
+              logout(context);
             },
           ),
         ],

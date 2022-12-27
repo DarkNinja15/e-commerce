@@ -1,4 +1,4 @@
-import 'package:admin_panel/shared/loading.dart';
+import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/widgets/drawer.dart';
 import 'package:admin_panel/widgets/product_tile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -53,10 +53,8 @@ class _ViewProductsState extends State<ViewProducts> {
           children: [
             Container(
               height: 60,
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
               child: TextField(
                 controller: controller,
                 onChanged: (query) {

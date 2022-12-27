@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:admin_panel/auth&database/database.dart';
-import 'package:admin_panel/shared/loading.dart';
+import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/widgets/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +113,10 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(width: 2.5, color: const Color.fromRGBO(255, 176, 57, 1), ),
+                      border: Border.all(
+                        width: 2.5,
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                      ),
                     ),
                     height: size * 0.35,
                     margin: EdgeInsets.symmetric(

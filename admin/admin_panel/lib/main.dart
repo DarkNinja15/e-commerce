@@ -3,7 +3,7 @@ import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/screens/login_page.dart';
 import 'package:admin_panel/screens/splash_screen.dart';
-import 'package:admin_panel/shared/loading.dart';
+import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

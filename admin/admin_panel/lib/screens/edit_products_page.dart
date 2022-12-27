@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:admin_panel/auth&database/database.dart';
-import 'package:admin_panel/shared/loading.dart';
+import 'package:admin_panel/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -132,7 +132,10 @@ class _EditProductState extends State<EditProduct> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(width: 2.5, color: const Color.fromRGBO(255, 176, 57, 1), ),
+                      border: Border.all(
+                        width: 2.5,
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                      ),
                     ),
                     height: size * 0.35,
                     margin: EdgeInsets.symmetric(
@@ -180,7 +183,8 @@ class _EditProductState extends State<EditProduct> {
                               ),
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
+                          backgroundColor:
+                              const Color.fromRGBO(255, 176, 57, 1),
                           child: IconButton(
                             color: Colors.white,
                             onPressed: _selectImage,

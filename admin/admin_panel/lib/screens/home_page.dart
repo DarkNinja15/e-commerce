@@ -5,7 +5,9 @@ import 'package:admin_panel/widgets/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
+import '../models/product_model.dart';
 import '../shared/shared_properties.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,24 +26,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController quantitycontroller = TextEditingController();
   TextEditingController discountcontroller = TextEditingController();
   TextEditingController dplcontroller = TextEditingController();
-  List<DropdownMenuItem<String>> items = [
-    const DropdownMenuItem(
-      value: "Home",
-      child: Text("Home"),
-    ),
-    const DropdownMenuItem(
-      value: "Electronics",
-      child: Text("Electronics"),
-    ),
-    const DropdownMenuItem(
-      value: "Fashion",
-      child: Text("Fashion"),
-    ),
-    const DropdownMenuItem(
-      value: "Beauty",
-      child: Text("Beauty"),
-    ),
-  ];
+  List<DropdownMenuItem<String>> items = [];
+  bool f = true;
 
   String? selectedCattegory;
 
@@ -92,8 +78,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // List<Product> abc = Provider.of<List<Product>>(context);
-    // print('...');
-    // print(abc);
+    if (f) {
+      List<String> abs = Provider.of<List<String>>(context);
+      for (var i = 0; i < abs.length; i++) {
+        items.add(
+          DropdownMenuItem(
+            value: abs[i],
+            child: Text(
+              abs[i],
+            ),
+          ),
+        );
+      }
+      f = false;
+      // print('...');
+      // print(abs);
+    }
+
     final size =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     // print(MediaQuery.of(context).size.width);

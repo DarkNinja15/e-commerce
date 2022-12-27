@@ -173,7 +173,7 @@ class Database {
     }
   }
 
-  // retrieving list of products for dropdown
+  // retrieving list of products
   Stream<List<Product>> get products {
     return firestore
         .collection('products')
@@ -197,5 +197,18 @@ class Database {
               ),
             )
             .toList());
+  }
+
+  // retrieving list of cattegories for dropdown
+  Future<List<String>> get cattegories async {
+    final data = await firestore
+        .collection('cattegories')
+        .doc('AQrjPBBZ6hbdodDId8wN')
+        .get();
+    List<String> cat = [];
+    for (var i = 0; i < data['listCat'].length; i++) {
+      cat.add(data['listCat'][i]);
+    }
+    return cat;
   }
 }

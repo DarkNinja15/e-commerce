@@ -5,6 +5,7 @@ import 'package:admin_panel/screens/login_page.dart';
 import 'package:admin_panel/screens/splash_screen.dart';
 import 'package:admin_panel/shared/loading.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Product>>.value(
-      initialData: const [],
-      value: Database().products,
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Product>>.value(
+          value: Database().products,
+          initialData: const [],
+        ),
+        FutureProvider<List<String>>.value(
+          value: Database().cattegories,
+          initialData: const [],
+        )
+      ],
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,

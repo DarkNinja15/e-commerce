@@ -248,6 +248,9 @@ class Database {
     String res = "Some error Occurred";
     try {
       List<String> cats = Provider.of<List<String>>(context, listen: false);
+      if (cats.contains(category)) {
+        return 'Category "$category" is already present in the list.';
+      }
       cats.add(category);
       await firestore
           .collection('cattegories')

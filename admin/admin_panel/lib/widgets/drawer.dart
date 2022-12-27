@@ -1,5 +1,6 @@
 import 'package:admin_panel/auth&database/authmethods.dart';
 import 'package:admin_panel/screens/add_seller_screen.dart';
+import 'package:admin_panel/screens/edit_cattegories.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/screens/login_page.dart';
 import 'package:admin_panel/screens/view_products_screen.dart';
@@ -73,6 +74,19 @@ class Drawerc extends StatelessWidget {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => const ViewProducts(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.category,
+            ),
+            title: const Text('Edit Categories'),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const EditCategory(),
                 ),
               );
             },

@@ -4,7 +4,9 @@ import 'package:admin_panel/models/seller_model.dart' as model;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class Database {
@@ -215,5 +217,53 @@ class Database {
       cat.add(data['listCat'][i]);
     }
     return cat;
+  }
+
+  // delete category
+  Future<String> delCat(String category, BuildContext context) async {
+    String res = "Some error Occurred";
+    try {
+      List<String> cats = Provider.of<List<String>>(context, listen: false);
+      cats.remove(category);
+      await firestore
+          .collection('cattegories')
+          .doc('AQrjPBBZ6hbdodDId8wN')
+          .set({
+        'listCat': cats,
+      });
+      res = "Success";
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
+
+  // add category
+  Future<String> addCat(String category, BuildContext context) async {
+    String res = "Some error Occurred";
+    try {
+      List<String> cats = Provider.of<List<String>>(context, listen: false);
+      cats.add(category);
+      await firestore
+          .collection('cattegories')
+          .doc('AQrjPBBZ6hbdodDId8wN')
+          .set({
+        'listCat': cats,
+      });
+      res = "Success";
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
   }
 }

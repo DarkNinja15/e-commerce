@@ -40,7 +40,7 @@ class _AddSellerState extends State<AddSeller> {
             backgroundColor: Colors.white,
             drawer: const Drawerc(),
             appBar: AppBar(
-              backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+              elevation: 0,
               title: const Text('Add a seller'),
               centerTitle: true,
             ),
@@ -71,7 +71,7 @@ class _AddSellerState extends State<AddSeller> {
                         hintText: "Name of Seller",
                         icon: const Icon(
                           Icons.abc,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -95,7 +95,7 @@ class _AddSellerState extends State<AddSeller> {
                         hintText: "Phone Number",
                         icon: const Icon(
                           Icons.phone,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -120,7 +120,7 @@ class _AddSellerState extends State<AddSeller> {
                         hintText: "Address",
                         icon: const Icon(
                           Icons.description,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -144,7 +144,7 @@ class _AddSellerState extends State<AddSeller> {
                         hintText: "email",
                         icon: const Icon(
                           Icons.email,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -169,7 +169,7 @@ class _AddSellerState extends State<AddSeller> {
                         hintText: "password",
                         icon: const Icon(
                           Icons.password,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -193,7 +193,7 @@ class _AddSellerState extends State<AddSeller> {
                         hintText: "Confirm password",
                         icon: const Icon(
                           Icons.password,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -207,7 +207,7 @@ class _AddSellerState extends State<AddSeller> {
                       height: 40,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: const Color.fromRGBO(204, 82, 88, 1),
+                        color: const Color.fromRGBO(255, 176, 57, 1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       margin: EdgeInsets.symmetric(

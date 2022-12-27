@@ -112,11 +112,9 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2.5, color: const Color.fromRGBO(255, 176, 57, 1), ),
                     ),
-                    // color: Colors.transparent,
                     height: size * 0.35,
                     margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.1,

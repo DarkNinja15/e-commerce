@@ -45,16 +45,18 @@ class _ViewProductsState extends State<ViewProducts> {
     return Scaffold(
         drawer: const Drawerc(),
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+          elevation: 0,
           title: const Text('All Products'),
           centerTitle: true,
         ),
         body: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.07,
-                  vertical: MediaQuery.of(context).size.width * 0.07),
+            Container(
+              height: 60,
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor
+              ),
               child: TextField(
                 controller: controller,
                 onChanged: (query) {
@@ -63,12 +65,12 @@ class _ViewProductsState extends State<ViewProducts> {
                 style: const TextStyle(),
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  fillColor: Colors.grey.shade100,
-                  // filled: true,
+                  fillColor: Colors.white,
+                  filled: true,
                   hintText: "Search for a Product",
                   icon: const Icon(
                     Icons.search_rounded,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -76,6 +78,7 @@ class _ViewProductsState extends State<ViewProducts> {
                 ),
               ),
             ),
+            const SizedBox(height: 25),
             controller.text == ''
                 ? Expanded(
                     child: StreamBuilder(

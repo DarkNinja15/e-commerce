@@ -45,43 +45,69 @@ class ProductTile extends StatelessWidget {
                 ),
               );
             },
-            backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+            backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
             foregroundColor: Colors.white,
             icon: Icons.edit,
             label: 'Edit',
           ),
         ],
       ),
-      child: Card(
-        child: ListTile(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => EditProduct(snap: snap),
-              ),
-            );
-          },
-          leading: Image.network(
-            snap['photoUrl'],
-          ),
-          title: Text(snap['name']),
-          subtitle: Text(snap['desc']),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '₹${snap['price']}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+      child: Container(
+        height: 80,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        padding: EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Colors.lightBlueAccent, Colors.lightGreenAccent],),
+          borderRadius: BorderRadius.circular(30)
+        ),
+        child: Center(
+          child: ListTile(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => EditProduct(snap: snap),
+                ),
+              );
+            },
+            // leading: Image.network(
+            //   snap['photoUrl'],
+            // ),
+            leading: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: NetworkImage(snap['photoUrl']),
+                    fit: BoxFit.fill
                 ),
               ),
-              Text(
-                '  Q:${snap['quantity']}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+            ),
+            title: Text(snap['name']),
+            subtitle: Text(snap['desc']),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '₹${snap['price']}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal
+                  ),
                 ),
-              ),
-            ],
+                Text(
+                  '  Q:${snap['quantity']}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

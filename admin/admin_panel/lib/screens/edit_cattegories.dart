@@ -34,21 +34,34 @@ class _EditCategoryState extends State<EditCategory> {
         : Scaffold(
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: FloatingActionButton(
+            floatingActionButton: FloatingActionButton.extended(
+              icon: const Icon(Icons.add),
+              label: const Text('Add Category'),
+              backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
+                    isScrollControlled: true,
                     builder: (BuildContext context) {
-                      return SingleChildScrollView(
+                      return Container(
+                        padding: EdgeInsets.only(
+                          top: 15,
+                          left: 15,
+                          right: 15,
+                          // this will prevent the soft keyboard from covering the text fields
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const SizedBox(
-                              height: 20,
+                              height: 14,
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal:
-                                      MediaQuery.of(context).size.width * 0.1),
+                                      MediaQuery.of(context).size.width * 0.04),
                               child: TextField(
                                 controller: controller,
                                 keyboardType: TextInputType.text,
@@ -67,35 +80,40 @@ class _EditCategoryState extends State<EditCategory> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 200,
-                            ),
+                            // const SizedBox(
+                            //   height: 200,
+                            // ),
                             InkWell(
                               onTap: () {
                                 _addcategory();
                               },
-                              child: Container(
-                                height: 40,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(255, 176, 57, 1),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                margin: EdgeInsets.symmetric(
-                                    horizontal:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    vertical:
-                                        MediaQuery.of(context).size.width *
-                                            0.05),
-                                child: const Center(
-                                  child: Text(
-                                    'Add Category',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    height: 40,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromRGBO(255, 176, 57, 1),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal:
+                                            MediaQuery.of(context).size.width * 0.04,
+                                        vertical:
+                                            MediaQuery.of(context).size.width *
+                                                0.05),
+                                    child: const Center(
+                                      child: Text(
+                                        'Add Category',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
                             )
                           ],
@@ -103,7 +121,6 @@ class _EditCategoryState extends State<EditCategory> {
                       );
                     });
               },
-              child: const Icon(Icons.add),
             ),
             drawer: const Drawerc(),
             appBar: AppBar(
@@ -115,16 +132,26 @@ class _EditCategoryState extends State<EditCategory> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    right: MediaQuery.of(context).size.width * 0.1,
-                    top: MediaQuery.of(context).size.width * 0.01,
+                    left: MediaQuery.of(context).size.width * 0.07,
+                    right: MediaQuery.of(context).size.width * 0.07,
+                    top: MediaQuery.of(context).size.width * 0.03,
+                    bottom: MediaQuery.of(context).size.width * 0.03,
                   ),
-                  child: Card(
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Colors.amberAccent, Colors.lightGreenAccent],),
+                        borderRadius: BorderRadius.circular(10)
+                    ),
                     child: ListTile(
                       title: Text(
                         cat[index],
                         style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
                       trailing: IconButton(
@@ -156,7 +183,7 @@ class _EditCategoryState extends State<EditCategory> {
           TextButton.icon(
             icon: const Icon(
               Icons.delete,
-              color: Color.fromRGBO(204, 82, 88, 1),
+              color: Color.fromRGBO(255, 176, 57, 1),
             ),
             onPressed: () async {
               setState(() {
@@ -183,7 +210,7 @@ class _EditCategoryState extends State<EditCategory> {
             label: const Text(
               "Delete",
               style: TextStyle(
-                color: Color.fromRGBO(204, 82, 88, 1),
+                color: Color.fromRGBO(255, 176, 57, 1),
               ),
             ),
           ),

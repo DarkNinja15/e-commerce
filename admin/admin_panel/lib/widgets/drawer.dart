@@ -5,6 +5,7 @@ import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/screens/login_page.dart';
 import 'package:admin_panel/screens/view_products_screen.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
+import 'package:admin_panel/widgets/logout.dart';
 import 'package:flutter/material.dart';
 
 class Drawerc extends StatelessWidget {
@@ -98,7 +99,7 @@ class Drawerc extends StatelessWidget {
             ),
             title: const Text('LogOut'),
             onTap: () {
-              _signOut(context);
+              Logout(context);
             },
           ),
         ],
@@ -106,60 +107,60 @@ class Drawerc extends StatelessWidget {
     );
   }
 
-  void _signOut(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          "Are You sure You want to logout of the app?",
-          textAlign: TextAlign.center,
-        ),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: const Icon(
-              Icons.exit_to_app,
-              // color: Color.fromRGBO(204, 82, 88, 1),
-            ),
-            onPressed: () async {
-              final res = await AuthMethods().signoutoftheapp();
-              if (res != 'Success') {
-                Shared().snackbar(
-                  message: res,
-                  context: context,
-                );
-              } else {
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const LoginPage(),
-                  ),
-                );
-              }
-            },
-            label: const Text(
-              "Log Out",
-              style: TextStyle(
-                // color: Color.fromRGBO(204, 82, 88, 1),
-              ),
-            ),
-          ),
-          TextButton.icon(
-            icon: const Icon(
-              Icons.cancel,
-              color: Colors.grey,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            label: const Text(
-              "Cancel",
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // void _signOut(BuildContext context) async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: const Text(
+  //         "Are You sure You want to logout of the app?",
+  //         textAlign: TextAlign.center,
+  //       ),
+  //       actions: <Widget>[
+  //         TextButton.icon(
+  //           icon: const Icon(
+  //             Icons.exit_to_app,
+  //             // color: Color.fromRGBO(204, 82, 88, 1),
+  //           ),
+  //           onPressed: () async {
+  //             final res = await AuthMethods().signoutoftheapp();
+  //             if (res != 'Success') {
+  //               Shared().snackbar(
+  //                 message: res,
+  //                 context: context,
+  //               );
+  //             } else {
+  //               // ignore: use_build_context_synchronously
+  //               Navigator.of(context).pushReplacement(
+  //                 MaterialPageRoute(
+  //                   builder: (context) => const LoginPage(),
+  //                 ),
+  //               );
+  //             }
+  //           },
+  //           label: const Text(
+  //             "Log Out",
+  //             style: TextStyle(
+  //               // color: Color.fromRGBO(204, 82, 88, 1),
+  //             ),
+  //           ),
+  //         ),
+  //         TextButton.icon(
+  //           icon: const Icon(
+  //             Icons.cancel,
+  //             color: Colors.grey,
+  //           ),
+  //           onPressed: () {
+  //             Navigator.of(context).pop();
+  //           },
+  //           label: const Text(
+  //             "Cancel",
+  //             style: TextStyle(
+  //               color: Colors.grey,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

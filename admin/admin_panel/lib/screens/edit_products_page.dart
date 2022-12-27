@@ -94,7 +94,8 @@ class _EditProductState extends State<EditProduct> {
           )
         : Scaffold(
             appBar: AppBar(
-              backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+              elevation: 0,
+              // backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
               title: const Text('Edit Product'),
               centerTitle: true,
               actions: [
@@ -130,7 +131,9 @@ class _EditProductState extends State<EditProduct> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    color: Colors.transparent,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2.5, color: const Color.fromRGBO(255, 176, 57, 1), ),
+                    ),
                     height: size * 0.35,
                     margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.1,
@@ -164,7 +167,7 @@ class _EditProductState extends State<EditProduct> {
                                 style: TextStyle(
                                   fontSize: 27,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.black,
+                                  color: Colors.blueGrey,
                                 ),
                               )
                             : const Text(
@@ -172,12 +175,12 @@ class _EditProductState extends State<EditProduct> {
                                 style: TextStyle(
                                   fontSize: 27,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.black,
+                                  color: Colors.blueGrey,
                                 ),
                               ),
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+                          backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
                           child: IconButton(
                             color: Colors.white,
                             onPressed: _selectImage,
@@ -205,7 +208,7 @@ class _EditProductState extends State<EditProduct> {
                         hintText: "Name of the Product",
                         icon: const Icon(
                           Icons.shop_2,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -230,7 +233,7 @@ class _EditProductState extends State<EditProduct> {
                         hintText: "Enter Product description",
                         icon: const Icon(
                           Icons.notes,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -254,7 +257,7 @@ class _EditProductState extends State<EditProduct> {
                         hintText: "Set Price",
                         icon: const Icon(
                           Icons.price_check,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -278,7 +281,7 @@ class _EditProductState extends State<EditProduct> {
                         hintText: "Enter Quantitiy",
                         icon: const Icon(
                           Icons.production_quantity_limits_outlined,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -302,7 +305,7 @@ class _EditProductState extends State<EditProduct> {
                         hintText: "Enter Discount(%)",
                         icon: const Icon(
                           Icons.discount,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -326,7 +329,7 @@ class _EditProductState extends State<EditProduct> {
                         hintText: "Discount Product limit",
                         icon: const Icon(
                           Icons.label_outline,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -343,7 +346,7 @@ class _EditProductState extends State<EditProduct> {
                       height: 40,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: const Color.fromRGBO(204, 82, 88, 1),
+                        color: const Color.fromRGBO(255, 176, 57, 1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       margin: EdgeInsets.symmetric(

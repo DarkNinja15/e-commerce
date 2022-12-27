@@ -6,8 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
-import '../models/product_model.dart';
 import '../shared/shared_properties.dart';
 
 class HomePage extends StatefulWidget {

@@ -21,6 +21,7 @@ class Database {
     double discount,
     int discountProductLimit,
     String sellerUid,
+    String category,
   ) async {
     String res = "Some error Occured";
     try {
@@ -38,6 +39,7 @@ class Database {
         discount: discount,
         discountProductLimit: discountProductLimit,
         sellerUid: sellerUid,
+        category: category,
       );
       firestore.collection('products').doc(prodId).set(
             product.toMap(),
@@ -137,6 +139,7 @@ class Database {
         discount: discount,
         discountProductLimit: discountProductLimit,
         sellerUid: snap['sellerUid'],
+        category: snap['category'],
       );
       firestore.collection('products').doc(prodId).set(
             product.toMap(),
@@ -194,6 +197,8 @@ class Database {
                     as Map<String, dynamic>)['quantity'],
                 sellerUid: (documentSnapshot.data()!
                     as Map<String, dynamic>)['sellerUid'],
+                category: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['category'],
               ),
             )
             .toList());

@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   List<DropdownMenuItem<String>> items = [];
   bool f = true;
 
-  String? selectedCattegory;
+  String selectedCattegory = "other";
 
   _selectImage() async {
     showDialog(
@@ -326,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                           items: items,
                           onChanged: (value) {
                             setState(() {
-                              selectedCattegory = value;
+                              selectedCattegory = value!;
                             });
                           },
                         ),
@@ -388,6 +388,7 @@ class _HomePageState extends State<HomePage> {
       double.parse(discountcontroller.text),
       int.parse(dplcontroller.text),
       FirebaseAuth.instance.currentUser!.uid,
+      selectedCattegory,
     );
     setState(() {
       namecontroller.text = "";

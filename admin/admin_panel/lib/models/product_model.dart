@@ -10,6 +10,7 @@ class Product {
   final double discount;
   final int discountProductLimit;
   final String sellerUid;
+  final String category;
   Product({
     required this.id,
     required this.photoUrl,
@@ -20,6 +21,7 @@ class Product {
     this.discount = 0,
     this.discountProductLimit = 0,
     required this.sellerUid,
+    required this.category,
   });
 
   Product copyWith({
@@ -32,6 +34,7 @@ class Product {
     double? discount,
     int? discountProductLimit,
     String? sellerUid,
+    String? category,
   }) {
     return Product(
       id: id ?? this.id,
@@ -43,6 +46,7 @@ class Product {
       discount: discount ?? this.discount,
       discountProductLimit: discountProductLimit ?? this.discountProductLimit,
       sellerUid: sellerUid ?? this.sellerUid,
+      category: category ?? this.category,
     );
   }
 
@@ -58,6 +62,7 @@ class Product {
     result.addAll({'discount': discount});
     result.addAll({'discountProductLimit': discountProductLimit});
     result.addAll({'sellerUid': sellerUid});
+    result.addAll({'category': category});
 
     return result;
   }
@@ -73,6 +78,7 @@ class Product {
       discount: map['discount']?.toDouble() ?? 0.0,
       discountProductLimit: map['discountProductLimit']?.toInt() ?? 0,
       sellerUid: map['sellerUid'] ?? '',
+      category: map['category'] ?? '',
     );
   }
 
@@ -83,7 +89,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, photoUrl: $photoUrl, name: $name, desc: $desc, price: $price, quantity: $quantity, discount: $discount, discountProductLimit: $discountProductLimit, sellerUid: $sellerUid)';
+    return 'Product(id: $id, photoUrl: $photoUrl, name: $name, desc: $desc, price: $price, quantity: $quantity, discount: $discount, discountProductLimit: $discountProductLimit, sellerUid: $sellerUid, category: $category)';
   }
 
   @override
@@ -99,7 +105,8 @@ class Product {
         other.quantity == quantity &&
         other.discount == discount &&
         other.discountProductLimit == discountProductLimit &&
-        other.sellerUid == sellerUid;
+        other.sellerUid == sellerUid &&
+        other.category == category;
   }
 
   @override
@@ -112,6 +119,7 @@ class Product {
         quantity.hashCode ^
         discount.hashCode ^
         discountProductLimit.hashCode ^
-        sellerUid.hashCode;
+        sellerUid.hashCode ^
+        category.hashCode;
   }
 }

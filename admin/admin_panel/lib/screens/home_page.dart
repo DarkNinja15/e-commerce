@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   List<DropdownMenuItem<String>> items = [];
   bool f = true;
 
-  String selectedCattegory = "other";
+  String selectedCattegory = "others";
 
   _selectImage() async {
     showDialog(
@@ -322,7 +322,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         DropdownButton(
-                          value: items[0].value,
+                          value: selectedCattegory,
                           items: items,
                           onChanged: (value) {
                             setState(() {

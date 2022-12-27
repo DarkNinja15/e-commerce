@@ -100,6 +100,17 @@ class Drawerc extends StatelessWidget {
               logout(context);
             },
           ),
+          const Divider(),
+          const Spacer(),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Made with love ❤️',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          )
         ],
       ),
     );

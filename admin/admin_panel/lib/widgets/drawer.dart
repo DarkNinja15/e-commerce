@@ -11,75 +11,84 @@ class Drawerc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(200),
-      child: Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ListTile(
-              leading: const Icon(
-                Icons.shopping_bag_outlined,
+    return Drawer(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: AssetImage('assets/logo1.png'),
+                  fit: BoxFit.fill
               ),
-              title: const Text('Add a Product'),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
-              },
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.view_agenda,
-              ),
-              title: const Text('View all Products'),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const ViewProducts(),
-                  ),
-                );
-              },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.shopping_bag_outlined,
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.person_add,
-              ),
-              title: const Text('Add a seller'),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const AddSeller(),
-                  ),
-                );
-              },
+            title: const Text('Add a Product'),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.view_agenda,
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.book,
-              ),
-              title: const Text('View Orders'),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const ViewProducts(),
-                  ),
-                );
-              },
+            title: const Text('View all Products'),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ViewProducts(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.person_add,
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.exit_to_app,
-              ),
-              title: const Text('LogOut'),
-              onTap: () {
-                _signOut(context);
-              },
+            title: const Text('Add a seller'),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const AddSeller(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.book,
             ),
-          ],
-        ),
+            title: const Text('View Orders'),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ViewProducts(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.exit_to_app,
+            ),
+            title: const Text('LogOut'),
+            onTap: () {
+              _signOut(context);
+            },
+          ),
+        ],
       ),
     );
   }

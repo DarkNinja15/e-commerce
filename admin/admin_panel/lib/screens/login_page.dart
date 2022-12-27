@@ -75,13 +75,15 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                     children: [
                       TextFormField(
+                        controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: textInputDecoration.copyWith(
                             labelText: "Email",
                             prefixIcon: Icon(
                               Icons.email,
                               color: Theme.of(context).primaryColor,
-                            )),
+                            ),
+                        ),
                         onChanged: (val) {
                           setState(() {
                             email = val;
@@ -99,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
+                        controller: passwordController,
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         decoration: textInputDecoration.copyWith(

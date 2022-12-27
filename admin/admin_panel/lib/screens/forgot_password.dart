@@ -1,5 +1,7 @@
 import 'package:admin_panel/auth&database/authmethods.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
+import 'package:admin_panel/widgets/textfield.dart';
+
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -23,6 +25,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reset your password'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: Center(
@@ -31,24 +34,27 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.1),
-              child: TextField(
-                controller: emailcontroller,
-                style: const TextStyle(),
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  fillColor: Colors.grey.shade100,
-                  // filled: true,
-                  hintText: "Enter your email",
-                  icon: const Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  horizontal: MediaQuery.of(context).size.width * 0.06),
+              child: Form(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: emailcontroller,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: textInputDecoration.copyWith(
+                        labelText: "Email",
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              )
+            ),
+            const SizedBox(
+              height: 20,
             ),
             InkWell(
               onTap: _forgotpass,
@@ -56,11 +62,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: 40,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(204, 82, 88, 1),
+                  color: const Color.fromRGBO(255, 176, 57, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.1,
+                    horizontal: MediaQuery.of(context).size.width * 0.06,
                     vertical: MediaQuery.of(context).size.width * 0.05),
                 child: const Center(
                   child: Text(

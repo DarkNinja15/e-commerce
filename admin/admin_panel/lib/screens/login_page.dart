@@ -6,6 +6,7 @@ import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 
 import 'forgot_password.dart';
+import 'package:admin_panel/widgets/textfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,8 +16,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final formKey = GlobalKey<FormState>();
+  String email = "";
+  String password = "";
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
@@ -26,11 +33,173 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    // print(MediaQuery.of(context).size.width);
-    // print(MediaQuery.of(context).padding.top);
-
+    // final size = MediaQuery.of(context).size;
     return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/screen1.png'),
+          fit: BoxFit.fitWidth,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.37,
+              padding: EdgeInsets.only(top: 30),
+              child: Column(
+                children: const [
+                  Text(
+                    'Welcome',
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Sign In to Continue',
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Form(
+                    key: formKey,
+                      child: Column(
+                    children: [
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: textInputDecoration.copyWith(
+                            labelText: "Email",
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: Theme.of(context).primaryColor,
+                            )),
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
+
+                        // check tha validation
+                        validator: (val) {
+                          return RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(val!)
+                              ? null
+                              : "Please enter a valid email";
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: true,
+                        decoration: textInputDecoration.copyWith(
+                            labelText: "Password",
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: Theme.of(context).primaryColor,
+                            )),
+                        validator: (val) {
+                          if (val!.length < 6) {
+                            return "Password must be at least 6 characters";
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (val) {
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  )),
+                  SizedBox(
+                    height: 30,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const ForgotPassword(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Forgot Password ?',
+                            style: TextStyle(
+                                color: Color.fromRGBO(255, 176, 57, 1)),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 60),
+                  GestureDetector(
+                    onTap: () async {
+                      formKey.currentState!.validate();
+                      String res = await AuthMethods().logmein(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      if (res == 'Success') {
+                        // navigate
+                        // print('success');
+                        if (!mounted) return;
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
+                      } else {
+                        Shared().snackbar(
+                          message: res,
+                          context: context,
+                        );
+                      }
+                    },
+                    child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 20),
+                        width: double.infinity,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: const Color.fromRGBO(255, 176, 57, 1),
+                            // border: Border.all(width: 1),
+                            borderRadius: BorderRadius.circular(35)),
+                        child: const Center(
+                          child: Text(
+                            'Sign In',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 17.5),
+                          ),
+                        )),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
+   return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/bck.jpg'),
@@ -191,5 +360,4 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-}
+ */

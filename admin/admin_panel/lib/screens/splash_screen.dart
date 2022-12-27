@@ -15,6 +15,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
@@ -24,12 +25,21 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        backgroundColor: Color.fromRGBO(204, 82, 88, 1),
-        body: Center(
-          child: Image(image: AssetImage('assets/logo1.png')),
-        ));
+    return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/splash.png'),
+            fit: BoxFit.fill,
+          ),
+        ),
+
+      child: const Scaffold(
+          backgroundColor: Colors.transparent,
+          ),
+    );
   }
 }

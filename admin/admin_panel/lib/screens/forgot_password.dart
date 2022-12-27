@@ -23,7 +23,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reset your password'),
-        backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
         centerTitle: true,
       ),
       body: Center(

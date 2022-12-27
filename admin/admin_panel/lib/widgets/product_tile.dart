@@ -85,7 +85,10 @@ class ProductTile extends StatelessWidget {
               ),
             ),
             title: Text(snap['name']),
-            subtitle: Text(snap['desc']),
+            subtitle: Text(
+              snap['desc'],
+              overflow: TextOverflow.ellipsis,
+            ),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               // mainAxisSize: MainAxisSize.min,

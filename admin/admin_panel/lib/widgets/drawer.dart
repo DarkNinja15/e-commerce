@@ -21,10 +21,8 @@ class Drawerc extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(width: 1),
               shape: BoxShape.circle,
-              image: DecorationImage(
-                  image: AssetImage('assets/logo1.png'),
-                  fit: BoxFit.fill
-              ),
+              image: const DecorationImage(
+                  image: AssetImage('assets/logo1.png'), fit: BoxFit.fill),
             ),
           ),
           ListTile(

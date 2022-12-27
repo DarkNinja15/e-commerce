@@ -1,12 +1,10 @@
 import 'dart:typed_data';
 import 'package:admin_panel/auth&database/database.dart';
-import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/shared/loading.dart';
 import 'package:admin_panel/widgets/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 import '../shared/shared_properties.dart';
 
@@ -93,7 +91,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Product> abc = Provider.of<List<Product>>(context);
+    // List<Product> abc = Provider.of<List<Product>>(context);
     // print('...');
     // print(abc);
     final size =
@@ -151,7 +149,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
+                          backgroundColor:
+                              const Color.fromRGBO(255, 176, 57, 1),
                           child: IconButton(
                             color: Colors.white,
                             onPressed: _selectImage,

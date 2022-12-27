@@ -22,9 +22,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Product>>.value(
-      initialData: [],
+      initialData: const [],
       value: Database().products,
       child: MaterialApp(
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.teal,
+          primaryColor: Colors.teal,
+        ),
         debugShowCheckedModeBanner: false,
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),

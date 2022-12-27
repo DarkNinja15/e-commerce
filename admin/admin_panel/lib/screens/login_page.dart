@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:admin_panel/auth&database/authmethods.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
@@ -16,7 +14,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final formKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
@@ -48,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.37,
-              padding: EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 30),
               child: Column(
                 children: const [
                   Text(
@@ -71,60 +68,63 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   Form(
-                    key: formKey,
+                      key: formKey,
                       child: Column(
-                    children: [
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: textInputDecoration.copyWith(
-                            labelText: "Email",
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Theme.of(context).primaryColor,
-                            )),
-                        onChanged: (val) {
-                          setState(() {
-                            email = val;
-                          });
-                        },
+                        children: [
+                          TextFormField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: textInputDecoration.copyWith(
+                              labelText: "Email",
+                              prefixIcon: Icon(
+                                Icons.email,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                            onChanged: (val) {
+                              setState(() {
+                                email = val;
+                              });
+                            },
 
-                        // check tha validation
-                        validator: (val) {
-                          return RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(val!)
-                              ? null
-                              : "Please enter a valid email";
-                        },
-                      ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        decoration: textInputDecoration.copyWith(
-                            labelText: "Password",
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Theme.of(context).primaryColor,
-                            )),
-                        validator: (val) {
-                          if (val!.length < 6) {
-                            return "Password must be at least 6 characters";
-                          } else {
-                            return null;
-                          }
-                        },
-                        onChanged: (val) {
-                          setState(() {
-                            password = val;
-                          });
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  )),
+                            // check tha validation
+                            validator: (val) {
+                              return RegExp(
+                                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(val!)
+                                  ? null
+                                  : "Please enter a valid email";
+                            },
+                          ),
+                          const SizedBox(height: 15),
+                          TextFormField(
+                            controller: passwordController,
+                            keyboardType: TextInputType.visiblePassword,
+                            obscureText: true,
+                            decoration: textInputDecoration.copyWith(
+                                labelText: "Password",
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  color: Theme.of(context).primaryColor,
+                                )),
+                            validator: (val) {
+                              if (val!.length < 6) {
+                                return "Password must be at least 6 characters";
+                              } else {
+                                return null;
+                              }
+                            },
+                            onChanged: (val) {
+                              setState(() {
+                                password = val;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      )),
                   SizedBox(
                     height: 30,
                     child: Row(

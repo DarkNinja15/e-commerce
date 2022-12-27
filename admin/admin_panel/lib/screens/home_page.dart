@@ -108,22 +108,25 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               title: const Text('Add a Product'),
               centerTitle: true,
-              backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
-              shadowColor: const Color.fromRGBO(204, 82, 88, 1),
+              elevation: 0,
             ),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    color: Colors.transparent,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                    ),
+                    // color: Colors.transparent,
                     height: size * 0.35,
                     margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.1,
                         vertical: MediaQuery.of(context).size.width * 0.05),
                     child: image == null
                         ? const Image(
-                            image: AssetImage('assets/logo1.png'),
+                            image: AssetImage('assets/icon_img.png'),
                             fit: BoxFit.contain,
                           )
                         : Image(
@@ -143,12 +146,12 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                             fontSize: 27,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            color: Colors.blueGrey,
                           ),
                         ),
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+                          backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
                           child: IconButton(
                             color: Colors.white,
                             onPressed: _selectImage,
@@ -176,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                         hintText: "Name of the Product",
                         icon: const Icon(
                           Icons.shop_2,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -201,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                         hintText: "Enter Product description",
                         icon: const Icon(
                           Icons.notes,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -225,7 +228,7 @@ class _HomePageState extends State<HomePage> {
                         hintText: "Set Price",
                         icon: const Icon(
                           Icons.price_check,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -249,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                         hintText: "Enter Quantitiy",
                         icon: const Icon(
                           Icons.production_quantity_limits_outlined,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -273,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                         hintText: "Enter Discount(%)",
                         icon: const Icon(
                           Icons.discount,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -297,7 +300,7 @@ class _HomePageState extends State<HomePage> {
                         hintText: "Discount Product limit",
                         icon: const Icon(
                           Icons.label_outline,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -338,7 +341,7 @@ class _HomePageState extends State<HomePage> {
                       height: 40,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: const Color.fromRGBO(204, 82, 88, 1),
+                        color: const Color.fromRGBO(255, 176, 57, 1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       margin: EdgeInsets.symmetric(

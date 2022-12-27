@@ -14,18 +14,19 @@ class Drawerc extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(height: 30),
           Container(
             width: 200,
             height: 200,
             decoration: BoxDecoration(
-              border: Border.all(width: 1),
               shape: BoxShape.circle,
               image: const DecorationImage(
-                  image: AssetImage('assets/logo1.png'), fit: BoxFit.fill),
+                  image: AssetImage('assets/logo1.png')),
             ),
           ),
+          Divider(),
           ListTile(
             leading: const Icon(
               Icons.shopping_bag_outlined,
@@ -117,7 +118,7 @@ class Drawerc extends StatelessWidget {
           TextButton.icon(
             icon: const Icon(
               Icons.exit_to_app,
-              color: Color.fromRGBO(204, 82, 88, 1),
+              // color: Color.fromRGBO(204, 82, 88, 1),
             ),
             onPressed: () async {
               final res = await AuthMethods().signoutoftheapp();
@@ -138,7 +139,7 @@ class Drawerc extends StatelessWidget {
             label: const Text(
               "Log Out",
               style: TextStyle(
-                color: Color.fromRGBO(204, 82, 88, 1),
+                // color: Color.fromRGBO(204, 82, 88, 1),
               ),
             ),
           ),

@@ -53,8 +53,8 @@ class _ViewProductsState extends State<ViewProducts> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.1,
-                  vertical: MediaQuery.of(context).size.width * 0.1),
+                  horizontal: MediaQuery.of(context).size.width * 0.07,
+                  vertical: MediaQuery.of(context).size.width * 0.07),
               child: TextField(
                 controller: controller,
                 onChanged: (query) {

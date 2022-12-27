@@ -1,3 +1,5 @@
+import 'package:admin_panel/auth&database/database.dart';
+import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/screens/login_page.dart';
 import 'package:admin_panel/screens/splash_screen.dart';
@@ -6,6 +8,7 @@ import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,32 +21,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: ((context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.hasData) {
-              return const SplashScreen(
-                widget: HomePage(),
-              );
-            } else if (snapshot.hasError) {
-              Shared().snackbar(
-                message: 'Some Error Occured',
-                context: context,
+    return StreamProvider<List<Product>>.value(
+      initialData: [],
+      value: Database().products,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: ((context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return const SplashScreen(
+                  widget: HomePage(),
+                );
+              } else if (snapshot.hasError) {
+                Shared().snackbar(
+                  message: 'Some Error Occured',
+                  context: context,
+                );
+              }
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Scaffold(
+                body: Loading(),
               );
             }
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Loading(),
+            return const SplashScreen(
+              widget: LoginPage(),
             );
-          }
-          return const SplashScreen(
-            widget: LoginPage(),
-          );
-        }),
+          }),
+        ),
       ),
     );
   }

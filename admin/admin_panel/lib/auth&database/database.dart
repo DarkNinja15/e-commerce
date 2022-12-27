@@ -172,4 +172,30 @@ class Database {
       return e.toString();
     }
   }
+
+  // retrieving list of products for dropdown
+  Stream<List<Product>> get products {
+    return firestore
+        .collection('products')
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map(
+              (DocumentSnapshot documentSnapshot) => Product(
+                id: (documentSnapshot.data()! as Map<String, dynamic>)['id'],
+                photoUrl: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['photoUrl'],
+                name:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['name'],
+                desc:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['desc'],
+                price:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['price'],
+                quantity: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['quantity'],
+                sellerUid: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['sellerUid'],
+              ),
+            )
+            .toList());
+  }
 }

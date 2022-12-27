@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 import 'package:admin_panel/auth&database/database.dart';
+import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/shared/loading.dart';
 import 'package:admin_panel/widgets/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../shared/shared_properties.dart';
 
@@ -24,6 +26,26 @@ class _HomePageState extends State<HomePage> {
   TextEditingController quantitycontroller = TextEditingController();
   TextEditingController discountcontroller = TextEditingController();
   TextEditingController dplcontroller = TextEditingController();
+  List<DropdownMenuItem<String>> items = [
+    const DropdownMenuItem(
+      value: "Home",
+      child: Text("Home"),
+    ),
+    const DropdownMenuItem(
+      value: "Electronics",
+      child: Text("Electronics"),
+    ),
+    const DropdownMenuItem(
+      value: "Fashion",
+      child: Text("Fashion"),
+    ),
+    const DropdownMenuItem(
+      value: "Beauty",
+      child: Text("Beauty"),
+    ),
+  ];
+
+  String? selectedCattegory;
 
   _selectImage() async {
     showDialog(
@@ -71,6 +93,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Product> abc = Provider.of<List<Product>>(context);
+    // print('...');
+    // print(abc);
     final size =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     // print(MediaQuery.of(context).size.width);
@@ -282,6 +307,30 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(
                     height: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.1),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Text(
+                          'Cattegory',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        DropdownButton(
+                          value: items[0].value,
+                          items: items,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedCattegory = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   InkWell(
                     onTap: _addProd,

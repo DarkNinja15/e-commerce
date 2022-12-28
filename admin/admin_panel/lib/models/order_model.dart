@@ -8,11 +8,12 @@ class Order {
   final String userName;
   final String userAddress;
   final String userPhone;
-  final DateTime orderDate;
+  final String orderDate;
   final String status;
   final int quantity;
   final String category;
   final String desc;
+  final String photoUrl;
   Order({
     required this.userId,
     required this.orderId,
@@ -26,6 +27,7 @@ class Order {
     required this.quantity,
     required this.category,
     required this.desc,
+    required this.photoUrl,
   });
 
   Order copyWith({
@@ -36,11 +38,12 @@ class Order {
     String? userName,
     String? userAddress,
     String? userPhone,
-    DateTime? orderDate,
+    String? orderDate,
     String? status,
     int? quantity,
     String? category,
     String? desc,
+    String? photoUrl,
   }) {
     return Order(
       userId: userId ?? this.userId,
@@ -55,6 +58,7 @@ class Order {
       quantity: quantity ?? this.quantity,
       category: category ?? this.category,
       desc: desc ?? this.desc,
+      photoUrl: photoUrl ?? this.photoUrl,
     );
   }
 
@@ -68,11 +72,12 @@ class Order {
     result.addAll({'userName': userName});
     result.addAll({'userAddress': userAddress});
     result.addAll({'userPhone': userPhone});
-    result.addAll({'orderDate': orderDate.millisecondsSinceEpoch});
+    result.addAll({'orderDate': orderDate});
     result.addAll({'status': status});
     result.addAll({'quantity': quantity});
     result.addAll({'category': category});
     result.addAll({'desc': desc});
+    result.addAll({'photoUrl': photoUrl});
 
     return result;
   }
@@ -86,11 +91,12 @@ class Order {
       userName: map['userName'] ?? '',
       userAddress: map['userAddress'] ?? '',
       userPhone: map['userPhone'] ?? '',
-      orderDate: DateTime.fromMillisecondsSinceEpoch(map['orderDate']),
+      orderDate: map['orderDate'] ?? '',
       status: map['status'] ?? '',
       quantity: map['quantity']?.toInt() ?? 0,
       category: map['category'] ?? '',
       desc: map['desc'] ?? '',
+      photoUrl: map['photoUrl'] ?? '',
     );
   }
 
@@ -100,7 +106,7 @@ class Order {
 
   @override
   String toString() {
-    return 'Order(userId: $userId, orderId: $orderId, name: $name, price: $price, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, orderDate: $orderDate, status: $status, quantity: $quantity, category: $category, desc: $desc)';
+    return 'Order(userId: $userId, orderId: $orderId, name: $name, price: $price, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, orderDate: $orderDate, status: $status, quantity: $quantity, category: $category, desc: $desc, photoUrl: $photoUrl)';
   }
 
   @override
@@ -119,7 +125,8 @@ class Order {
         other.status == status &&
         other.quantity == quantity &&
         other.category == category &&
-        other.desc == desc;
+        other.desc == desc &&
+        other.photoUrl == photoUrl;
   }
 
   @override
@@ -135,6 +142,7 @@ class Order {
         status.hashCode ^
         quantity.hashCode ^
         category.hashCode ^
-        desc.hashCode;
+        desc.hashCode ^
+        photoUrl.hashCode;
   }
 }

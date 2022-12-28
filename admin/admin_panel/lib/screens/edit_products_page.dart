@@ -97,25 +97,18 @@ class _EditProductState extends State<EditProduct> {
         actions: [
           IconButton(
             onPressed: () async {
-              bool ff = Shared().deleteProduct(
+              setState(() {
+                isLoading = true;
+              });
+              Shared().deleteProduct(
                 context,
                 widget.snap['id'],
                 widget.snap['sellerUid'],
+                true,
               );
-              if (ff) {
-                setState(() {
-                  namecontroller.text = "";
-                  desccontroller.text = "";
-                  pricecontroller.text = "";
-                  discountcontroller.text = "";
-                  dplcontroller.text = "";
-                  quantitycontroller.text = "";
-                  image = null;
-                  isLoading = false;
-                  photoUrl = '';
-                  ff = false;
-                });
-              }
+              setState(() {
+                isLoading = false;
+              });
             },
             icon: const Icon(
               Icons.delete_forever,

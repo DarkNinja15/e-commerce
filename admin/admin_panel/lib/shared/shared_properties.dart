@@ -22,8 +22,8 @@ class Shared {
     // print('No Image Selected');
   }
 
-  bool deleteProduct(BuildContext context, String id, String sellerUid) {
-    bool f = false;
+  deleteProduct(
+      BuildContext context, String id, String sellerUid, bool isAllp) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -39,7 +39,7 @@ class Shared {
           TextButton.icon(
             icon: const Icon(
               Icons.delete,
-              color: Color.fromRGBO(204, 82, 88, 1),
+              color: Color.fromRGBO(255, 176, 57, 1),
             ),
             onPressed: () async {
               final res = await Database().deleteProduct(
@@ -56,15 +56,18 @@ class Shared {
                   message: 'Product Deleted Successfully',
                   context: context,
                 );
-                f = true;
               }
               // ignore: use_build_context_synchronously
               Navigator.of(context).pop();
+              if (isAllp) {
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pop();
+              }
             },
             label: const Text(
               "Delete",
               style: TextStyle(
-                color: Color.fromRGBO(204, 82, 88, 1),
+                color: Color.fromRGBO(255, 176, 57, 1),
               ),
             ),
           ),
@@ -86,6 +89,5 @@ class Shared {
         ],
       ),
     );
-    return f;
   }
 }

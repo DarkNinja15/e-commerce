@@ -23,9 +23,10 @@ class ProductTile extends StatelessWidget {
                 context,
                 snap['id'],
                 snap['sellerUid'],
+                false,
               );
             },
-            backgroundColor: Colors.red,
+            backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
             foregroundColor: Colors.white,
             icon: Icons.delete,
             label: 'Delete',

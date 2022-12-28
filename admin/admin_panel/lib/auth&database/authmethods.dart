@@ -1,7 +1,19 @@
+import 'package:admin_panel/models/seller_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthMethods {
   final _auth = FirebaseAuth.instance;
+
+  // getting user details
+  Future<Seller> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('sellers')
+        .doc(currentUser.uid)
+        .get();
+    return Seller.fromSnap(snap);
+  }
 
   // login the admin
 

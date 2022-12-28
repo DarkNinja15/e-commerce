@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:admin_panel/auth&database/database.dart';
+import 'package:admin_panel/provider/seller_provider.dart';
 import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/widgets/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +27,16 @@ class _HomePageState extends State<HomePage> {
   TextEditingController dplcontroller = TextEditingController();
   List<DropdownMenuItem<String>> items = [];
   bool f = true;
+
+  @override
+  void initState() {
+    super.initState();
+    addData();
+  }
+
+  addData() async {
+    await Provider.of<SellerProvider>(context, listen: false).refreshUser();
+  }
 
   String selectedCattegory = "others";
 
@@ -76,6 +87,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // List<Product> abc = Provider.of<List<Product>>(context);
+    // final seller = Provider.of<SellerProvider>(context).getSeller;
     if (f) {
       List<String> abs = Provider.of<List<String>>(context);
       for (var i = 0; i < abs.length; i++) {

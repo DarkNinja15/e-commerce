@@ -3,7 +3,6 @@ import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/drawer.dart';
 
 class EditCategory extends StatefulWidget {

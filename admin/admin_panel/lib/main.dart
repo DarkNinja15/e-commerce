@@ -1,6 +1,7 @@
 import 'package:admin_panel/auth&database/database.dart';
 import 'package:admin_panel/models/order_model.dart';
 import 'package:admin_panel/models/product_model.dart';
+import 'package:admin_panel/provider/seller_provider.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/screens/login_page.dart';
 import 'package:admin_panel/screens/splash_screen.dart';
@@ -35,7 +36,10 @@ class MyApp extends StatelessWidget {
         FutureProvider<List<String>>.value(
           value: Database().cattegories,
           initialData: const [],
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SellerProvider(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(

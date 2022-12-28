@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Seller {
   final String name;
   final String phoneNum;
@@ -80,5 +82,18 @@ class Seller {
         address.hashCode ^
         email.hashCode ^
         type.hashCode;
+  }
+
+  static Seller fromSnap(DocumentSnapshot snap) {
+    // print('snap');
+    // print(snap.data());
+    Map<String, dynamic> snapshot = snap.data() as Map<String, dynamic>;
+    return Seller(
+      name: snapshot['name'],
+      phoneNum: snapshot['phoneNum'],
+      address: snapshot['address'],
+      email: snapshot['email'],
+      type: snapshot['type'],
+    );
   }
 }

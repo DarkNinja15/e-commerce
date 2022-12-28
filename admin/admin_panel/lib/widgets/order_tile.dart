@@ -1,9 +1,10 @@
+import 'package:admin_panel/models/order_model.dart';
 import 'package:admin_panel/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OrderTile extends StatelessWidget {
-  final dynamic snap;
+  final Order snap;
 
   const OrderTile({super.key, required this.snap});
 
@@ -73,15 +74,18 @@ class OrderTile extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: NetworkImage(snap['photoUrl']), fit: BoxFit.fill),
+                    image: NetworkImage(
+                      snap.photoUrl,
+                    ),
+                    fit: BoxFit.fill),
               ),
             ),
             title: Text(
-              snap['name'],
+              snap.name,
               overflow: TextOverflow.ellipsis,
             ),
             subtitle: Text(
-              snap['desc'],
+              snap.desc,
               overflow: TextOverflow.ellipsis,
             ),
             trailing: Column(
@@ -94,7 +98,7 @@ class OrderTile extends StatelessWidget {
                       fontWeight: FontWeight.bold, color: Colors.deepPurple),
                 ),
                 Text(
-                  '₹${(double.parse(snap['price'])) * double.parse(snap['quantity'])}',
+                  '₹${(double.parse(snap.price)) * (snap.quantity)}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.teal),
                 ),

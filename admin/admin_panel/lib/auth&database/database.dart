@@ -1,4 +1,5 @@
 import 'package:admin_panel/auth&database/storage_methods.dart';
+import 'package:admin_panel/models/order_model.dart' as od;
 import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/models/seller_model.dart' as model;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -222,6 +223,45 @@ class Database {
       // print(e.toString());
       return [];
     }
+  }
+
+  // retrieving list of orders
+  Stream<List<od.Order>> get orders {
+    return firestore
+        .collection('allorders')
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map(
+              (DocumentSnapshot documentSnapshot) => od.Order(
+                userId: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['userId'],
+                orderId: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['orderId'],
+                name:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['name'],
+                price:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['price'],
+                userName: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['userName'],
+                userAddress: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['userAddress'],
+                userPhone: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['userPhone'],
+                orderDate: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['orderDate'],
+                status: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['status'],
+                quantity: int.parse((documentSnapshot.data()!
+                    as Map<String, dynamic>)['quantity']),
+                category: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['category'],
+                desc:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['desc'],
+                photoUrl: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['photoUrl'],
+              ),
+            )
+            .toList());
   }
 
   // delete category

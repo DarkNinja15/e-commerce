@@ -1,9 +1,10 @@
 import 'package:admin_panel/auth&database/database.dart';
+import 'package:admin_panel/models/order_model.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 
 class OrderDetail extends StatefulWidget {
-  final dynamic snap;
+  final Order snap;
   const OrderDetail({
     Key? key,
     required this.snap,
@@ -23,7 +24,7 @@ class _OrderDetailState extends State<OrderDetail> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'OrderId: ${widget.snap['orderId']}',
+          'OrderId: ${widget.snap.orderId}',
           overflow: TextOverflow.clip,
         ),
       ),
@@ -42,7 +43,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   vertical: MediaQuery.of(context).size.width * 0.05),
               child: Image(
                 image: NetworkImage(
-                  widget.snap['photoUrl'],
+                  widget.snap.photoUrl,
                 ),
               ),
             ),
@@ -67,7 +68,7 @@ class _OrderDetailState extends State<OrderDetail> {
                           )),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['name']))
+                          child: Text(widget.snap.name))
                     ],
                   ),
                   const Divider(height: 35),
@@ -79,7 +80,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['quantity'])),
+                          child: Text((widget.snap.quantity).toString())),
                     ],
                   ),
                   const Divider(height: 35),
@@ -92,7 +93,7 @@ class _OrderDetailState extends State<OrderDetail> {
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(
-                              '${double.parse(widget.snap['price']) / double.parse(widget.snap['quantity'])}')),
+                              '${double.parse(widget.snap.price) / (widget.snap.quantity)}')),
                     ],
                   ),
                   const Divider(height: 35),
@@ -104,7 +105,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['price']))
+                          child: Text(widget.snap.price))
                     ],
                   ),
                   const Divider(height: 35),
@@ -117,7 +118,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['desc']))
+                          child: Text(widget.snap.desc))
                     ],
                   ),
                   const Divider(height: 35),
@@ -129,7 +130,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['status'])),
+                          child: Text(widget.snap.status)),
                     ],
                   ),
                   const Divider(height: 35),
@@ -141,7 +142,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['orderDate'])),
+                          child: Text(widget.snap.orderDate)),
                     ],
                   ),
                   const Divider(height: 35),
@@ -153,7 +154,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['userName']))
+                          child: Text(widget.snap.userName))
                     ],
                   ),
                   const Divider(height: 35),
@@ -165,7 +166,7 @@ class _OrderDetailState extends State<OrderDetail> {
                               style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.65,
-                          child: Text(widget.snap['userPhone']))
+                          child: Text(widget.snap.userPhone))
                     ],
                   ),
                   const Divider(height: 35),
@@ -178,7 +179,7 @@ class _OrderDetailState extends State<OrderDetail> {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.65,
-                        child: Text(widget.snap['userAddress']),
+                        child: Text(widget.snap.userAddress),
                       )
                     ],
                   ),
@@ -303,9 +304,9 @@ class _OrderDetailState extends State<OrderDetail> {
                         );
                         return;
                       }
-                      if (controller.text == widget.snap['name']) {
+                      if (controller.text == widget.snap.name) {
                         // print(widget.snap['orderId']);
-                        String s = widget.snap['orderId'];
+                        String s = widget.snap.orderId;
                         final res = await Database().deleteOrder(s);
                         if (res != 'Success') {
                           Shared().snackbar(

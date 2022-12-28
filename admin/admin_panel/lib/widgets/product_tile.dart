@@ -26,7 +26,7 @@ class ProductTile extends StatelessWidget {
                 false,
               );
             },
-            backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+            backgroundColor: Colors.redAccent,
             foregroundColor: Colors.white,
             icon: Icons.delete,
             label: 'Delete',

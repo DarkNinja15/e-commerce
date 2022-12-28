@@ -17,7 +17,7 @@ class OrderTile extends StatelessWidget {
             // An action can be bigger than the others.
             flex: 2,
             onPressed: (_) {},
-            backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+            backgroundColor: Colors.redAccent,
             foregroundColor: Colors.white,
             icon: Icons.delete,
             label: 'Delete',
@@ -76,7 +76,7 @@ class OrderTile extends StatelessWidget {
                     image: NetworkImage(snap['photoUrl']), fit: BoxFit.fill),
               ),
             ),
-            title: Text(snap['name']),
+            title: Container(child: Text(snap['name'], overflow: TextOverflow.ellipsis, )),
             subtitle: Text(
               snap['desc'],
               overflow: TextOverflow.ellipsis,

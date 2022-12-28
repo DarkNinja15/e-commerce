@@ -17,8 +17,8 @@ class _OrderDetailState extends State<OrderDetail> {
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final size =
-        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    final size = MediaQuery.of(context).size.width;
+    print(size);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -29,25 +29,20 @@ class _OrderDetailState extends State<OrderDetail> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: double.infinity,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 2.5,
-                    color: const Color.fromRGBO(255, 176, 57, 1),
-                  ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2.5,
+                  color: const Color.fromRGBO(255, 176, 57, 1),
                 ),
-                // height: size * 0.35,
-                margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.1,
-                    vertical: MediaQuery.of(context).size.width * 0.05),
-                child: Image(
-                  image: NetworkImage(
-                    widget.snap['photoUrl'],
-                  ),
+              ),
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1,
+                  vertical: MediaQuery.of(context).size.width * 0.05),
+              child: Image(
+                image: NetworkImage(
+                  widget.snap['photoUrl'],
                 ),
               ),
             ),
@@ -57,42 +52,60 @@ class _OrderDetailState extends State<OrderDetail> {
             ),
             Container(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children : [
-                      const Text('Name :     ', style: TextStyle(fontWeight: FontWeight.w500),),
-                      Text(widget.snap['name'])
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Name :     ', style: TextStyle(fontWeight: FontWeight.w500),)),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['name']))
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Quantity Ordered :    ', style: TextStyle(fontWeight: FontWeight.w500)),
-                      Text(widget.snap['quantity']),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Quantity Ordered :    ', style: TextStyle(fontWeight: FontWeight.w500))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['quantity'])),
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Price/item :    ', style: TextStyle(fontWeight: FontWeight.w500)),
-                      Text('${double.parse(widget.snap['price']) / double.parse(widget.snap['quantity'])}'),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Price/item :    ', style: TextStyle(fontWeight: FontWeight.w500))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text('${double.parse(widget.snap['price']) / double.parse(widget.snap['quantity'])}')),
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Total Price :    ', style: TextStyle(fontWeight: FontWeight.w500)),
-                      Text(widget.snap['price'])
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Total Price :    ', style: TextStyle(fontWeight: FontWeight.w500))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['price']))
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Description :    ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Description :    ', style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
                           width: MediaQuery.of(context).size.width*0.65,
                           child: Text(widget.snap['desc'])
@@ -102,35 +115,54 @@ class _OrderDetailState extends State<OrderDetail> {
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Order Status :   ', style: TextStyle(fontWeight: FontWeight.w500)),
-                      Text(widget.snap['status']),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Order Status :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['status'])),
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Order Date  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
-                      Text(widget.snap['orderDate']),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Order Date  :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['orderDate'])),
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Ordered By :   ', style: TextStyle(fontWeight: FontWeight.w500)),
-                      Text(widget.snap['userName'])
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Ordered By :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['userName']))
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Contact No.  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
-                      Text(widget.snap['userPhone'])
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Contact No.  :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['userPhone']))
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
-                      const Text('Address  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width*0.25,
+                          child: const Text('Address  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width*0.65,
                           child: Text(widget.snap['userAddress']),

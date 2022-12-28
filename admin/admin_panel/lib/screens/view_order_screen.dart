@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/loading.dart';
 import '../widgets/order_tile.dart';
-import '../widgets/product_tile.dart';
 
 class ViewOrder extends StatefulWidget {
   const ViewOrder({super.key});
@@ -19,6 +18,7 @@ class _ViewOrderState extends State<ViewOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         drawer: const Drawerc(),
         appBar: AppBar(
           title: const Text('Pending Orders'),
@@ -41,7 +41,7 @@ class _ViewOrderState extends State<ViewOrder> {
                 decoration: InputDecoration(
                   fillColor: Colors.white,
                   filled: true,
-                  hintText: "Search for a Product",
+                  hintText: "Search for an Order",
                   icon: const Icon(
                     Icons.search_rounded,
                     color: Colors.white,
@@ -67,13 +67,20 @@ class _ViewOrderState extends State<ViewOrder> {
                           return const Loading();
                         }
                         if (snapshot.data!.docs.isEmpty) {
-                          return const Center(
-                            child: Image(
+                          return Column(children: const [
+                            Image(
                               image: AssetImage(
                                 'assets/void.png',
                               ),
                             ),
-                          );
+                            Text(
+                              'Nothing to Show',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 33,
+                              ),
+                            ),
+                          ]);
                         }
                         return ListView.builder(
                           itemCount: snapshot.data!.docs.length,
@@ -88,7 +95,7 @@ class _ViewOrderState extends State<ViewOrder> {
                   )
                 : searchResult.isEmpty
                     ? Expanded(
-                        child: ListView(
+                        child: Column(
                           children: const [
                             Image(image: AssetImage('assets/void.png')),
                             Text(
@@ -103,12 +110,13 @@ class _ViewOrderState extends State<ViewOrder> {
                       )
                     : Expanded(
                         child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: searchResult.length,
-                            itemBuilder: (context, index) {
-                              // print(searchResult[index]['name']);
-                              return ProductTile(snap: searchResult[index]);
-                            }),
+                          shrinkWrap: true,
+                          itemCount: searchResult.length,
+                          itemBuilder: (context, index) {
+                            // print(searchResult[index]['name']);
+                            return OrderTile(snap: searchResult[index]);
+                          },
+                        ),
                       )
           ],
         ));

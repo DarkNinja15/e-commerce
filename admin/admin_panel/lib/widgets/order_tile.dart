@@ -1,4 +1,4 @@
-import 'package:admin_panel/screens/edit_products_page.dart';
+import 'package:admin_panel/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -33,7 +33,7 @@ class OrderTile extends StatelessWidget {
             onPressed: (_) {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => EditProduct(snap: snap),
+                  builder: (context) => OrderDetail(snap: snap),
                 ),
               );
             },
@@ -60,7 +60,7 @@ class OrderTile extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => EditProduct(snap: snap),
+                  builder: (context) => OrderDetail(snap: snap),
                 ),
               );
             },

@@ -274,4 +274,28 @@ class Database {
       return e.toString();
     }
   }
+
+  // delete order from allorders
+  Future<String> deleteOrder(String id) async {
+    // print(id);
+    if (auth.currentUser!.uid != 'ELO4z0WvXLgHgHSlVuagYBrunXK2') {
+      return 'Only "MyBhrmar" has option to decide this.';
+    }
+    String res = "Some error Occurred";
+    try {
+      await firestore.collection('allorders').doc(id).delete();
+      await firestore.collection('userOrders').doc(id).update({
+        'status': 'delivered',
+      });
+      res = "Success";
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
 }

@@ -118,14 +118,14 @@ class Database {
     double discount,
     int discountProductLimit,
     Uint8List? newImage,
-    final snap,
+    Product snap,
   ) async {
-    if ((auth.currentUser!.uid) != snap['sellerUid']) {
+    if ((auth.currentUser!.uid) != snap.sellerUid) {
       return "Only the seller to which the products belong can update the products.";
     }
     String res = "Some error Occured";
     try {
-      String prodId = snap['id'];
+      String prodId = snap.id;
       String photoUrl = '';
       if (newImage != null) {
         photoUrl = await StorageMethods()
@@ -140,8 +140,8 @@ class Database {
         quantity: quantity,
         discount: discount,
         discountProductLimit: discountProductLimit,
-        sellerUid: snap['sellerUid'],
-        category: snap['category'],
+        sellerUid: snap.sellerUid,
+        category: snap.category,
       );
       firestore.collection('products').doc(prodId).set(
             product.toMap(),

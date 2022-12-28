@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:admin_panel/auth&database/database.dart';
+import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import '../shared/shared_properties.dart';
 
 class EditProduct extends StatefulWidget {
-  final dynamic snap;
+  final Product snap;
   const EditProduct({
     Key? key,
     required this.snap,
@@ -79,13 +80,13 @@ class _EditProductState extends State<EditProduct> {
     final size =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     if (!f) {
-      photoUrl = widget.snap['photoUrl'];
-      namecontroller.text = widget.snap['name'];
-      desccontroller.text = widget.snap['desc'];
-      pricecontroller.text = (widget.snap['price']).toString();
-      quantitycontroller.text = (widget.snap['quantity']).toString();
-      discountcontroller.text = (widget.snap['discount']).toString();
-      dplcontroller.text = (widget.snap['discountProductLimit']).toString();
+      photoUrl = widget.snap.photoUrl;
+      namecontroller.text = widget.snap.name;
+      desccontroller.text = widget.snap.desc;
+      pricecontroller.text = (widget.snap.price).toString();
+      quantitycontroller.text = (widget.snap.quantity).toString();
+      discountcontroller.text = (widget.snap.discount).toString();
+      dplcontroller.text = (widget.snap.discountProductLimit).toString();
       f = true;
     }
     return Scaffold(
@@ -102,8 +103,8 @@ class _EditProductState extends State<EditProduct> {
               });
               Shared().deleteProduct(
                 context,
-                widget.snap['id'],
-                widget.snap['sellerUid'],
+                widget.snap.id,
+                widget.snap.sellerUid,
                 true,
               );
               setState(() {

@@ -1,3 +1,4 @@
+import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/screens/edit_products_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../shared/shared_properties.dart';
 
 class ProductTile extends StatelessWidget {
-  final dynamic snap;
+  final Product snap;
 
   const ProductTile({super.key, required this.snap});
 
@@ -21,8 +22,8 @@ class ProductTile extends StatelessWidget {
             onPressed: (_) {
               Shared().deleteProduct(
                 context,
-                snap['id'],
-                snap['sellerUid'],
+                snap.id,
+                snap.sellerUid,
                 false,
               );
             },
@@ -82,12 +83,12 @@ class ProductTile extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: NetworkImage(snap['photoUrl']), fit: BoxFit.fill),
+                    image: NetworkImage(snap.photoUrl), fit: BoxFit.fill),
               ),
             ),
-            title: Text(snap['name']),
+            title: Text(snap.name),
             subtitle: Text(
-              snap['desc'],
+              snap.desc,
               overflow: TextOverflow.ellipsis,
             ),
             trailing: Column(
@@ -95,12 +96,12 @@ class ProductTile extends StatelessWidget {
               // mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '₹${snap['price']}',
+                  '₹${snap.price}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.teal),
                 ),
                 Text(
-                  '  Q:${snap['quantity']}',
+                  '  Q:${snap.quantity}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.deepPurple),
                 ),

@@ -1,6 +1,7 @@
 import 'package:admin_panel/auth&database/authmethods.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
+import 'package:admin_panel/widgets/loading.dart';
 import 'package:flutter/material.dart';
 
 import 'forgot_password.dart';
@@ -17,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
+  bool isLoading = false;
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -90,13 +92,13 @@ class _LoginPageState extends State<LoginPage> {
                                 },
 
                                 // check tha validation
-                                validator: (val) {
-                                  return RegExp(
-                                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                          .hasMatch(val!)
-                                      ? null
-                                      : "Please enter a valid email";
-                                },
+                                // validator: (val) {
+                                //   return RegExp(
+                                //               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                //           .hasMatch(val!)
+                                //       ? null
+                                //       : "Please enter a valid email";
+                                // },
                               ),
                               const SizedBox(height: 15),
                               TextFormField(
@@ -109,13 +111,13 @@ class _LoginPageState extends State<LoginPage> {
                                       Icons.lock,
                                       color: Theme.of(context).primaryColor,
                                     )),
-                                validator: (val) {
-                                  if (val!.length < 6) {
-                                    return "Password must be at least 6 characters";
-                                  } else {
-                                    return null;
-                                  }
-                                },
+                                // validator: (val) {
+                                //   if (val!.length < 6) {
+                                //     return "Password must be at least 6 characters";
+                                //   } else {
+                                //     return null;
+                                //   }
+                                // },
                                 onChanged: (val) {
                                   setState(() {
                                     password = val;
@@ -151,46 +153,55 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 60),
-                      GestureDetector(
-                        onTap: () async {
-                          formKey.currentState!.validate();
-                          String res = await AuthMethods().logmein(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-                          if (res == 'Success') {
-                            // navigate
-                            // print('success');
-                            if (!mounted) return;
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ),
-                            );
-                          } else {
-                            Shared().snackbar(
-                              message: res,
-                              context: context,
-                            );
-                          }
-                        },
-                        child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 20),
-                            width: double.infinity,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                color: const Color.fromRGBO(255, 176, 57, 1),
-                                // border: Border.all(width: 1),
-                                borderRadius: BorderRadius.circular(35)),
-                            child: const Center(
-                              child: Text(
-                                'Sign In',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 17.5),
-                              ),
-                            )),
-                      )
+                      isLoading
+                          ? const Loading()
+                          : GestureDetector(
+                              onTap: () async {
+                                formKey.currentState!.validate();
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                String res = await AuthMethods().logmein(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                if (res == 'Success') {
+                                  // navigate
+                                  // print('success');
+                                  if (!mounted) return;
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomePage(),
+                                    ),
+                                  );
+                                } else {
+                                  Shared().snackbar(
+                                    message: res,
+                                    context: context,
+                                  );
+                                }
+                              },
+                              child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 20),
+                                  width: double.infinity,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color:
+                                          const Color.fromRGBO(255, 176, 57, 1),
+                                      // border: Border.all(width: 1),
+                                      borderRadius: BorderRadius.circular(35)),
+                                  child: const Center(
+                                    child: Text(
+                                      'Sign In',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 17.5),
+                                    ),
+                                  )),
+                            )
                     ],
                   ),
                 ),

@@ -88,263 +88,261 @@ class _EditProductState extends State<EditProduct> {
       dplcontroller.text = (widget.snap['discountProductLimit']).toString();
       f = true;
     }
-    return isLoading
-        ? const Scaffold(
-            body: Loading(),
-          )
-        : Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              // backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
-              title: const Text('Edit Product'),
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  onPressed: () async {
-                    bool ff = Shared().deleteProduct(
-                      context,
-                      widget.snap['id'],
-                      widget.snap['sellerUid'],
-                    );
-                    if (ff) {
-                      setState(() {
-                        namecontroller.text = "";
-                        desccontroller.text = "";
-                        pricecontroller.text = "";
-                        discountcontroller.text = "";
-                        dplcontroller.text = "";
-                        quantitycontroller.text = "";
-                        image = null;
-                        isLoading = false;
-                        photoUrl = '';
-                      });
-                    }
-                  },
-                  icon: const Icon(
-                    Icons.delete_forever,
-                  ),
-                )
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        // backgroundColor: const Color.fromRGBO(204, 82, 88, 1),
+        title: const Text('Edit Product'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              bool ff = Shared().deleteProduct(
+                context,
+                widget.snap['id'],
+                widget.snap['sellerUid'],
+              );
+              if (ff) {
+                setState(() {
+                  namecontroller.text = "";
+                  desccontroller.text = "";
+                  pricecontroller.text = "";
+                  discountcontroller.text = "";
+                  dplcontroller.text = "";
+                  quantitycontroller.text = "";
+                  image = null;
+                  isLoading = false;
+                  photoUrl = '';
+                  ff = false;
+                });
+              }
+            },
+            icon: const Icon(
+              Icons.delete_forever,
             ),
-            body: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2.5,
-                        color: const Color.fromRGBO(255, 176, 57, 1),
-                      ),
-                    ),
-                    height: size * 0.35,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1,
-                        vertical: MediaQuery.of(context).size.width * 0.05),
-                    child: image != null
-                        ? Image(
-                            image: MemoryImage(image!),
-                            fit: BoxFit.contain,
-                          )
-                        : photoUrl != ''
-                            ? Image(
-                                image: NetworkImage(
-                                  photoUrl!,
-                                ),
-                              )
-                            : const Image(
-                                image: AssetImage(
-                                  'assets/logo1.png',
-                                ),
-                              ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        image == null
-                            ? const Text(
-                                'Add a photo',
-                                style: TextStyle(
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.blueGrey,
-                                ),
-                              )
-                            : const Text(
-                                'Photo Added',
-                                style: TextStyle(
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor:
-                              const Color.fromRGBO(255, 176, 57, 1),
-                          child: IconButton(
-                            color: Colors.white,
-                            onPressed: _selectImage,
-                            icon: const Icon(
-                              Icons.add_a_photo,
-                            ),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2.5,
+                  color: const Color.fromRGBO(255, 176, 57, 1),
+                ),
+              ),
+              height: size * 0.35,
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1,
+                  vertical: MediaQuery.of(context).size.width * 0.05),
+              child: image != null
+                  ? Image(
+                      image: MemoryImage(image!),
+                      fit: BoxFit.contain,
+                    )
+                  : photoUrl != ''
+                      ? Image(
+                          image: NetworkImage(
+                            photoUrl!,
                           ),
                         )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: TextField(
-                      controller: namecontroller,
-                      style: const TextStyle(),
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        // filled: true,
-                        hintText: "Name of the Product",
-                        icon: const Icon(
-                          Icons.shop_2,
-                          // color: Colors.black,
+                      : const Image(
+                          image: AssetImage(
+                            'assets/logo1.png',
+                          ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  image == null
+                      ? const Text(
+                          'Add a photo',
+                          style: TextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.blueGrey,
+                          ),
+                        )
+                      : const Text(
+                          'Photo Added',
+                          style: TextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.blueGrey,
+                          ),
                         ),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
+                    child: IconButton(
+                      color: Colors.white,
+                      onPressed: _selectImage,
+                      icon: const Icon(
+                        Icons.add_a_photo,
                       ),
                     ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
+              child: TextField(
+                controller: namecontroller,
+                style: const TextStyle(),
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  fillColor: Colors.grey.shade100,
+                  // filled: true,
+                  hintText: "Name of the Product",
+                  icon: const Icon(
+                    Icons.shop_2,
+                    // color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: TextField(
-                      controller: desccontroller,
-                      keyboardType: TextInputType.text,
-                      style: const TextStyle(),
-                      maxLines: 3,
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        // filled: true,
-                        hintText: "Enter Product description",
-                        icon: const Icon(
-                          Icons.notes,
-                          // color: Colors.black,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
+              child: TextField(
+                controller: desccontroller,
+                keyboardType: TextInputType.text,
+                style: const TextStyle(),
+                maxLines: 3,
+                decoration: InputDecoration(
+                  fillColor: Colors.grey.shade100,
+                  // filled: true,
+                  hintText: "Enter Product description",
+                  icon: const Icon(
+                    Icons.notes,
+                    // color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: TextField(
-                      controller: pricecontroller,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(),
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        // filled: true,
-                        hintText: "Set Price",
-                        icon: const Icon(
-                          Icons.price_check,
-                          // color: Colors.black,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
+              child: TextField(
+                controller: pricecontroller,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(),
+                decoration: InputDecoration(
+                  fillColor: Colors.grey.shade100,
+                  // filled: true,
+                  hintText: "Set Price",
+                  icon: const Icon(
+                    Icons.price_check,
+                    // color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: TextField(
-                      controller: quantitycontroller,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(),
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        // filled: true,
-                        hintText: "Enter Quantitiy",
-                        icon: const Icon(
-                          Icons.production_quantity_limits_outlined,
-                          // color: Colors.black,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
+              child: TextField(
+                controller: quantitycontroller,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(),
+                decoration: InputDecoration(
+                  fillColor: Colors.grey.shade100,
+                  // filled: true,
+                  hintText: "Enter Quantitiy",
+                  icon: const Icon(
+                    Icons.production_quantity_limits_outlined,
+                    // color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: TextField(
-                      controller: discountcontroller,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(),
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        // filled: true,
-                        hintText: "Enter Discount(%)",
-                        icon: const Icon(
-                          Icons.discount,
-                          // color: Colors.black,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
+              child: TextField(
+                controller: discountcontroller,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(),
+                decoration: InputDecoration(
+                  fillColor: Colors.grey.shade100,
+                  // filled: true,
+                  hintText: "Enter Discount(%)",
+                  icon: const Icon(
+                    Icons.discount,
+                    // color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    child: TextField(
-                      controller: dplcontroller,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(),
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey.shade100,
-                        // filled: true,
-                        hintText: "Discount Product limit",
-                        icon: const Icon(
-                          Icons.label_outline,
-                          // color: Colors.black,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
+              child: TextField(
+                controller: dplcontroller,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(),
+                decoration: InputDecoration(
+                  fillColor: Colors.grey.shade100,
+                  // filled: true,
+                  hintText: "Discount Product limit",
+                  icon: const Icon(
+                    Icons.label_outline,
+                    // color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  InkWell(
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            isLoading
+                ? const Loading()
+                : InkWell(
                     onTap: _saveChanges,
                     child: Container(
                       height: 40,
@@ -367,10 +365,10 @@ class _EditProductState extends State<EditProduct> {
                       ),
                     ),
                   )
-                ],
-              ),
-            ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 
   void _saveChanges() async {
@@ -402,24 +400,10 @@ class _EditProductState extends State<EditProduct> {
       widget.snap,
     );
     if (res ==
-        'Only the seller to which the products belong can update the products.') {
-      setState(() {
-        isLoading = false;
-      });
-    } else {
-      setState(() {
-        namecontroller.text = "";
-        desccontroller.text = "";
-        pricecontroller.text = "";
-        discountcontroller.text = "";
-        dplcontroller.text = "";
-        quantitycontroller.text = "";
-        image = null;
-        isLoading = false;
-        photoUrl = '';
-      });
-    }
-
+        'Only the seller to which the products belong can update the products.') {}
+    setState(() {
+      isLoading = false;
+    });
     if (res != "Success") {
       Shared().snackbar(
         message: res,

@@ -21,6 +21,7 @@ class _OrderDetailState extends State<OrderDetail> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'OrderId: ${widget.snap['orderId']}',
           overflow: TextOverflow.clip,
@@ -28,107 +29,119 @@ class _OrderDetailState extends State<OrderDetail> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              width: double.infinity,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2.5,
+                    color: const Color.fromRGBO(255, 176, 57, 1),
+                  ),
+                ),
+                // height: size * 0.35,
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.1,
+                    vertical: MediaQuery.of(context).size.width * 0.05),
+                child: Image(
+                  image: NetworkImage(
+                    widget.snap['photoUrl'],
+                  ),
+                ),
+              ),
+            ),
+            const Divider(thickness: 3),
+            const SizedBox(
+              height: 20,
+            ),
             Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2.5,
-                  color: const Color.fromRGBO(255, 176, 57, 1),
-                ),
-              ),
-              height: size * 0.35,
-              margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.1,
-                  vertical: MediaQuery.of(context).size.width * 0.05),
-              child: Image(
-                image: NetworkImage(
-                  widget.snap['photoUrl'],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'Name : ${widget.snap['name']}',
-                ),
-                Text('Quantity Ordered: ${widget.snap['quantity']}')
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'Price/item : ${double.parse(widget.snap['price']) / double.parse(widget.snap['quantity'])}',
-                ),
-                Text('Total Price: ${widget.snap['price']}')
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.1),
-              child: Container(
-                color: Colors.transparent,
-                height: 60,
-                width: double.infinity,
-                child: Center(
-                  child: Text(
-                    'Description:\n ${widget.snap['desc']}',
-                    overflow: TextOverflow.ellipsis,
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children : [
+                      const Text('Name :     ', style: TextStyle(fontWeight: FontWeight.w500),),
+                      Text(widget.snap['name'])
+                    ],
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Order Status : ${widget.snap['status']}',
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text('Order Date: ${widget.snap['orderDate']}'),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'Ordered By : ${widget.snap['userName']}',
-                ),
-                Text('Phone: ${widget.snap['userPhone']}')
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.1),
-              child: Container(
-                color: Colors.transparent,
-                height: 100,
-                width: double.infinity,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      'Address:  ${widget.snap['userAddress']}',
-                    ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Quantity Ordered :    ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text(widget.snap['quantity']),
+                    ],
                   ),
-                ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Price/item :    ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text('${double.parse(widget.snap['price']) / double.parse(widget.snap['quantity'])}'),
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Total Price :    ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text(widget.snap['price'])
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Description :    ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['desc'])
+                      )
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Order Status :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text(widget.snap['status']),
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Order Date  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text(widget.snap['orderDate']),
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Ordered By :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text(widget.snap['userName'])
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Contact No.  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text(widget.snap['userPhone'])
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  Row(
+                    children: [
+                      const Text('Address  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width*0.65,
+                          child: Text(widget.snap['userAddress']),
+                      )
+                    ],
+                  ),
+                  const Divider(height: 35),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
             ),
             InkWell(
@@ -137,7 +150,7 @@ class _OrderDetailState extends State<OrderDetail> {
                 height: 40,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.teal,
+                  color: const Color.fromRGBO(255, 176, 57, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 margin: EdgeInsets.symmetric(
@@ -148,7 +161,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     'Order Delivered',
                     style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      // fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -173,85 +186,114 @@ class _OrderDetailState extends State<OrderDetail> {
           textAlign: TextAlign.center,
         ),
         actions: <Widget>[
-          TextField(
-            controller: controller,
-            keyboardType: TextInputType.text,
-            style: const TextStyle(),
-            decoration: InputDecoration(
-              fillColor: Colors.grey.shade100,
-              // filled: true,
-              hintText: "It is case sensitive.",
-              labelText: 'Enter product name',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              controller: controller,
+              keyboardType: TextInputType.text,
+              style: const TextStyle(),
+              decoration: InputDecoration(
+                fillColor: Colors.grey.shade100,
+                // filled: true,
+                hintText: "It is case sensitive.",
+                labelText: 'Enter product name',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
           ),
-          TextButton.icon(
-            icon: const Icon(
-              Icons.delivery_dining,
-              color: Color.fromRGBO(255, 176, 57, 1),
-            ),
-            onPressed: () async {
-              if (controller.text.isEmpty) {
-                Shared().snackbar(
-                  message: 'Please enter product name',
-                  context: context,
-                );
-                return;
-              }
-              if (controller.text == widget.snap['name']) {
-                // print(widget.snap['orderId']);
-                String s = widget.snap['orderId'];
-                final res = await Database().deleteOrder(s);
-                if (res != 'Success') {
-                  Shared().snackbar(
-                    message: res,
-                    context: context,
-                  );
-                  return;
-                } else {
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pop();
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pop();
-                  Shared().snackbar(
-                    message: 'Successfully Delivered',
-                    context: context,
-                  );
-                  return;
-                }
-              } else {
-                Shared().snackbar(
-                  message:
-                      'Please enter the name of the product correctly. It is case sensitive.',
-                  context: context,
-                );
-                return;
-              }
-            },
-            label: const Text(
-              "Delivered",
-              style: TextStyle(
-                color: Color.fromRGBO(255, 176, 57, 1),
-              ),
+          SizedBox(height: 30),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 40,
+                  width: 110,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1.5, color: Color.fromRGBO(255, 176, 57, 1),),
+                      borderRadius: BorderRadius.circular(35)
+                  ),
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    label: const Text(
+                      "Cancel",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 110,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1.5, color: Color.fromRGBO(255, 176, 57, 1),),
+                    borderRadius: BorderRadius.circular(35)
+                  ),
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.delivery_dining,
+                      color: Color.fromRGBO(255, 176, 57, 1),
+                    ),
+                    onPressed: () async {
+                      if (controller.text.isEmpty) {
+                        Shared().snackbar(
+                          message: 'Please enter product name',
+                          context: context,
+                        );
+                        return;
+                      }
+                      if (controller.text == widget.snap['name']) {
+                        // print(widget.snap['orderId']);
+                        String s = widget.snap['orderId'];
+                        final res = await Database().deleteOrder(s);
+                        if (res != 'Success') {
+                          Shared().snackbar(
+                            message: res,
+                            context: context,
+                          );
+                          return;
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context).pop();
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context).pop();
+                          Shared().snackbar(
+                            message: 'Successfully Delivered',
+                            context: context,
+                          );
+                          return;
+                        }
+                      } else {
+                        Shared().snackbar(
+                          message:
+                              'Please enter the name of the product correctly. It is case sensitive.',
+                          context: context,
+                        );
+                        return;
+                      }
+                    },
+                    label: const Text(
+                      "Delivered",
+                      style: TextStyle(
+                        color: Color.fromRGBO(255, 176, 57, 1),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          TextButton.icon(
-            icon: const Icon(
-              Icons.cancel,
-              color: Colors.grey,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            label: const Text(
-              "Cancel",
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ),
+
         ],
       ),
     );

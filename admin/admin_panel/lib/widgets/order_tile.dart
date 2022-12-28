@@ -76,7 +76,10 @@ class OrderTile extends StatelessWidget {
                     image: NetworkImage(snap['photoUrl']), fit: BoxFit.fill),
               ),
             ),
-            title: Container(child: Text(snap['name'], overflow: TextOverflow.ellipsis, )),
+            title: Text(
+              snap['name'],
+              overflow: TextOverflow.ellipsis,
+            ),
             subtitle: Text(
               snap['desc'],
               overflow: TextOverflow.ellipsis,

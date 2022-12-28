@@ -17,8 +17,8 @@ class _OrderDetailState extends State<OrderDetail> {
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size.width;
-    print(size);
+    // final size = MediaQuery.of(context).size.width;
+    // print(size);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -52,17 +52,21 @@ class _OrderDetailState extends State<OrderDetail> {
             ),
             Container(
               width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.05),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children : [
+                    children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Name :     ', style: TextStyle(fontWeight: FontWeight.w500),)),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text(
+                            'Name :     ',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          )),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
+                          width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(widget.snap['name']))
                     ],
                   ),
@@ -70,10 +74,11 @@ class _OrderDetailState extends State<OrderDetail> {
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Quantity Ordered :    ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Quantity Ordered :    ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
+                          width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(widget.snap['quantity'])),
                     ],
                   ),
@@ -81,21 +86,24 @@ class _OrderDetailState extends State<OrderDetail> {
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Price/item :    ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Price/item :    ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
-                          child: Text('${double.parse(widget.snap['price']) / double.parse(widget.snap['quantity'])}')),
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          child: Text(
+                              '${double.parse(widget.snap['price']) / double.parse(widget.snap['quantity'])}')),
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Total Price :    ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Total Price :    ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
+                          width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(widget.snap['price']))
                     ],
                   ),
@@ -104,22 +112,23 @@ class _OrderDetailState extends State<OrderDetail> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Description :    ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Description :    ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
-                          child: Text(widget.snap['desc'])
-                      )
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          child: Text(widget.snap['desc']))
                     ],
                   ),
                   const Divider(height: 35),
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Order Status :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Order Status :   ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
+                          width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(widget.snap['status'])),
                     ],
                   ),
@@ -127,10 +136,11 @@ class _OrderDetailState extends State<OrderDetail> {
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Order Date  :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Order Date  :   ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
+                          width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(widget.snap['orderDate'])),
                     ],
                   ),
@@ -138,10 +148,11 @@ class _OrderDetailState extends State<OrderDetail> {
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Ordered By :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Ordered By :   ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
+                          width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(widget.snap['userName']))
                     ],
                   ),
@@ -149,10 +160,11 @@ class _OrderDetailState extends State<OrderDetail> {
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Contact No.  :   ', style: TextStyle(fontWeight: FontWeight.w500))),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: const Text('Contact No.  :   ',
+                              style: TextStyle(fontWeight: FontWeight.w500))),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width*0.65,
+                          width: MediaQuery.of(context).size.width * 0.65,
                           child: Text(widget.snap['userPhone']))
                     ],
                   ),
@@ -160,12 +172,13 @@ class _OrderDetailState extends State<OrderDetail> {
                   Row(
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width*0.25,
-                          child: const Text('Address  :   ', style: TextStyle(fontWeight: FontWeight.w500)),
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        child: const Text('Address  :   ',
+                            style: TextStyle(fontWeight: FontWeight.w500)),
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width*0.65,
-                          child: Text(widget.snap['userAddress']),
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        child: Text(widget.snap['userAddress']),
                       )
                     ],
                   ),
@@ -219,7 +232,7 @@ class _OrderDetailState extends State<OrderDetail> {
         ),
         actions: <Widget>[
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
               controller: controller,
               keyboardType: TextInputType.text,
@@ -235,9 +248,11 @@ class _OrderDetailState extends State<OrderDetail> {
               ),
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(
+            height: 30,
+          ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 18),
+            margin: const EdgeInsets.symmetric(horizontal: 18),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -245,9 +260,11 @@ class _OrderDetailState extends State<OrderDetail> {
                   height: 40,
                   width: 110,
                   decoration: BoxDecoration(
-                      border: Border.all(width: 1.5, color: Color.fromRGBO(255, 176, 57, 1),),
-                      borderRadius: BorderRadius.circular(35)
-                  ),
+                      border: Border.all(
+                        width: 1.5,
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                      ),
+                      borderRadius: BorderRadius.circular(35)),
                   child: TextButton.icon(
                     icon: const Icon(
                       Icons.cancel,
@@ -268,9 +285,11 @@ class _OrderDetailState extends State<OrderDetail> {
                   height: 40,
                   width: 110,
                   decoration: BoxDecoration(
-                    border: Border.all(width: 1.5, color: Color.fromRGBO(255, 176, 57, 1),),
-                    borderRadius: BorderRadius.circular(35)
-                  ),
+                      border: Border.all(
+                        width: 1.5,
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                      ),
+                      borderRadius: BorderRadius.circular(35)),
                   child: TextButton.icon(
                     icon: const Icon(
                       Icons.delivery_dining,
@@ -325,7 +344,6 @@ class _OrderDetailState extends State<OrderDetail> {
               ],
             ),
           ),
-
         ],
       ),
     );

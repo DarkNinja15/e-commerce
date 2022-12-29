@@ -28,26 +28,21 @@ class _NavigationPageState extends State<NavigationPage> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: Drawer(),
-      appBar: AppBar(
-        elevation: 0,
-        title: Text('B H R M A R'),
-        centerTitle: true,
-      ),
       body:  Center(
         child: Page_List[_selectedIndex],
       ),
 
         bottomNavigationBar: Container(
-          height: MediaQuery.of(context).size.height * 0.065,
+          height: MediaQuery.of(context).size.height * 0.072,
           width: double.infinity,
           decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
                     color: Color.fromRGBO(255, 176, 57, 1),
-                    spreadRadius: 1.0,
-                    blurRadius: 2.0)
+                    spreadRadius: 0.5,
+                    blurRadius: 1.0)
               ],
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
               color: Colors.white
           ),
           child: Row(

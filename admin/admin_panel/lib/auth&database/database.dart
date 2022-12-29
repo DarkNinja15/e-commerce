@@ -169,16 +169,17 @@ class Database {
     }
     String res = "Some error Occurred";
     try {
-
       //***********************************************************************   Storage Pic Deletion..
 
-      final CollectionReference productCollection = FirebaseFirestore.instance.collection("products");
-      QuerySnapshot snap = await productCollection.where('id', isEqualTo: id).get() ;
-      var myData = snap.docs.map((e) => e.data()).toList() ;
+      final CollectionReference productCollection =
+          FirebaseFirestore.instance.collection("products");
+      QuerySnapshot snap =
+          await productCollection.where('id', isEqualTo: id).get();
+      var myData = snap.docs.map((e) => e.data()).toList();
       var data = myData[0] as Map;
-      String pic_url =  data['photoUrl'] ;
+      String picUrl = data['photoUrl'];
 
-      final httpsReference = FirebaseStorage.instance.refFromURL(pic_url);
+      final httpsReference = FirebaseStorage.instance.refFromURL(picUrl);
       await httpsReference.delete();
 
       //***********************************************************************
@@ -186,7 +187,6 @@ class Database {
       await firestore.collection('products').doc(id).delete();
       res = "Success";
       return res;
-
     } on FirebaseException catch (_) {
       // Caught an exception from Firebase.
       // print("Failed with error '${e.code}': ${e.message}");
@@ -195,8 +195,6 @@ class Database {
       // print(e.toString());
       return e.toString();
     }
-
-
   }
 
   // retrieving list of products

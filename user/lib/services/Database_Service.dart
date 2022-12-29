@@ -18,11 +18,12 @@ class DatabaseService {
     DocumentSnapshot snap = await userCollection.doc(uid).get();
     if (snap.data() == null) {
       await userCollection.doc(uid).set({
-        "user_name": user?.displayName,
-        "phone_no": user?.phoneNumber,
+        "userUid": uid,
+        "userName": user?.displayName,
+        "phoneNo": user?.phoneNumber,
         "address": " ",
         "email": user?.email,
-        "profile_pic_url": user?.photoURL,
+        "profilePicUrl": user?.photoURL,
         "cart": [],
         "wishlist": [],
         "orders": [],

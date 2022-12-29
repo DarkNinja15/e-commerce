@@ -29,10 +29,15 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+
   cloud_firestore: ^4.3.0
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.2.3
   firebase_core: ^2.4.0
+
+  google_sign_in: ^5.4.2
+  shared_preferences: ^2.0.15
+
   flutter:
     sdk: flutter
   flutter_spinkit: ^5.1.0
@@ -57,7 +62,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/screen1.png
+    - assets/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

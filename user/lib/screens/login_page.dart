@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:user/screens/forgot_password_screen.dart';
 import 'package:user/widgets/loading.dart';
 import 'package:user/widgets/textfield.dart';
+import '../services/Auth_Service.dart';
+import 'Home_Page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.37,
@@ -133,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 60),
+                      const SizedBox(height: 5),
                       isLoading
                           ? const Loading()
                           : GestureDetector(
@@ -167,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               child: Container(
                                   margin: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 20),
+                                      horizontal: 8, vertical: 10),
                                   width: double.infinity,
                                   height: 40,
                                   decoration: BoxDecoration(
@@ -182,7 +184,46 @@ class _LoginPageState extends State<LoginPage> {
                                           color: Colors.white, fontSize: 17.5),
                                     ),
                                   )),
+                            ),
+                      SizedBox(height: 100),
+                      InkWell(
+                        onTap: () async {
+                          await Authentication.signInWithGoogle(context: context).then((val) {
+                            if(val==true){
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+                            }
+                          });
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 0.5),
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            width: MediaQuery.of(context).size.width*0.4,
+                            height: 30,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/Google.png', width: 20,),
+                                const Text('   Sign In With Google', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 10),)
+                              ],
                             )
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('Did not have a account ? '),
+                            InkWell(
+                              onTap: (){},
+                                child: Text('Register here .', style: TextStyle(color: const Color.fromRGBO(255, 176, 57, 1)),))
+                          ],
+                        ),
+                      ),
+
                     ],
                   ),
                 ),

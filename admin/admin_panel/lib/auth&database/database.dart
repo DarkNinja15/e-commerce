@@ -10,6 +10,9 @@ import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
+
 class Database {
   final firestore = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
@@ -166,9 +169,24 @@ class Database {
     }
     String res = "Some error Occurred";
     try {
+
+      //***********************************************************************   Storage Pic Deletion..
+
+      final CollectionReference productCollection = FirebaseFirestore.instance.collection("products");
+      QuerySnapshot snap = await productCollection.where('id', isEqualTo: id).get() ;
+      var myData = snap.docs.map((e) => e.data()).toList() ;
+      var data = myData[0] as Map;
+      String pic_url =  data['photoUrl'] ;
+
+      final httpsReference = FirebaseStorage.instance.refFromURL(pic_url);
+      await httpsReference.delete();
+
+      //***********************************************************************
+
       await firestore.collection('products').doc(id).delete();
       res = "Success";
       return res;
+
     } on FirebaseException catch (_) {
       // Caught an exception from Firebase.
       // print("Failed with error '${e.code}': ${e.message}");
@@ -177,6 +195,8 @@ class Database {
       // print(e.toString());
       return e.toString();
     }
+
+
   }
 
   // retrieving list of products

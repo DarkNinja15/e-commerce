@@ -393,13 +393,13 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
     });
     final res = await Database().addProduct(
-      namecontroller.text,
-      desccontroller.text,
-      pricecontroller.text,
+      namecontroller.text.trim(),
+      desccontroller.text.trim(),
+      pricecontroller.text.trim(),
       image,
-      int.parse(quantitycontroller.text),
-      double.parse(discountcontroller.text),
-      int.parse(dplcontroller.text),
+      int.parse(quantitycontroller.text.trim()),
+      double.parse(discountcontroller.text.trim()),
+      int.parse(dplcontroller.text.trim()),
       FirebaseAuth.instance.currentUser!.uid,
       selectedCattegory,
     );

@@ -1,6 +1,5 @@
 import 'package:admin_panel/models/order_model.dart' as od;
 import 'package:admin_panel/widgets/drawer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/loading.dart';
@@ -14,7 +13,7 @@ class ViewOrder extends StatefulWidget {
 }
 
 class _ViewOrderState extends State<ViewOrder> {
-  List searchResult = [];
+  List<od.Order> searchResult = [];
   TextEditingController controller = TextEditingController();
   List<od.Order> ord = [];
   bool isLoading = false;
@@ -34,12 +33,26 @@ class _ViewOrderState extends State<ViewOrder> {
   @override
   void didChangeDependencies() {
     ord = Provider.of<List<od.Order>>(context);
-    Future.delayed(const Duration(seconds: 2), () {
+    // print('ord');
+    // print(ord);
+    Future.delayed(
+        const Duration(
+          seconds: 2,
+        ), () {
       setState(() {
         isLoading = false;
       });
     });
     super.didChangeDependencies();
+  }
+
+  void searchquery(String query) {
+    setState(() {
+      searchResult =
+          (ord.where((element) => element.name.toLowerCase().startsWith(query)))
+              .toList();
+    });
+    // print(searchResult);
   }
 
   @override
@@ -63,9 +76,10 @@ class _ViewOrderState extends State<ViewOrder> {
                     decoration:
                         BoxDecoration(color: Theme.of(context).primaryColor),
                     child: TextField(
-                      // controller: controller,
+                      controller: controller,
                       onChanged: (query) {
-                        searchquery(query);
+                        // print(query);
+                        searchquery(query.toLowerCase());
                       },
                       style: const TextStyle(),
                       keyboardType: TextInputType.text,
@@ -87,7 +101,11 @@ class _ViewOrderState extends State<ViewOrder> {
                   ord.isEmpty
                       ? Column(
                           children: const [
-                            Image(image: AssetImage('assets/void.png')),
+                            Image(
+                              image: AssetImage(
+                                'assets/void.png',
+                              ),
+                            ),
                             Text(
                               'Nothing to Show',
                               textAlign: TextAlign.center,
@@ -113,7 +131,10 @@ class _ViewOrderState extends State<ViewOrder> {
                                   child: Column(
                                     children: const [
                                       Image(
-                                          image: AssetImage('assets/void.png')),
+                                        image: AssetImage(
+                                          'assets/void.png',
+                                        ),
+                                      ),
                                       Text(
                                         'Nothing to Show',
                                         textAlign: TextAlign.center,
@@ -126,10 +147,11 @@ class _ViewOrderState extends State<ViewOrder> {
                                 )
                               : Expanded(
                                   child: ListView.builder(
-                                    shrinkWrap: true,
+                                    // shrinkWrap: true,
                                     itemCount: searchResult.length,
                                     itemBuilder: (context, index) {
-                                      // print(searchResult[index]['name']);
+                                      // print(searchResult[index]);
+                                      // print('searchResult[index]');
                                       return OrderTile(
                                           snap: searchResult[index]);
                                     },
@@ -137,21 +159,6 @@ class _ViewOrderState extends State<ViewOrder> {
                                 )
                 ],
               ));
-  }
-
-  void searchquery(String query) async {
-    final result = await FirebaseFirestore.instance
-        .collection('products')
-        .where(
-          'name',
-          // isLessThanOrEqualTo: query,
-          isLessThanOrEqualTo: query.toLowerCase(),
-        )
-        .get();
-
-    setState(() {
-      searchResult = result.docs.map((e) => e.data()).toList();
-    });
   }
 }
 

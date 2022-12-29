@@ -246,11 +246,11 @@ class _AddSellerState extends State<AddSeller> {
       isLoading = true;
     });
     final res = await Database().addSeller(
-      namecontroller.text,
-      phonecontroller.text,
-      addresscontroller.text,
-      emailcontroller.text,
-      passwordcontroller.text,
+      namecontroller.text.trim(),
+      phonecontroller.text.trim(),
+      addresscontroller.text.trim(),
+      emailcontroller.text.trim(),
+      passwordcontroller.text.trim(),
     );
     setState(() {
       namecontroller.text = "";

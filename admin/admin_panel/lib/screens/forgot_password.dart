@@ -86,7 +86,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   void _forgotpass() async {
     final res = await AuthMethods().resetPassword(
-      emailcontroller.text,
+      emailcontroller.text.trim(),
     );
     if (res != 'Success') {
       Shared().snackbar(

@@ -383,13 +383,13 @@ class _EditProductState extends State<EditProduct> {
       isLoading = true;
     });
     final res = await Database().updateSeller(
-      namecontroller.text,
-      desccontroller.text,
-      pricecontroller.text,
+      namecontroller.text.trim(),
+      desccontroller.text.trim(),
+      pricecontroller.text.trim(),
       photoUrl!,
-      int.parse(quantitycontroller.text),
-      double.parse(discountcontroller.text),
-      int.parse(dplcontroller.text),
+      int.parse(quantitycontroller.text.trim()),
+      double.parse(discountcontroller.text.trim()),
+      int.parse(dplcontroller.text.trim()),
       image,
       widget.snap,
     );

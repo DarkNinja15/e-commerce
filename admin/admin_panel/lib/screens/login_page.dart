@@ -162,8 +162,8 @@ class _LoginPageState extends State<LoginPage> {
                                   isLoading = true;
                                 });
                                 String res = await AuthMethods().logmein(
-                                  email: emailController.text,
-                                  password: passwordController.text,
+                                  email: emailController.text.trim(),
+                                  password: passwordController.text.trim(),
                                 );
                                 setState(() {
                                   isLoading = false;

@@ -304,7 +304,7 @@ class _OrderDetailState extends State<OrderDetail> {
                         );
                         return;
                       }
-                      if (controller.text == widget.snap.name) {
+                      if (controller.text.trim() == widget.snap.name) {
                         // print(widget.snap['orderId']);
                         String s = widget.snap.orderId;
                         final res = await Database().deleteOrder(s);

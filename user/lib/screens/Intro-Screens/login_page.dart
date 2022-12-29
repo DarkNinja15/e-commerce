@@ -4,7 +4,7 @@ import 'package:user/screens/Intro-Screens/forgot_password_screen.dart';
 import 'package:user/widgets/loading.dart';
 import 'package:user/widgets/textfield.dart';
 import '../../services/Auth_Service.dart';
-import '../Navigation_Page.dart';
+import '../Others/Navigation_Page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

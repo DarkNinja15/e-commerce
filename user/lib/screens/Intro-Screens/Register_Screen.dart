@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:user/screens/Intro-Screens/login_page.dart';
 import '../../services/Auth_Service.dart';
 import '../../widgets/textfield.dart';
-import '../Navigation_Page.dart';
+import '../Others/Navigation_Page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);

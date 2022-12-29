@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names, file_names
 
 import 'package:flutter/material.dart';
-import 'package:user/screens/All_Categories.dart';
-import 'package:user/screens/WishList.dart';
+import 'package:user/screens/Others/All_Categories.dart';
+import 'package:user/screens/Others/WishList.dart';
 
 import 'HomePage.dart';
 import 'ProfilePage.dart';

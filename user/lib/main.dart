@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:user/screens/Splash_Screen.dart';
+import 'package:user/screens/Intro-Screens/Splash_Screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: Color.fromRGBO(238, 246, 250, 1.0),
         brightness: Brightness.light,
         primarySwatch: Colors.teal,
         primaryColor: Colors.teal,
       ),
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

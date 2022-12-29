@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:user/screens/forgot_password_screen.dart';
+import 'package:user/screens/Intro-Screens/Register_Screen.dart';
+import 'package:user/screens/Intro-Screens/forgot_password_screen.dart';
 import 'package:user/widgets/loading.dart';
 import 'package:user/widgets/textfield.dart';
-import '../services/auth_service.dart';
-import 'home_page.dart';
+import '../../services/Auth_Service.dart';
+import '../Navigation_Page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -185,21 +186,12 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   )),
                             ),
-                      const SizedBox(
-                        height: 100,
-                      ),
+                      SizedBox(height: 100),
                       InkWell(
                         onTap: () async {
-                          await Authentication.signInWithGoogle(
-                                  context: context)
-                              .then((val) {
-                            if (val == true) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
-                                ),
-                              );
+                          await Authentication.signInWithGoogle(context: context).then((val) {
+                            if(val==true){
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationPage()));
                             }
                           });
                         },
@@ -208,44 +200,33 @@ class _LoginPageState extends State<LoginPage> {
                               border: Border.all(width: 0.5),
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            width: MediaQuery.of(context).size.width * 0.4,
+                            width: MediaQuery.of(context).size.width*0.4,
                             height: 30,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'assets/Google.png',
-                                  width: 20,
-                                ),
-                                const Text(
-                                  '   Sign In With Google',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 10),
-                                )
+                                Image.asset('assets/Google.png', width: 20,),
+                                const Text('   Sign In With Google', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 10),)
                               ],
-                            )),
+                            )
+                        ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20,),
                       Container(
-                        margin: const EdgeInsets.all(10),
+                        margin: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text('Did not have a account ? '),
                             InkWell(
-                                onTap: () {},
-                                child: const Text(
-                                  'Register here .',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(255, 176, 57, 1),
-                                  ),
-                                ))
+                              onTap: (){
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                              },
+                                child: Text('Register here .', style: TextStyle(color: const Color.fromRGBO(255, 176, 57, 1)),))
                           ],
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -255,5 +236,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+    ;
   }
 }

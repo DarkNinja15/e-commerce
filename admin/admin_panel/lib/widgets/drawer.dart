@@ -172,19 +172,19 @@ class Drawerc extends StatelessWidget {
                     );
                   },
                 ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.person_add,
-                  ),
-                  title: const Text('Add a seller'),
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const AddSeller(),
-                      ),
-                    );
-                  },
-                ),
+                // ListTile(
+                //   leading: const Icon(
+                //     Icons.person_add,
+                //   ),
+                //   title: const Text('Add a seller'),
+                //   onTap: () {
+                //     Navigator.of(context).pushReplacement(
+                //       MaterialPageRoute(
+                //         builder: (context) => const AddSeller(),
+                //       ),
+                //     );
+                //   },
+                // ),
                 ListTile(
                   leading: const Icon(
                     Icons.category,

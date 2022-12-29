@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromRGBO(238, 246, 250, 1.0),
+        scaffoldBackgroundColor: const Color.fromRGBO(238, 246, 250, 1.0),
         brightness: Brightness.light,
         primarySwatch: Colors.teal,
         primaryColor: Colors.teal,
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

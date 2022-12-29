@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:user/screens/Intro-Screens/login_page.dart';
 import '../../services/Auth_Service.dart';
@@ -30,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   height: 130,
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 15),
+                    margin: const EdgeInsets.symmetric(vertical: 15),
                     child: Column(
                       children: const [
                         Text(
@@ -52,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
                     children: [
                       Form(
@@ -115,36 +117,45 @@ class _RegisterPageState extends State<RegisterPage> {
                                   color: Theme.of(context).primaryColor,
                                 )),
                             onChanged: (val) {
-                              setState(() {
-                              });
+                              setState(() {});
                             },
                           ),
                           const SizedBox(
                             height: 30,
                           ),
                           Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 10),
-                              width: double.infinity,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  color:
-                                  const Color.fromRGBO(255, 176, 57, 1),
-                                  // border: Border.all(width: 1),
-                                  borderRadius: BorderRadius.circular(35)),
-                              child: const Center(
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 17.5),
-                                ),
-                              ),),
-                          SizedBox(height: 100),
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 10),
+                            width: double.infinity,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(255, 176, 57, 1),
+                                // border: Border.all(width: 1),
+                                borderRadius: BorderRadius.circular(35)),
+                            child: const Center(
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 17.5),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 100,
+                          ),
                           InkWell(
                             onTap: () async {
-                              await Authentication.signInWithGoogle(context: context).then((val) {
-                                if(val==true){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationPage()));
+                              await Authentication.signInWithGoogle(
+                                      context: context)
+                                  .then((val) {
+                                if (val == true) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NavigationPage(),
+                                    ),
+                                  );
                                 }
                               });
                             },
@@ -153,29 +164,49 @@ class _RegisterPageState extends State<RegisterPage> {
                                   border: Border.all(width: 0.5),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
-                                width: MediaQuery.of(context).size.width*0.4,
+                                width: MediaQuery.of(context).size.width * 0.4,
                                 height: 30,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset('assets/Google.png', width: 20,),
-                                    const Text('   Sign Up With Google', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 10),)
+                                    Image.asset(
+                                      'assets/Google.png',
+                                      width: 20,
+                                    ),
+                                    const Text(
+                                      '   Sign Up With Google',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 10),
+                                    )
                                   ],
-                                )
-                            ),
+                                )),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Container(
-                            margin: EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Text('Already have an account ? '),
                                 InkWell(
-                                    onTap: (){
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                                    onTap: () {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage(),
+                                        ),
+                                      );
                                     },
-                                    child: Text('Sign In here .', style: TextStyle(color: const Color.fromRGBO(255, 176, 57, 1)),))
+                                    child: const Text(
+                                      'Sign In here .',
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(255, 176, 57, 1)),
+                                    ))
                               ],
                             ),
                           ),

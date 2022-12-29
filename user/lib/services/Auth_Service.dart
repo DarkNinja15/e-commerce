@@ -1,10 +1,8 @@
-// ignore: file_names
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'Database_Service.dart';
 import 'Shared_Pref.dart';
 
@@ -25,7 +23,7 @@ class Authentication {
 
       try {
         final UserCredential userCredential =
-            await auth.signInWithPopup(authProvider);
+        await auth.signInWithPopup(authProvider);
 
         user = userCredential.user;
       } catch (e) {
@@ -33,14 +31,17 @@ class Authentication {
           print(e);
         }
       }
-    } else {
+    }
+
+    else {
+
       final GoogleSignIn googleSignIn = GoogleSignIn();
       GoogleSignInAccount? googleSignInAccount;
 
       try {
         googleSignInAccount = await googleSignIn.signIn();
-      } on PlatformException {
-        // Mobile Network check...
+      }
+      on PlatformException {  // Mobile Network check...
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.redAccent,
@@ -50,9 +51,10 @@ class Authentication {
         return false;
       }
 
+
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
+        await googleSignInAccount.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
@@ -61,29 +63,30 @@ class Authentication {
 
         try {
           final UserCredential userCredential =
-              await auth.signInWithCredential(credential);
+          await auth.signInWithCredential(credential);
 
           user = userCredential.user;
-        } on FirebaseAuthException catch (e) {
+
+        }
+
+        on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
-            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               Authentication.customSnackBar(
                 content:
-                    'The account already exists with a different credential',
+                'The account already exists with a different credential',
               ),
             );
           } else if (e.code == 'invalid-credential') {
-            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               Authentication.customSnackBar(
                 content:
-                    'Error occurred while accessing credentials. Try again.',
+                'Error occurred while accessing credentials. Try again.',
               ),
             );
           }
-        } catch (e) {
-          // ignore: use_build_context_synchronously
+        }
+        catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
             Authentication.customSnackBar(
               content: 'Error occurred using Google Sign In. Try again.',
@@ -93,7 +96,7 @@ class Authentication {
       }
     }
 
-    if (user != null) {
+    if(user!=null){
       await HelperFunctions.saveUserLoggedInStatus(true);
       await DatabaseService(uid: user.uid).savingUserData();
       return true;
@@ -110,6 +113,7 @@ class Authentication {
       }
       await FirebaseAuth.instance.signOut();
       await HelperFunctions.saveUserLoggedInStatus(false);
+
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         Authentication.customSnackBar(

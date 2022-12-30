@@ -146,6 +146,7 @@ class Database {
         discountProductLimit: discountProductLimit,
         sellerUid: snap.sellerUid,
         category: snap.category,
+        isPromoted: false,
       );
       firestore.collection('products').doc(prodId).set(
             product.toMap(),
@@ -220,6 +221,12 @@ class Database {
                     as Map<String, dynamic>)['sellerUid'],
                 category: (documentSnapshot.data()!
                     as Map<String, dynamic>)['category'],
+                discount: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['discount'],
+                discountProductLimit: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['discountProductLimit'],
+                isPromoted: ((documentSnapshot.data()!
+                    as Map<String, dynamic>)['isPromoted']) as bool,
               ),
             )
             .toList());
@@ -361,9 +368,11 @@ class Database {
   Future<String> promoteProduct(String productUid) async {
     String res = 'Some error Occurred.';
     try {
-      String uid = const Uuid().v1();
-      await FirebaseFirestore.instance.collection('promotion').doc(uid).set({
-        'promotedProds': productUid,
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(productUid)
+          .update({
+        'isPromoted': true,
       });
       res = 'Success';
       return res;

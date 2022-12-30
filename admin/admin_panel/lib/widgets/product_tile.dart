@@ -125,10 +125,18 @@ class ProductTile extends StatelessWidget {
         actions: <Widget>[
           TextButton.icon(
             icon: const Icon(
-              Icons.delete,
+              Icons.trending_up_sharp,
               color: Color.fromRGBO(255, 176, 57, 1),
             ),
             onPressed: () async {
+              if (snap.isPromoted) {
+                Navigator.of(context).pop();
+                Shared().snackbar(
+                  message: 'Product is already added to promoted list.',
+                  context: context,
+                );
+                return;
+              }
               final res = await Database().promoteProduct(
                 snap.id,
               );

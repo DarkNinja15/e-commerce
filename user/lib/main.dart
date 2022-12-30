@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/product_model.dart';
+import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Intro-Screens/Splash_Screen.dart';
 import 'package:user/services/Database_Service.dart';
 
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
         StreamProvider<List<Product>>.value(
           value: DatabaseService().products,
           initialData: const [],
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

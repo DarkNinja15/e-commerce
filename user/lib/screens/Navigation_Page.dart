@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../provider/user_provider.dart';
 import 'HomePage.dart';
 import 'Others/All_Categories.dart';
 import 'Others/ProfilePage.dart';
@@ -14,7 +16,6 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-
   int _selectedIndex = 0;
 
   static const List<Widget> Page_List = <Widget>[

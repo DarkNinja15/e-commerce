@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class UserModel {
@@ -116,5 +117,22 @@ class UserModel {
         cart.hashCode ^
         wishlist.hashCode ^
         orders.hashCode;
+  }
+
+  static UserModel fromSnap(DocumentSnapshot snap) {
+    // print('snap');
+    // print(snap.data());
+    Map<String, dynamic> snapshot = snap.data() as Map<String, dynamic>;
+    return UserModel(
+      userUid: snapshot['userUid'],
+      userName: snapshot['userName'],
+      phoneNo: snapshot['phoneNo'],
+      email: snapshot['email'],
+      address: snapshot['address'],
+      cart: snapshot['cart'],
+      orders: snapshot['orders'],
+      profilePicUrl: snapshot['profilePicUrl'],
+      wishlist: snapshot['wishlist'],
+    );
   }
 }

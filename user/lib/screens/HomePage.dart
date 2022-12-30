@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/product_model.dart';
+import '../provider/user_provider.dart';
 import '../widgets/product_tile.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -25,6 +26,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // isLoading = true;
     super.initState();
+    addData();
+  }
+
+  addData() async {
+    await Provider.of<UserProvider>(context, listen: false).refreshUser();
   }
 
   @override

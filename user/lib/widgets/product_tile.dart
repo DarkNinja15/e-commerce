@@ -71,17 +71,17 @@ Widget productTile(String url, String Name, String Description, double price,
                         ),
                       ),
                       const SizedBox(width: 10),
-                      FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            '₹$price',
-                            style: const TextStyle(
-                              color: Colors.redAccent,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ))
+                      // FittedBox(
+                      //     fit: BoxFit.contain,
+                      //     child: Text(
+                      //       '₹$price',
+                      //       style: const TextStyle(
+                      //         color: Colors.redAccent,
+                      //         fontWeight: FontWeight.bold,
+                      //         decoration: TextDecoration.lineThrough,
+                      //       ),
+                      //       overflow: TextOverflow.ellipsis,
+                      //     ))
                     ],
                   ),
                 ],

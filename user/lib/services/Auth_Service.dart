@@ -18,6 +18,16 @@ class Authentication {
     );
   }
 
+  // getting user details
+  Future<UserModel> getUserDetails() async {
+    User currentUser = FirebaseAuth.instance.currentUser!;
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .get();
+    return UserModel.fromSnap(snap);
+  }
+
   // sign in with google
   static Future<bool?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;

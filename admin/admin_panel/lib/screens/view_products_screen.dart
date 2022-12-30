@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/seller_provider.dart';
+
 class ViewProducts extends StatefulWidget {
   const ViewProducts({super.key});
 
@@ -71,6 +73,7 @@ class _ViewProductsState extends State<ViewProducts> {
 
   @override
   Widget build(BuildContext context) {
+    final seller = Provider.of<SellerProvider>(context).getSeller;
     // print('......');
     // print(prods);
     // print(controller.text.toString());
@@ -84,17 +87,22 @@ class _ViewProductsState extends State<ViewProducts> {
             : const Text('My Products'),
         centerTitle: true,
         actions: [
-          PopupMenuButton<String>(
-            onSelected: handleClick,
-            itemBuilder: (BuildContext context) {
-              return {'All Products', 'My Products'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
-          ),
+          seller.email == 'mybhrmar@gmail.com'
+              ? PopupMenuButton<String>(
+                  onSelected: handleClick,
+                  itemBuilder: (BuildContext context) {
+                    return {'All Products', 'My Products'}.map((String choice) {
+                      return PopupMenuItem<String>(
+                        value: choice,
+                        child: Text(choice),
+                      );
+                    }).toList();
+                  },
+                )
+              : const Icon(
+                  Icons.abc,
+                  color: Colors.teal,
+                )
         ],
       ),
       body: isLoading

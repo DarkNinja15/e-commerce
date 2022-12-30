@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:user/models/product_model.dart';
 import 'package:user/screens/Intro-Screens/Splash_Screen.dart';
+import 'package:user/services/Database_Service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,15 +16,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromRGBO(238, 246, 250, 1.0),
-        brightness: Brightness.light,
-        primarySwatch: Colors.teal,
-        primaryColor: Colors.teal,
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Product>>.value(
+          value: DatabaseService().products,
+          initialData: const [],
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color.fromRGBO(238, 246, 250, 1.0),
+          brightness: Brightness.light,
+          primarySwatch: Colors.teal,
+          primaryColor: Colors.teal,
+        ),
+        home: const SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }

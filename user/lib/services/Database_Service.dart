@@ -3,6 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../models/product_model.dart';
+
 var userData;
 
 class DatabaseService {
@@ -34,5 +36,39 @@ class DatabaseService {
     DocumentSnapshot snap = await userCollection.doc(uid).get();
     var temp = snap.data() as Map;
     userData = temp;
+  }
+
+  // retrieving products from database
+  Stream<List<Product>> get products {
+    return FirebaseFirestore.instance
+        .collection('products')
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map(
+              (DocumentSnapshot documentSnapshot) => Product(
+                id: (documentSnapshot.data()! as Map<String, dynamic>)['id'],
+                photoUrl: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['photoUrl'],
+                name:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['name'],
+                desc:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['desc'],
+                price:
+                    (documentSnapshot.data()! as Map<String, dynamic>)['price'],
+                quantity: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['quantity'],
+                sellerUid: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['sellerUid'],
+                category: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['category'],
+                discount: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['discount'],
+                discountProductLimit: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['discountProductLimit'],
+                isPromoted: ((documentSnapshot.data()!
+                    as Map<String, dynamic>)['isPromoted']) as bool,
+              ),
+            )
+            .toList());
   }
 }

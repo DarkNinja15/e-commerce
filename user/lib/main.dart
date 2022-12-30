@@ -16,12 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+<<<<<<< Updated upstream
         scaffoldBackgroundColor: Color.fromRGBO(238, 246, 250, 1.0),
+=======
+        scaffoldBackgroundColor: Color.fromRGBO(243, 247, 249, 1),
+>>>>>>> Stashed changes
         brightness: Brightness.light,
         primarySwatch: Colors.teal,
         primaryColor: Colors.teal,
       ),
-      home: SplashScreen(),
     );
   }
 }

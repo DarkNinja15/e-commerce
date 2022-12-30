@@ -3,8 +3,18 @@ import 'package:user/screens/Intro-Screens/Register_Screen.dart';
 import 'package:user/screens/Intro-Screens/forgot_password_screen.dart';
 import 'package:user/widgets/loading.dart';
 import 'package:user/widgets/textfield.dart';
+<<<<<<< Updated upstream:user/lib/screens/Intro-Screens/login_page.dart
 import '../../services/Auth_Service.dart';
 import '../Navigation_Page.dart';
+=======
+<<<<<<< HEAD:user/lib/screens/Intro-Screens/login_page.dart
+import '../../services/Auth_Service.dart';
+import '../Navigation_Page.dart';
+=======
+import '../services/auth_service.dart';
+import 'home_page.dart';
+>>>>>>> 6ba44b46bf83138198c0f6c6fce522a13eccfd52:user/lib/screens/login_page.dart
+>>>>>>> Stashed changes:user/lib/screens/login_page.dart
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -186,12 +196,30 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   )),
                             ),
-                      SizedBox(height: 100),
+                      const SizedBox(
+                        height: 100,
+                      ),
                       InkWell(
                         onTap: () async {
+<<<<<<< HEAD:user/lib/screens/Intro-Screens/login_page.dart
                           await Authentication.signInWithGoogle(context: context).then((val) {
                             if(val==true){
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationPage()));
+<<<<<<< Updated upstream:user/lib/screens/Intro-Screens/login_page.dart
+=======
+=======
+                          await Authentication.signInWithGoogle(
+                                  context: context)
+                              .then((val) {
+                            if (val == true) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomePage(),
+                                ),
+                              );
+>>>>>>> 6ba44b46bf83138198c0f6c6fce522a13eccfd52:user/lib/screens/login_page.dart
+>>>>>>> Stashed changes:user/lib/screens/login_page.dart
                             }
                           });
                         },
@@ -200,33 +228,54 @@ class _LoginPageState extends State<LoginPage> {
                               border: Border.all(width: 0.5),
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            width: MediaQuery.of(context).size.width*0.4,
+                            width: MediaQuery.of(context).size.width * 0.4,
                             height: 30,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('assets/Google.png', width: 20,),
-                                const Text('   Sign In With Google', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 10),)
+                                Image.asset(
+                                  'assets/Google.png',
+                                  width: 20,
+                                ),
+                                const Text(
+                                  '   Sign In With Google',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 10),
+                                )
                               ],
-                            )
-                        ),
+                            )),
                       ),
-                      SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Container(
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text('Did not have a account ? '),
                             InkWell(
+<<<<<<< Updated upstream:user/lib/screens/Intro-Screens/login_page.dart
+=======
+<<<<<<< HEAD:user/lib/screens/Intro-Screens/login_page.dart
+>>>>>>> Stashed changes:user/lib/screens/login_page.dart
                               onTap: (){
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                               },
                                 child: Text('Register here .', style: TextStyle(color: const Color.fromRGBO(255, 176, 57, 1)),))
+=======
+                                onTap: () {},
+                                child: const Text(
+                                  'Register here .',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(255, 176, 57, 1),
+                                  ),
+                                ))
+>>>>>>> 6ba44b46bf83138198c0f6c6fce522a13eccfd52:user/lib/screens/login_page.dart
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -236,6 +285,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-    ;
   }
 }

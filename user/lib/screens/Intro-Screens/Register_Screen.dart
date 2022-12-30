@@ -295,9 +295,11 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     } else {
       // ignore: use_build_context_synchronously
-      Shared().snackbar(
-        'Account created Successfully',
+      Navigator.pushReplacement(
         context,
+        MaterialPageRoute(
+          builder: (context) => const NavigationPage(),
+        ),
       );
     }
   }

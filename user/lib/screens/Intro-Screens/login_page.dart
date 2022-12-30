@@ -4,6 +4,7 @@ import 'package:user/screens/Intro-Screens/forgot_password_screen.dart';
 import 'package:user/widgets/loading.dart';
 import 'package:user/widgets/textfield.dart';
 import '../../services/Auth_Service.dart';
+import '../../shared/shared_properties.dart';
 import '../Others/Navigation_Page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,7 +15,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   bool isLoading = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Column(
                         children: [
                           TextFormField(
-                            // controller: emailController,
+                            controller: emailcontroller,
                             keyboardType: TextInputType.emailAddress,
                             decoration: textInputDecoration.copyWith(
                               labelText: "Email",
@@ -69,11 +80,11 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Theme.of(context).primaryColor,
                               ),
                             ),
-                            onChanged: (val) {
-                              setState(() {
-                                // email = val;
-                              });
-                            },
+                            // onChanged: (val) {
+                            //   setState(() {
+                            //     email = val;
+                            //   });
+                            // },
 
                             // check tha validation
                             // validator: (val) {
@@ -86,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 15),
                           TextFormField(
-                            // controller: passwordController,
+                            controller: passwordcontroller,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: true,
                             decoration: textInputDecoration.copyWith(
@@ -102,11 +113,11 @@ class _LoginPageState extends State<LoginPage> {
                             //     return null;
                             //   }
                             // },
-                            onChanged: (val) {
-                              setState(() {
-                                // password = val;
-                              });
-                            },
+                            // onChanged: (val) {
+                            //   setState(() {
+                            //     password = val;
+                            //   });
+                            // },
                           ),
                           const SizedBox(
                             height: 20,
@@ -142,31 +153,41 @@ class _LoginPageState extends State<LoginPage> {
                           : GestureDetector(
                               onTap: () async {
                                 // formKey.currentState!.validate();
-                                // setState(() {
-                                //   isLoading = true;
-                                // });
-                                // String res = await AuthMethods().logmein(
-                                //   email: emailController.text,
-                                //   password: passwordController.text,
-                                // );
-                                // setState(() {
-                                //   isLoading = false;
-                                // });
-                                // if (res == 'Success') {
-                                //   // navigate
-                                //   // print('success');
-                                //   if (!mounted) return;
-                                //   Navigator.of(context).pushReplacement(
-                                //     MaterialPageRoute(
-                                //       builder: (context) => const HomePage(),
-                                //     ),
-                                //   );
-                                // } else {
-                                //   Shared().snackbar(
-                                //     message: res,
-                                //     context: context,
-                                //   );
-                                // }
+                                if (emailcontroller.text.trim().isEmpty ||
+                                    passwordcontroller.text.trim().isEmpty) {
+                                  // ignore: use_build_context_synchronously
+                                  Shared().snackbar(
+                                    'Please enter all the fields.',
+                                    context,
+                                  );
+                                }
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                String res = await Authentication().logmein(
+                                  emailcontroller.text.trim(),
+                                  passwordcontroller.text.trim(),
+                                );
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                if (res == 'Success') {
+                                  // navigate
+                                  // print('success');
+                                  if (!mounted) return;
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NavigationPage(),
+                                    ),
+                                  );
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  Shared().snackbar(
+                                    res,
+                                    context,
+                                  );
+                                }
                               },
                               child: Container(
                                   margin: const EdgeInsets.symmetric(

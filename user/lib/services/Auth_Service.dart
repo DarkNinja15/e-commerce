@@ -148,6 +148,7 @@ class Authentication {
         wishlist: [],
       );
 
+      // adding user to firebase
       await FirebaseFirestore.instance.collection('users').doc(uid).set(
             userModel.toMap(),
           );
@@ -163,6 +164,34 @@ class Authentication {
         return 'Password too weak';
       }
       return 'Some error Occured';
+    } catch (e) {
+      return res;
+    }
+  }
+
+  // login user with email and password
+  Future<String> logmein(
+    String email,
+    String password,
+  ) async {
+    if (email.isEmpty || password.isEmpty) {
+      return 'Please enter all the fields';
+    }
+    String res = 'Some error Occurred.';
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      res = 'Success';
+      return res;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        return 'Wrong password provided for that user.';
+      }
+      return res;
     } catch (e) {
       return res;
     }

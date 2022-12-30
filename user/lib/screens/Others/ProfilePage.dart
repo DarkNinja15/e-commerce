@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,9 +50,9 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                'Rishi Raj',
-                style: TextStyle(
+              Text(
+                'Rishi Raj + ${user.userName}',
+                style: const TextStyle(
                   fontSize: 30,
                   // color: Colors.white
                 ),

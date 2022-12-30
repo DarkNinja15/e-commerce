@@ -5,7 +5,7 @@ import 'package:user/widgets/loading.dart';
 import 'package:user/widgets/textfield.dart';
 import '../../services/Auth_Service.dart';
 import '../../shared/shared_properties.dart';
-import '../Others/Navigation_Page.dart';
+import '../Navigation_Page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

@@ -38,12 +38,12 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/screen1.png'),
+            image: AssetImage('assets/Login.png'),
             fit: BoxFit.fitWidth,
           ),
         ),
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             child: Column(
               children: [

@@ -6,7 +6,7 @@ import 'package:user/shared/shared_properties.dart';
 import 'package:user/widgets/loading.dart';
 import '../../services/Auth_Service.dart';
 import '../../widgets/textfield.dart';
-import '../Others/Navigation_Page.dart';
+import '../Navigation_Page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -20,6 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController passwordcontroller2 = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
   bool isLoading = false;
 
@@ -141,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           const SizedBox(height: 15),
                           TextFormField(
-                            controller: passwordcontroller,
+                            controller: passwordcontroller2,
                             keyboardType: TextInputType.visiblePassword,
                             decoration: textInputDecoration.copyWith(
                               labelText: "Confirm Password",

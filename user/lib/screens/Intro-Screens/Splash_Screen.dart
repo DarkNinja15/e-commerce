@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../services/Shared_Pref.dart';
@@ -14,16 +16,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   bool isSignedIn = false;
 
-  void fun(BuildContext ctx){
+  void fun(BuildContext ctx) {
     Timer(const Duration(seconds: 3), () {
-
-      if(isSignedIn){
-        Navigator.pushReplacement(ctx, MaterialPageRoute(builder: (context) => const NavigationPage()));
+      if (isSignedIn) {
+        Navigator.pushReplacement(ctx,
+            MaterialPageRoute(builder: (context) => const NavigationPage()));
+      } else {
+        Navigator.pushReplacement(
+            ctx, MaterialPageRoute(builder: (context) => const LoginPage()));
       }
-      else{
-        Navigator.pushReplacement(ctx, MaterialPageRoute(builder: (context) => const LoginPage()));
-      }
-
     });
   }
 

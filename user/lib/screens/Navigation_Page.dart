@@ -14,6 +14,7 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
+
   int _selectedIndex = 0;
 
   static const List<Widget> Page_List = <Widget>[
@@ -27,12 +28,6 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-        drawer: const Drawer(),
-        appBar: AppBar(
-          elevation: 0,
-          title: const Text('B H R M A R'),
-          centerTitle: true,
-        ),
         body: Center(
           child: Page_List[_selectedIndex],
         ),

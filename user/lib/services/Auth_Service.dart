@@ -1,10 +1,12 @@
-// ignore: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
+import 'package:user/models/user_model.dart';
 import 'Database_Service.dart';
 import 'Shared_Pref.dart';
 
@@ -16,6 +18,7 @@ class Authentication {
     );
   }
 
+  // sign in with google
   static Future<bool?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
@@ -66,7 +69,6 @@ class Authentication {
           user = userCredential.user;
         } on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
-            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               Authentication.customSnackBar(
                 content:
@@ -74,7 +76,6 @@ class Authentication {
               ),
             );
           } else if (e.code == 'invalid-credential') {
-            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               Authentication.customSnackBar(
                 content:
@@ -83,7 +84,6 @@ class Authentication {
             );
           }
         } catch (e) {
-          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             Authentication.customSnackBar(
               content: 'Error occurred using Google Sign In. Try again.',
@@ -101,6 +101,7 @@ class Authentication {
     return null;
   }
 
+  // google sign out
   static Future<void> signOut({required BuildContext context}) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -116,6 +117,54 @@ class Authentication {
           content: 'Error signing out. Try again.',
         ),
       );
+    }
+  }
+
+  // sign in with email and password
+  Future<String> signinwithemailandpassword(
+    String email,
+    String password,
+    String userName,
+    String phoneNo,
+    String address,
+  ) async {
+    String res = "Some error Occurred.";
+    try {
+      UserCredential credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      String uid = credential.user!.uid;
+      UserModel userModel = UserModel(
+        userUid: uid,
+        userName: userName,
+        phoneNo: phoneNo,
+        email: email,
+        address: address,
+        cart: [],
+        orders: [],
+        profilePicUrl: '',
+        wishlist: [],
+      );
+
+      await FirebaseFirestore.instance.collection('users').doc(uid).set(
+            userModel.toMap(),
+          );
+      res = 'Success';
+      return res;
+    } on FirebaseAuthException catch (error) {
+      // print(error.code);
+      if (error.code == 'email-already-in-use') {
+        return 'Email already in use';
+      } else if (error.code == 'invalid-email') {
+        return 'Email Invalid';
+      } else if (error.code == 'weak-password') {
+        return 'Password too weak';
+      }
+      return 'Some error Occured';
+    } catch (e) {
+      return res;
     }
   }
 }

@@ -207,7 +207,9 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   )),
                             ),
-                      const SizedBox(height: 100),
+                      const SizedBox(
+                        height: 100,
+                      ),
                       InkWell(
                         onTap: () async {
                           await Authentication.signInWithGoogle(
@@ -217,8 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NavigationPage()));
+                                      builder: (context) => NavigationPage()));
                             }
                           });
                         },
@@ -260,7 +261,7 @@ class _LoginPageState extends State<LoginPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const RegisterPage()));
+                                              RegisterPage()));
                                 },
                                 child: const Text(
                                   'Register here .',

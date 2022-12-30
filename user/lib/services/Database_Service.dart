@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, prefer_typing_uninitialized_variables
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,15 +16,14 @@ class DatabaseService {
     DocumentSnapshot snap = await userCollection.doc(uid).get();
     if (snap.data() == null) {
       await userCollection.doc(uid).set({
-        "userUid": uid,
-        "userName": user?.displayName,
-        "phoneNo": user?.phoneNumber,
+        "user_name": user?.displayName,
+        "phone_no": user?.phoneNumber,
         "address": " ",
         "email": user?.email,
-        "profilePicUrl": user?.photoURL,
-        "cart": [],
-        "wishlist": [],
-        "orders": [],
+        "profile_pic_url": user?.photoURL,
+        "cart" : [],
+        "wishlist" : [],
+        "orders" : [],
       });
     }
   }

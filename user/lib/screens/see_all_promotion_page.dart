@@ -1,22 +1,19 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:user/models/product_model.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import '../models/product_model.dart';
+
+class SeeAllPromotionPage extends StatefulWidget {
+  const SeeAllPromotionPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<SeeAllPromotionPage> createState() => _SeeAllPromotionPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
   // bool isLoading = false;
-  List<Product> allProds = [];
   List<Product> promotedProds = [];
 
-  // allProds contains all the products.
   // promotedProds contains all the promoted products.
 
   @override
@@ -27,9 +24,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
-    allProds = Provider.of<List<Product>>(context);
-    promotedProds = allProds.where((element) => element.isPromoted).toList();
-    // print(allProds.length);
+    promotedProds = Provider.of<List<Product>>(context)
+        .where((element) => element.isPromoted)
+        .toList();
     // print('..');
     // print(promotedProds.length);
     // Future.delayed(
@@ -45,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Home_Page'),
+        child: Text('Promotion_Page'),
       ),
     );
   }

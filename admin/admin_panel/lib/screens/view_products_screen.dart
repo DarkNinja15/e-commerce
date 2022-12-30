@@ -16,14 +16,25 @@ class ViewProducts extends StatefulWidget {
 class _ViewProductsState extends State<ViewProducts> {
   List<Product> searchResult = [];
   TextEditingController controller = TextEditingController();
-  List<Product> prods = [];
+  List<Product> myprods = [];
+  List<Product> allprods = [];
   bool isLoading = false;
+  bool isAllProdselcted = false;
 
   void searchquery(String query) {
-    setState(() {
-      searchResult = (prods.where(
-          (element) => element.name.toLowerCase().startsWith(query))).toList();
-    });
+    if (!isAllProdselcted) {
+      setState(() {
+        searchResult = (myprods.where(
+                (element) => element.name.toLowerCase().startsWith(query)))
+            .toList();
+      });
+    } else {
+      setState(() {
+        searchResult = (allprods.where(
+                (element) => element.name.toLowerCase().startsWith(query)))
+            .toList();
+      });
+    }
   }
 
   @override
@@ -41,13 +52,14 @@ class _ViewProductsState extends State<ViewProducts> {
 
   @override
   void didChangeDependencies() {
-    prods = (Provider.of<List<Product>>(context))
+    allprods = Provider.of<List<Product>>(context);
+    myprods = allprods
         .where((element) =>
             element.sellerUid == FirebaseAuth.instance.currentUser!.uid)
         .toList();
     Future.delayed(
         const Duration(
-          seconds: 2,
+          seconds: 3,
         ), () {
       setState(() {
         isLoading = false;
@@ -67,8 +79,23 @@ class _ViewProductsState extends State<ViewProducts> {
       drawer: const Drawerc(),
       appBar: AppBar(
         elevation: 0,
-        title: const Text('All Products'),
+        title: isAllProdselcted
+            ? const Text('All Products')
+            : const Text('My Products'),
         centerTitle: true,
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return {'All Products', 'My Products'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
       body: isLoading
           ? const Loading()
@@ -102,67 +129,141 @@ class _ViewProductsState extends State<ViewProducts> {
                   ),
                 ),
                 const SizedBox(height: 25),
-                prods.isEmpty
-                    ? Column(
-                        children: const [
-                          Image(
-                            image: AssetImage(
-                              'assets/void.png',
-                            ),
-                          ),
-                          Text(
-                            'Nothing to Show',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 33,
-                            ),
-                          ),
-                        ],
-                      )
-                    : controller.text == ''
-                        ? Expanded(
-                            child: ListView.builder(
-                              itemCount: prods.length,
-                              itemBuilder: (context, index) {
-                                return ProductTile(
-                                  snap: prods[index],
-                                );
-                              },
-                            ),
+                !isAllProdselcted
+                    ? myprods.isEmpty
+                        ? Column(
+                            children: const [
+                              Image(
+                                image: AssetImage(
+                                  'assets/void.png',
+                                ),
+                              ),
+                              Text(
+                                'Nothing to Show',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 33,
+                                ),
+                              ),
+                            ],
                           )
-                        : searchResult.isEmpty
+                        : controller.text == ''
                             ? Expanded(
-                                child: ListView(
-                                  children: const [
-                                    Image(
-                                      image: AssetImage(
-                                        'assets/void.png',
-                                      ),
-                                    ),
-                                    Text(
-                                      'Nothing to Show',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 33,
-                                      ),
-                                    ),
-                                  ],
+                                child: ListView.builder(
+                                  itemCount: myprods.length,
+                                  itemBuilder: (context, index) {
+                                    return ProductTile(
+                                      snap: myprods[index],
+                                    );
+                                  },
                                 ),
                               )
-                            : Expanded(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: searchResult.length,
-                                    itemBuilder: (context, index) {
-                                      // print(searchResult[index]['name']);
-                                      return ProductTile(
-                                        snap: searchResult[index],
-                                      );
-                                    }),
+                            : searchResult.isEmpty
+                                ? Expanded(
+                                    child: ListView(
+                                      children: const [
+                                        Image(
+                                          image: AssetImage(
+                                            'assets/void.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Nothing to Show',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 33,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Expanded(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: searchResult.length,
+                                        itemBuilder: (context, index) {
+                                          // print(searchResult[index]['name']);
+                                          return ProductTile(
+                                            snap: searchResult[index],
+                                          );
+                                        }),
+                                  )
+                    : allprods.isEmpty
+                        ? Column(
+                            children: const [
+                              Image(
+                                image: AssetImage(
+                                  'assets/void.png',
+                                ),
                               ),
+                              Text(
+                                'Nothing to Show',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 33,
+                                ),
+                              ),
+                            ],
+                          )
+                        : controller.text == ''
+                            ? Expanded(
+                                child: ListView.builder(
+                                  itemCount: allprods.length,
+                                  itemBuilder: (context, index) {
+                                    return ProductTile(
+                                      snap: allprods[index],
+                                    );
+                                  },
+                                ),
+                              )
+                            : searchResult.isEmpty
+                                ? Expanded(
+                                    child: ListView(
+                                      children: const [
+                                        Image(
+                                          image: AssetImage(
+                                            'assets/void.png',
+                                          ),
+                                        ),
+                                        Text(
+                                          'Nothing to Show',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 33,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Expanded(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: searchResult.length,
+                                        itemBuilder: (context, index) {
+                                          // print(searchResult[index]['name']);
+                                          return ProductTile(
+                                            snap: searchResult[index],
+                                          );
+                                        }),
+                                  ),
               ],
             ),
     );
+  }
+
+  void handleClick(String value) {
+    switch (value) {
+      case 'All Products':
+        setState(() {
+          isAllProdselcted = true;
+        });
+        break;
+      case 'My Products':
+        setState(() {
+          isAllProdselcted = false;
+        });
+        break;
+    }
   }
 }
 

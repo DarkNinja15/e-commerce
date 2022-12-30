@@ -54,7 +54,7 @@ class Drawerc extends StatelessWidget {
                   leading: const Icon(
                     Icons.view_agenda,
                   ),
-                  title: const Text('View all Products'),
+                  title: const Text('Products'),
                   onTap: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
@@ -163,7 +163,7 @@ class Drawerc extends StatelessWidget {
                   leading: const Icon(
                     Icons.view_agenda,
                   ),
-                  title: const Text('View all Products'),
+                  title: const Text('My Products'),
                   onTap: () {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(

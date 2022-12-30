@@ -13,6 +13,8 @@ import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 
+import '../models/seller_model.dart';
+
 class Database {
   final firestore = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
@@ -85,6 +87,7 @@ class Database {
       );
 
       model.Seller seller = model.Seller(
+        uid: credential.user!.uid,
         name: name,
         phoneNum: phoneNum,
         address: address,
@@ -232,6 +235,28 @@ class Database {
             .toList());
   }
 
+  // retrieving seller
+  Stream<List<Seller>> get seller {
+    return firestore.collection('sellers').snapshots().map(
+          (QuerySnapshot querySnapshot) => querySnapshot.docs
+              .map(
+                (DocumentSnapshot documentSnapshot) => Seller(
+                  uid:
+                      (documentSnapshot.data()! as Map<String, dynamic>)['uid'],
+                  name: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['name'],
+                  phoneNum: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['phoneNum'],
+                  address: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['address'],
+                  email: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['email'],
+                ),
+              )
+              .toList(),
+        );
+  }
+
   // retrieving list of cattegories for dropdown
   Future<List<String>> get cattegories async {
     try {
@@ -373,6 +398,27 @@ class Database {
           .doc(productUid)
           .update({
         'isPromoted': true,
+      });
+      res = 'Success';
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      return res;
+    }
+  }
+
+  // demote a product
+  Future<String> demoteProduct(String productUid) async {
+    String res = 'Some error Occurred.';
+    try {
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(productUid)
+          .update({
+        'isPromoted': false,
       });
       res = 'Success';
       return res;

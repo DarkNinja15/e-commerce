@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -21,9 +23,9 @@ class DatabaseService {
         "address": " ",
         "email": user?.email,
         "profile_pic_url": user?.photoURL,
-        "cart" : [],
-        "wishlist" : [],
-        "orders" : [],
+        "cart": [],
+        "wishlist": [],
+        "orders": [],
       });
     }
   }

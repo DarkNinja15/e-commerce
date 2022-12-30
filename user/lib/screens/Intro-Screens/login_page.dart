@@ -217,9 +217,11 @@ class _LoginPageState extends State<LoginPage> {
                               .then((val) {
                             if (val == true) {
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NavigationPage()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const NavigationPage(),
+                                ),
+                              );
                             }
                           });
                         },
@@ -258,10 +260,12 @@ class _LoginPageState extends State<LoginPage> {
                             InkWell(
                                 onTap: () {
                                   Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              RegisterPage()));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegisterPage(),
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   'Register here .',

@@ -356,4 +356,23 @@ class Database {
       return e.toString();
     }
   }
+
+  // promote a product
+  Future<String> promoteProduct(String productUid) async {
+    String res = 'Some error Occurred.';
+    try {
+      String uid = const Uuid().v1();
+      await FirebaseFirestore.instance.collection('promotion').doc(uid).set({
+        'promotedProds': productUid,
+      });
+      res = 'Success';
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      return res;
+    }
+  }
 }

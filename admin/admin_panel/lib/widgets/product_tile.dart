@@ -1,3 +1,4 @@
+import 'package:admin_panel/auth&database/database.dart';
 import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/screens/edit_products_page.dart';
 import 'package:flutter/material.dart';
@@ -41,16 +42,12 @@ class ProductTile extends StatelessWidget {
             // An action can be bigger than the others.
             flex: 2,
             onPressed: (_) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => EditProduct(snap: snap),
-                ),
-              );
+              promoteProduct(context);
             },
             backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
             foregroundColor: Colors.white,
-            icon: Icons.edit,
-            label: 'Edit',
+            icon: Icons.trending_up_sharp,
+            label: 'Promote',
           ),
         ],
       ),
@@ -109,6 +106,69 @@ class ProductTile extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void promoteProduct(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          "Are You sure You want to promote this Product?",
+          textAlign: TextAlign.center,
+        ),
+        content: const Text(
+          "It will be listed on the front page of the user.",
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          TextButton.icon(
+            icon: const Icon(
+              Icons.delete,
+              color: Color.fromRGBO(255, 176, 57, 1),
+            ),
+            onPressed: () async {
+              final res = await Database().promoteProduct(
+                snap.id,
+              );
+              if (res != 'Success') {
+                Shared().snackbar(
+                  message: res,
+                  context: context,
+                );
+              } else {
+                Shared().snackbar(
+                  message: 'Product added to promoted products.',
+                  context: context,
+                );
+              }
+              // ignore: use_build_context_synchronously
+              Navigator.of(context).pop();
+            },
+            label: const Text(
+              "Promote",
+              style: TextStyle(
+                color: Color.fromRGBO(255, 176, 57, 1),
+              ),
+            ),
+          ),
+          TextButton.icon(
+            icon: const Icon(
+              Icons.cancel,
+              color: Colors.grey,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            label: const Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

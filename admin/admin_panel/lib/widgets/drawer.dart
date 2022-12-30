@@ -65,6 +65,19 @@ class Drawerc extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(
+                    Icons.trending_up_sharp,
+                  ),
+                  title: const Text('Promoted Products'),
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const ViewProducts(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
                     Icons.person_add,
                   ),
                   title: const Text('Add a seller'),

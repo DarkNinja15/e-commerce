@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:user/screens/All_Categories.dart';
-import 'package:user/screens/WishList.dart';
-
 import 'HomePage.dart';
-import 'ProfilePage.dart';
+import 'Others/All_Categories.dart';
+import 'Others/ProfilePage.dart';
+import 'Others/WishList.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -28,41 +27,27 @@ class _NavigationPageState extends State<NavigationPage> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: Drawer(),
-<<<<<<< Updated upstream
-=======
       appBar: AppBar(
         elevation: 0,
         title: Text('B H R M A R'),
         centerTitle: true,
       ),
->>>>>>> Stashed changes
       body:  Center(
         child: Page_List[_selectedIndex],
       ),
 
         bottomNavigationBar: Container(
-<<<<<<< Updated upstream
           height: MediaQuery.of(context).size.height * 0.072,
-=======
-          height: MediaQuery.of(context).size.height * 0.065,
->>>>>>> Stashed changes
           width: double.infinity,
           decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
                     color: Color.fromRGBO(255, 176, 57, 1),
-<<<<<<< Updated upstream
                     spreadRadius: 0.5,
                     blurRadius: 1.0)
               ],
             borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
-=======
-                    spreadRadius: 1.0,
-                    blurRadius: 2.0)
-              ],
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
->>>>>>> Stashed changes
-              color: Colors.white
+            color: Colors.white,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:user/models/category_model.dart' as cate;
 
 import '../models/product_model.dart';
 
@@ -98,6 +99,27 @@ class DatabaseService {
                     as Map<String, dynamic>)['isPromoted']) as bool,
               ),
             )
+            .toList());
+  }
+
+  // retrieving category from database
+  Stream<List<cate.Category>> get category {
+    return FirebaseFirestore.instance
+        .collection('category')
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((DocumentSnapshot documentSnapshot) => cate.Category(
+                  catUid: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['catUid'],
+                  name: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['name'],
+                  thumbnailPicUrl: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['thumbnailPicUrl'],
+                  userName: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userName'],
+                  userUid: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userUid'],
+                ))
             .toList());
   }
 }

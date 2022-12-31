@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/product_model.dart';
+import 'package:user/screens/see_all_promotion_page.dart';
 import '../provider/user_provider.dart';
+import '../widgets/My_Widgets.dart';
 import '../widgets/product_tile.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -74,49 +76,18 @@ class _HomePageState extends State<HomePage> {
         ),
         body: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                width: double.infinity,
-                height: 65,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset('assets/home/1.png'),
-                    Image.asset('assets/home/2.png'),
-                    Image.asset('assets/home/3.png'),
-                    Image.asset('assets/home/4.png'),
-                    Image.asset('assets/home/5.png'),
-                  ],
-                ),
-              ),
+             Roww(),
               const SizedBox(height: 16),
-              Container(
-                height: 25,
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Featured Product',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.teal,
-                          fontSize: 17),
-                    ),
-                    Text(
-                      'See All',
-                      style: TextStyle(color: Color.fromRGBO(255, 176, 57, 1)),
-                    )
-                  ],
-                ),
-              ),
+             Roww2(context),
               const SizedBox(height: 5),
               SizedBox(
                 height: 230,
                 child: GridView.builder(
+                  shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: promotedProds.length,
                     gridDelegate:
@@ -135,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                 height: 10,
               ),
               Container(
+                height: 35,
                   margin: const EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
@@ -146,10 +118,11 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.teal),
                     textAlign: TextAlign.start,
                   )),
-              const SizedBox(height: 10),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
+                width: double.infinity,
                 child: MasonryGridView.count(
+                  shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     crossAxisCount: 2,
                     mainAxisSpacing: 2,
                     crossAxisSpacing: 10,
@@ -162,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                           allProds[i].price,
                           allProds[i].discount);
                     }),
-              )
+              ),
             ],
           ),
         ));

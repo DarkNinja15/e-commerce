@@ -145,6 +145,9 @@ class Authentication {
         email: email,
         password: password,
       );
+
+      await HelperFunctions.saveUserLoggedInStatus(true);
+
       String uid = credential.user!.uid;
       UserModel userModel = UserModel(
         userUid: uid,
@@ -154,7 +157,7 @@ class Authentication {
         address: address,
         cart: [],
         orders: [],
-        profilePicUrl: '',
+        profilePicUrl: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
         wishlist: [],
       );
 
@@ -193,6 +196,9 @@ class Authentication {
         email: email,
         password: password,
       );
+
+      await HelperFunctions.saveUserLoggedInStatus(true);
+
       res = 'Success';
       return res;
     } on FirebaseAuthException catch (e) {

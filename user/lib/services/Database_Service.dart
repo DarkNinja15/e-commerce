@@ -1,7 +1,11 @@
 // ignore_for_file: file_names, prefer_typing_uninitialized_variables
 
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:user/services/storage.dart';
 
 import '../models/product_model.dart';
 
@@ -20,17 +24,45 @@ class DatabaseService {
     DocumentSnapshot snap = await userCollection.doc(uid).get();
     if (snap.data() == null) {
       await userCollection.doc(uid).set({
-        "user_name": user?.displayName,
-        "phone_no": user?.phoneNumber,
+        "userUid" : user?.uid,
+        "userName": user?.displayName,
+        "phoneNo": user?.phoneNumber,
         "address": " ",
         "email": user?.email,
-        "profile_pic_url": user?.photoURL,
+        "profilePicUrl": user?.photoURL,
         "cart": [],
         "wishlist": [],
         "orders": [],
       });
     }
   }
+
+  Future savechanges(String picUrl, String name, String number, String Address, BuildContext ctx) async{
+    try {
+      await userCollection.doc(uid).update({
+        "profilePicUrl": picUrl,
+        "userName": name,
+        "phoneNo": number,
+        "address": Address,
+      });
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.lightGreen,
+          content: Text(' Changes Saved .. '),
+        ),
+      );
+      return true;
+    } catch(e){
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text(' Error Occurred . Try again ! '),
+        ),
+      );
+      return false;
+    }
+  }
+
 
   Future getUserData() async {
     DocumentSnapshot snap = await userCollection.doc(uid).get();

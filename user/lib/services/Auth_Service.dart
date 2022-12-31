@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:user/models/user_model.dart';
+import 'package:user/screens/Intro-Screens/login_page.dart';
 import 'Database_Service.dart';
 import 'Shared_Pref.dart';
 
@@ -121,6 +122,11 @@ class Authentication {
       }
       await FirebaseAuth.instance.signOut();
       await HelperFunctions.saveUserLoggedInStatus(false);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+        ),
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         Authentication.customSnackBar(
@@ -157,7 +163,8 @@ class Authentication {
         address: address,
         cart: [],
         orders: [],
-        profilePicUrl: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+        profilePicUrl:
+            'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
         wishlist: [],
       );
 

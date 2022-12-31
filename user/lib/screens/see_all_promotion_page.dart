@@ -46,10 +46,13 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Featured Product', style: TextStyle(letterSpacing: 1.4 , fontWeight: FontWeight.normal ),),
+        title: const Text(
+          'Featured Product',
+          style: TextStyle(letterSpacing: 1.4, fontWeight: FontWeight.normal),
+        ),
         centerTitle: true,
       ),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Roww(),
@@ -57,8 +60,9 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Text(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: const Text(
                     'Featured Product',
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -72,7 +76,7 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
               width: double.infinity,
               child: MasonryGridView.count(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   mainAxisSpacing: 2,
                   crossAxisSpacing: 10,
@@ -83,8 +87,7 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
                         promotedProds[i].name,
                         promotedProds[i].desc,
                         promotedProds[i].price,
-                        promotedProds[i].discount
-                    );
+                        promotedProds[i].discount);
                   }),
             ),
           ],

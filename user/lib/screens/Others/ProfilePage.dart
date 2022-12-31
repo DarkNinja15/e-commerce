@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unused_local_variable
+// ignore_for_file: file_names, unused_local_variable, use_build_context_synchronously, non_constant_identifier_names
 
 import 'dart:async';
 import 'dart:io';
@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   String url = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
-  File? _pickedImage ;
+  File? _pickedImage;
 
   void chooseImage0() async {
     final picker = ImagePicker();
@@ -57,15 +57,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void uploadtask() async {
-    String uid = FirebaseAuth.instance.currentUser!.uid.toString() ;
+    String uid = FirebaseAuth.instance.currentUser!.uid.toString();
 
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child('users')
-        .child('$uid.jpg');
+    final ref = FirebaseStorage.instance.ref().child('users').child('$uid.jpg');
 
     await ref.putFile(_pickedImage!).whenComplete(() async {
-      String  URL = await ref.getDownloadURL();
+      String URL = await ref.getDownloadURL();
       url = URL;
     });
   }
@@ -76,53 +73,64 @@ class _ProfilePageState extends State<ProfilePage> {
         elevation: 5,
         isScrollControlled: true,
         builder: (_) => Container(
-          padding: EdgeInsets.only(
-            top: 15,
-            left: 15,
-            right: 15,
-            // this will prevent the soft keyboard from covering the text fields
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Center(
-                child: GestureDetector(
-                  onTap: (){chooseImage0();},
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    height: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: Colors.deepOrange,
+              padding: EdgeInsets.only(
+                top: 15,
+                left: 15,
+                right: 15,
+                // this will prevent the soft keyboard from covering the text fields
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        chooseImage0();
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        height: 35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Colors.deepOrange,
+                        ),
+                        child: const Center(
+                            child: Text(
+                          'Open Camera',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                      ),
                     ),
-                    child: Center(child: Text('Open Camera', style: TextStyle(color: Colors.white),)),
                   ),
-                ),
-              ),
-              const Divider(
-                thickness: 1.5,
-                height: 15,
-              ),
-              Center(
-                child: GestureDetector(
-                  onTap: (){chooseImage1();},
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    height: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: Colors.deepOrange,
+                  const Divider(
+                    thickness: 1.5,
+                    height: 15,
+                  ),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        chooseImage1();
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        height: 35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Colors.deepOrange,
+                        ),
+                        child: const Center(
+                            child: Text(
+                          'Choose from Gallery',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                      ),
                     ),
-                    child: Center(child: Text('Choose from Gallery', style: TextStyle(color: Colors.white),)),
                   ),
-                ),
+                ],
               ),
-
-            ],
-          ),
-        ));
+            ));
   }
 
   @override
@@ -159,19 +167,21 @@ class _ProfilePageState extends State<ProfilePage> {
               width: 120,
               height: 120,
               decoration: BoxDecoration(
-                border: Border.all(width: 1.7, color: Colors.yellow),
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: _pickedImage ==null ? NetworkImage(user.profilePicUrl) : FileImage(_pickedImage!) as ImageProvider,
-                    fit: BoxFit.fitHeight
-                )
-              ),
+                  border: Border.all(width: 1.7, color: Colors.yellow),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: _pickedImage == null
+                          ? (user.profilePicUrl.isEmpty
+                              ? NetworkImage(url)
+                              : NetworkImage(user.profilePicUrl))
+                          : FileImage(_pickedImage!) as ImageProvider,
+                      fit: BoxFit.fitHeight)),
             ),
             const SizedBox(
               height: 10,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 showForm0(context);
               },
               child: const Text(
@@ -184,8 +194,8 @@ class _ProfilePageState extends State<ProfilePage> {
             Container(
               width: double.infinity,
               height: 455,
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              padding: EdgeInsets.all(25),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.all(25),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.lightGreenAccent.withOpacity(0.8)),
@@ -194,7 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Form(
                     child: Column(
                       children: [
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextFormField(
                           controller: namecontroller,
                           keyboardType: TextInputType.text,
@@ -248,14 +258,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         GestureDetector(
                           onTap: () {
                             Timer(const Duration(seconds: 2), () {
-                              DatabaseService(uid: FirebaseAuth.instance.currentUser?.uid).savechanges(
-                                  url,
-                                  namecontroller.text,
-                                  phonecontroller.text,
-                                  addresscontroller.text,
-                                  context);
+                              DatabaseService(
+                                      uid: FirebaseAuth
+                                          .instance.currentUser?.uid)
+                                  .savechanges(
+                                      url,
+                                      namecontroller.text,
+                                      phonecontroller.text,
+                                      addresscontroller.text,
+                                      context);
                             });
-                           // setState(() {});
+                            // setState(() {});
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(

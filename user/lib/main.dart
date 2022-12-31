@@ -5,7 +5,6 @@ import 'package:user/models/product_model.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Intro-Screens/Splash_Screen.dart';
 import 'package:user/services/Database_Service.dart';
-import 'package:user/services/Database_Service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,11 +1,8 @@
-// ignore_for_file: file_names, prefer_typing_uninitialized_variables
-
-import 'dart:typed_data';
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables, use_build_context_synchronously, non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:user/services/storage.dart';
 
 import '../models/product_model.dart';
 
@@ -24,7 +21,7 @@ class DatabaseService {
     DocumentSnapshot snap = await userCollection.doc(uid).get();
     if (snap.data() == null) {
       await userCollection.doc(uid).set({
-        "userUid" : user?.uid,
+        "userUid": user?.uid,
         "userName": user?.displayName,
         "phoneNo": user?.phoneNumber,
         "address": " ",
@@ -37,7 +34,8 @@ class DatabaseService {
     }
   }
 
-  Future savechanges(String picUrl, String name, String number, String Address, BuildContext ctx) async{
+  Future savechanges(String picUrl, String name, String number, String Address,
+      BuildContext ctx) async {
     try {
       await userCollection.doc(uid).update({
         "profilePicUrl": picUrl,
@@ -52,7 +50,7 @@ class DatabaseService {
         ),
       );
       return true;
-    } catch(e){
+    } catch (e) {
       ScaffoldMessenger.of(ctx).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.redAccent,
@@ -62,7 +60,6 @@ class DatabaseService {
       return false;
     }
   }
-
 
   Future getUserData() async {
     DocumentSnapshot snap = await userCollection.doc(uid).get();

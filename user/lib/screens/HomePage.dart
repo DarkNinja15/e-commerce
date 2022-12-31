@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/product_model.dart';
-import 'package:user/screens/see_all_promotion_page.dart';
+import 'package:user/widgets/drawer.dart';
 import '../provider/user_provider.dart';
 import '../widgets/My_Widgets.dart';
 import '../widgets/product_tile.dart';
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        drawer: const Drawer(),
+        drawer: const Drawerc(),
         appBar: AppBar(
           leading: InkWell(
               onTap: () {
@@ -80,14 +80,14 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             Roww(),
+              Roww(),
               const SizedBox(height: 16),
-             Roww2(context),
+              Roww2(context),
               const SizedBox(height: 5),
               SizedBox(
                 height: 230,
                 child: GridView.builder(
-                  shrinkWrap: true,
+                    shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: promotedProds.length,
                     gridDelegate:
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                 height: 10,
               ),
               Container(
-                height: 35,
+                  height: 35,
                   margin: const EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
@@ -121,8 +121,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: double.infinity,
                 child: MasonryGridView.count(
-                  shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 2,
                     mainAxisSpacing: 2,
                     crossAxisSpacing: 10,

@@ -1,4 +1,6 @@
 import 'package:admin_panel/auth&database/database.dart';
+import 'package:admin_panel/models/category_model.dart';
+import 'package:admin_panel/screens/add_category_screen.dart';
 import 'package:admin_panel/widgets/loading.dart';
 import 'package:admin_panel/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class _EditCategoryState extends State<EditCategory> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> cat = Provider.of<List<String>>(context);
+    List<Category> cat = Provider.of<List<Category>>(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
@@ -33,86 +35,91 @@ class _EditCategoryState extends State<EditCategory> {
         label: const Text('Add Category'),
         backgroundColor: const Color.fromRGBO(255, 176, 57, 1),
         onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return Container(
-                  padding: EdgeInsets.only(
-                    top: 15,
-                    left: 15,
-                    right: 15,
-                    // this will prevent the soft keyboard from covering the text fields
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const SizedBox(
-                        height: 14,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.04),
-                        child: TextField(
-                          controller: controller,
-                          keyboardType: TextInputType.text,
-                          style: const TextStyle(),
-                          decoration: InputDecoration(
-                            fillColor: Colors.grey.shade100,
-                            // filled: true,
-                            hintText: "Category",
-                            icon: const Icon(
-                              Icons.label_outline,
-                              // color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      // const SizedBox(
-                      //   height: 200,
-                      // ),
-                      InkWell(
-                        onTap: () {
-                          _addcategory();
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                color: const Color.fromRGBO(255, 176, 57, 1),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.04,
-                                  vertical:
-                                      MediaQuery.of(context).size.width * 0.05),
-                              child: const Center(
-                                child: Text(
-                                  'Add Category',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              });
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddCategory(),
+            ),
+          );
+          // showModalBottomSheet(
+          //     context: context,
+          //     isScrollControlled: true,
+          //     builder: (BuildContext context) {
+          //       return Container(
+          //         padding: EdgeInsets.only(
+          //           top: 15,
+          //           left: 15,
+          //           right: 15,
+          //           // this will prevent the soft keyboard from covering the text fields
+          //           bottom: MediaQuery.of(context).viewInsets.bottom,
+          //         ),
+          //         child: Column(
+          //           mainAxisSize: MainAxisSize.min,
+          //           crossAxisAlignment: CrossAxisAlignment.end,
+          //           children: [
+          //             const SizedBox(
+          //               height: 14,
+          //             ),
+          //             Padding(
+          //               padding: EdgeInsets.symmetric(
+          //                   horizontal:
+          //                       MediaQuery.of(context).size.width * 0.04),
+          //               child: TextField(
+          //                 controller: controller,
+          //                 keyboardType: TextInputType.text,
+          //                 style: const TextStyle(),
+          //                 decoration: InputDecoration(
+          //                   fillColor: Colors.grey.shade100,
+          //                   // filled: true,
+          //                   hintText: "Category",
+          //                   icon: const Icon(
+          //                     Icons.label_outline,
+          //                     // color: Colors.black,
+          //                   ),
+          //                   border: OutlineInputBorder(
+          //                     borderRadius: BorderRadius.circular(10),
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             // const SizedBox(
+          //             //   height: 200,
+          //             // ),
+          //             InkWell(
+          //               onTap: () {
+          //                 _addcategory();
+          //               },
+          //               child: Row(
+          //                 mainAxisAlignment: MainAxisAlignment.end,
+          //                 children: [
+          //                   Container(
+          //                     height: 40,
+          //                     width: 150,
+          //                     decoration: BoxDecoration(
+          //                       color: const Color.fromRGBO(255, 176, 57, 1),
+          //                       borderRadius: BorderRadius.circular(20),
+          //                     ),
+          //                     margin: EdgeInsets.symmetric(
+          //                         horizontal:
+          //                             MediaQuery.of(context).size.width * 0.04,
+          //                         vertical:
+          //                             MediaQuery.of(context).size.width * 0.05),
+          //                     child: const Center(
+          //                       child: Text(
+          //                         'Add Category',
+          //                         style: TextStyle(
+          //                           color: Colors.white,
+          //                           fontWeight: FontWeight.bold,
+          //                         ),
+          //                       ),
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       );
+          //     });
         },
       ),
       drawer: const Drawerc(),
@@ -140,8 +147,11 @@ class _EditCategoryState extends State<EditCategory> {
                   ),
                   borderRadius: BorderRadius.circular(10)),
               child: ListTile(
+                leading: CircleAvatar(
+                    child:
+                        Image(image: NetworkImage(cat[index].thumbnailPicUrl))),
                 title: Text(
-                  cat[index],
+                  cat[index].name,
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.italic,
@@ -164,7 +174,7 @@ class _EditCategoryState extends State<EditCategory> {
     );
   }
 
-  void _deleteCategory(String category) async {
+  void _deleteCategory(Category category) async {
     isLoading
         ? const Loading()
         : showDialog(
@@ -233,77 +243,77 @@ class _EditCategoryState extends State<EditCategory> {
           );
   }
 
-  void _addcategory() {
-    if (controller.text.isEmpty) {
-      Shared().snackbar(
-        message: 'Please enter the category',
-        context: context,
-      );
-      return;
-    }
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          "Are You sure You want to add this category?",
-          textAlign: TextAlign.center,
-        ),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: const Icon(
-              Icons.add_box,
-              color: Colors.green,
-            ),
-            onPressed: () async {
-              setState(() {
-                isLoading = true;
-              });
-              final res = await Database()
-                  .addCat(controller.text.toLowerCase(), context);
-              setState(() {
-                isLoading = false;
-                controller.text = "";
-              });
-              // ignore: use_build_context_synchronously
-              Navigator.of(context).pop();
-              // ignore: use_build_context_synchronously
-              Navigator.of(context).pop();
-              if (res != 'Success') {
-                Shared().snackbar(
-                  message: res,
-                  context: context,
-                );
-              } else {
-                Shared().snackbar(
-                  message: 'Category added sucessfully',
-                  context: context,
-                );
-              }
-            },
-            label: const Text(
-              "Add",
-              style: TextStyle(
-                color: Colors.green,
-              ),
-            ),
-          ),
-          TextButton.icon(
-            icon: const Icon(
-              Icons.cancel,
-              color: Colors.grey,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            label: const Text(
-              "Cancel",
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // void _addcategory() {
+  //   if (controller.text.isEmpty) {
+  //     Shared().snackbar(
+  //       message: 'Please enter the category',
+  //       context: context,
+  //     );
+  //     return;
+  //   }
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: const Text(
+  //         "Are You sure You want to add this category?",
+  //         textAlign: TextAlign.center,
+  //       ),
+  //       actions: <Widget>[
+  //         TextButton.icon(
+  //           icon: const Icon(
+  //             Icons.add_box,
+  //             color: Colors.green,
+  //           ),
+  //           onPressed: () async {
+  //             setState(() {
+  //               isLoading = true;
+  //             });
+  //             final res = await Database()
+  //                 .addCat(controller.text.toLowerCase(), context);
+  //             setState(() {
+  //               isLoading = false;
+  //               controller.text = "";
+  //             });
+  //             // ignore: use_build_context_synchronously
+  //             Navigator.of(context).pop();
+  //             // ignore: use_build_context_synchronously
+  //             Navigator.of(context).pop();
+  //             if (res != 'Success') {
+  //               Shared().snackbar(
+  //                 message: res,
+  //                 context: context,
+  //               );
+  //             } else {
+  //               Shared().snackbar(
+  //                 message: 'Category added sucessfully',
+  //                 context: context,
+  //               );
+  //             }
+  //           },
+  //           label: const Text(
+  //             "Add",
+  //             style: TextStyle(
+  //               color: Colors.green,
+  //             ),
+  //           ),
+  //         ),
+  //         TextButton.icon(
+  //           icon: const Icon(
+  //             Icons.cancel,
+  //             color: Colors.grey,
+  //           ),
+  //           onPressed: () {
+  //             Navigator.of(context).pop();
+  //           },
+  //           label: const Text(
+  //             "Cancel",
+  //             style: TextStyle(
+  //               color: Colors.grey,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

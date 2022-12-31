@@ -1,7 +1,9 @@
 import 'package:admin_panel/auth&database/storage_methods.dart';
+import 'package:admin_panel/models/category_model.dart' as cate;
 import 'package:admin_panel/models/order_model.dart' as od;
 import 'package:admin_panel/models/product_model.dart';
 import 'package:admin_panel/models/seller_model.dart' as model;
+import 'package:admin_panel/provider/seller_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -257,7 +259,7 @@ class Database {
         );
   }
 
-  // retrieving list of cattegories for dropdown
+  // alternative retrieving list of cattegories for dropdown
   Future<List<String>> get cattegories async {
     try {
       final data = await firestore
@@ -273,6 +275,28 @@ class Database {
       // print(e.toString());
       return [];
     }
+  }
+
+  // retrieving list of cattegories for dropdown
+  Stream<List<cate.Category>> get category {
+    return firestore.collection('category').snapshots().map(
+          (QuerySnapshot querySnapshot) => querySnapshot.docs
+              .map(
+                (DocumentSnapshot documentSnapshot) => cate.Category(
+                  catUid: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['catUid'],
+                  thumbnailPicUrl: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['thumbnailPicUrl'],
+                  name: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['name'],
+                  userName: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userName'],
+                  userUid: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userUid'],
+                ),
+              )
+              .toList(),
+        );
   }
 
   // retrieving list of orders
@@ -315,17 +339,20 @@ class Database {
   }
 
   // delete category
-  Future<String> delCat(String category, BuildContext context) async {
+  Future<String> delCat(cate.Category category, BuildContext context) async {
+    if (auth.currentUser!.uid != 'ELO4z0WvXLgHgHSlVuagYBrunXK2') {
+      return 'Only "@MyBhrmar" has option to delete this.';
+    }
     String res = "Some error Occurred";
     try {
-      List<String> cats = Provider.of<List<String>>(context, listen: false);
-      cats.remove(category);
-      await firestore
-          .collection('cattegories')
-          .doc('AQrjPBBZ6hbdodDId8wN')
-          .set({
-        'listCat': cats,
-      });
+      await firestore.collection('category').doc(category.catUid).delete();
+
+      // **********************************
+
+      // delete from firebase storage..........
+
+      // **********************************
+
       res = "Success";
       return res;
     } on FirebaseException catch (_) {
@@ -339,20 +366,41 @@ class Database {
   }
 
   // add category
-  Future<String> addCat(String category, BuildContext context) async {
+  Future<String> addCat(
+      BuildContext context, Uint8List image, String name) async {
     String res = "Some error Occurred";
     try {
       List<String> cats = Provider.of<List<String>>(context, listen: false);
-      if (cats.contains(category)) {
-        return 'Category "$category" is already present in the list.';
+      if (cats.contains(name)) {
+        return 'Category "$name" is already present in the list.';
       }
-      cats.add(category);
+      cats.add(name);
       await firestore
           .collection('cattegories')
           .doc('AQrjPBBZ6hbdodDId8wN')
           .set({
         'listCat': cats,
       });
+      String uid = const Uuid().v1();
+      Seller seller =
+          // ignore: use_build_context_synchronously
+          Provider.of<SellerProvider>(context, listen: false).getSeller;
+      String thumbnailPicUrl = await StorageMethods().uploadImagetoStorage(
+        'categorythumbnail',
+        image,
+        uid,
+      );
+
+      cate.Category category = cate.Category(
+        catUid: uid,
+        thumbnailPicUrl: thumbnailPicUrl,
+        name: name,
+        userName: seller.name,
+        userUid: seller.uid,
+      );
+      await firestore.collection('category').doc(uid).set(
+            category.toMap(),
+          );
       res = "Success";
       return res;
     } on FirebaseException catch (_) {

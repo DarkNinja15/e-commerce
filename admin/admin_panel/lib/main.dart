@@ -13,6 +13,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'models/category_model.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -40,6 +42,10 @@ class MyApp extends StatelessWidget {
         ),
         FutureProvider<List<String>>.value(
           value: Database().cattegories,
+          initialData: const [],
+        ),
+        StreamProvider<List<Category>>.value(
+          value: Database().category,
           initialData: const [],
         ),
         ChangeNotifierProvider(

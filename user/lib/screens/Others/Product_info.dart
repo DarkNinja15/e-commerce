@@ -1,6 +1,10 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:user/provider/user_provider.dart';
+import 'package:user/services/Database_Service.dart';
+import 'package:user/shared/shared_properties.dart';
 import '../../models/product_model.dart';
 
 class ProductInfo extends StatefulWidget {
@@ -15,6 +19,8 @@ class ProductInfo extends StatefulWidget {
 class _ProductInfoState extends State<ProductInfo> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).getUser;
+    bool isWishListed = user.wishlist.contains(widget.prod.id);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -65,10 +71,33 @@ class _ProductInfoState extends State<ProductInfo> {
                 ),
                 Container(
                     margin: const EdgeInsets.all(10),
-                    child: const Icon(
-                      Icons.favorite,
-                      size: 40,
-                      color: Colors.red,
+                    child: GestureDetector(
+                      onTap: () async {
+                        final res = await DatabaseService()
+                            .addProdToWishList(widget.prod.id, context);
+                        setState(() {});
+                        if (res == 'added') {
+                          Shared().snackbar(
+                            'Product added to wishlist.',
+                            context,
+                          );
+                        } else if (res == 'removed') {
+                          Shared().snackbar(
+                            'Product removed to wishlist.',
+                            context,
+                          );
+                        } else {
+                          Shared().snackbar(
+                            res,
+                            context,
+                          );
+                        }
+                      },
+                      child: Icon(
+                        Icons.favorite,
+                        size: 40,
+                        color: isWishListed ? Colors.red : Colors.white,
+                      ),
                     )),
               ],
             ),

@@ -3,7 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:user/models/category_model.dart' as cate;
+import 'package:user/provider/user_provider.dart';
 
 import '../models/product_model.dart';
 
@@ -121,5 +123,34 @@ class DatabaseService {
                       as Map<String, dynamic>)['userUid'],
                 ))
             .toList());
+  }
+
+  // add product to wishlist
+  Future<String> addProdToWishList(String prodId, BuildContext context) async {
+    final user = Provider.of<UserProvider>(context, listen: false).getUser;
+    List wish = user.wishlist;
+    String res = "Something went wrong.";
+    try {
+      if (wish.contains(prodId)) {
+        wish.remove(prodId);
+        res = 'removed';
+      } else {
+        wish.add(prodId);
+        res = 'added';
+      }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'wishlist': wish,
+      });
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      return res;
+    }
   }
 }

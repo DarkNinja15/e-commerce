@@ -1,6 +1,7 @@
 import 'package:admin_panel/auth&database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class Shared {
   snackbar({required String message, required BuildContext context}) {
@@ -18,6 +19,31 @@ class Shared {
     );
     if (file != null) {
       return await file.readAsBytes();
+    }
+    // print('No Image Selected');
+  }
+
+  imagepicker1(ImageSource source) async {
+    ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(
+      source: source,
+    );
+
+    if (file != null) {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: file.path,
+        aspectRatio: const CropAspectRatio(ratioX: 350, ratioY: 155),
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.teal,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: true
+          ),
+        ],
+      );
+      return croppedFile?.readAsBytes();
     }
     // print('No Image Selected');
   }

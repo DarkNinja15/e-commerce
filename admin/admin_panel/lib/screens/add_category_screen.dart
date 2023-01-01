@@ -28,7 +28,7 @@ class _AddCategoryState extends State<AddCategory> {
           TextButton(
             onPressed: () async {
               Navigator.of(ctx).pop();
-              Uint8List im = await Shared().imagepicker(
+              Uint8List im = await Shared().imagepicker1(
                 ImageSource.camera,
               );
               setState(() {
@@ -40,8 +40,9 @@ class _AddCategoryState extends State<AddCategory> {
           TextButton(
             onPressed: () async {
               Navigator.of(ctx).pop();
-              Uint8List im = await Shared().imagepicker(
+              Uint8List im = await Shared().imagepicker1(
                 ImageSource.gallery,
+
               );
               setState(() {
                 image = im;
@@ -62,33 +63,47 @@ class _AddCategoryState extends State<AddCategory> {
       appBar: AppBar(
         title: const Text('Add Category'),
         centerTitle: true,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 15),
+            Container(
+              margin: EdgeInsets.all(15),
+              child: const Text('Please choose a 9:16 (Landscape) size image', style: TextStyle(color: Colors.deepOrange),),
+            ),
             Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
                 border: Border.all(
                   width: 2.5,
                   color: const Color.fromRGBO(255, 176, 57, 1),
                 ),
+                color: Colors.white,
               ),
-              height: size * 0.35,
+              // height: size * 0.35,
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.1,
                   vertical: MediaQuery.of(context).size.width * 0.05),
               child: image == null
                   ? const Image(
+                      height: 141,
+                      width: 335,
                       image: AssetImage('assets/icon_img.png'),
                       fit: BoxFit.contain,
                     )
-                  : Image(
-                      image: MemoryImage(
-                        image!,
+                  : ClipRRect(
+                    child: Image(
+                        image: MemoryImage(
+                          image!,
+                        ),
                       ),
-                    ),
+                borderRadius: BorderRadius.circular(22),
+                  ),
             ),
+            SizedBox(height: 15),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.1),
@@ -118,7 +133,7 @@ class _AddCategoryState extends State<AddCategory> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -141,6 +156,7 @@ class _AddCategoryState extends State<AddCategory> {
                 ),
               ),
             ),
+            SizedBox(height: 25),
             InkWell(
               onTap: _addcategory,
               child: Container(

@@ -130,15 +130,15 @@ class _EditCategoryState extends State<EditCategory> {
       body: ListView.builder(
         itemCount: cat.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.07,
-              right: MediaQuery.of(context).size.width * 0.07,
-              top: MediaQuery.of(context).size.width * 0.03,
-              bottom: MediaQuery.of(context).size.width * 0.03,
-            ),
-            child: Container(
-              height: 60,
+          return Container(
+            padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.07,
+          right: MediaQuery.of(context).size.width * 0.07,
+          top: MediaQuery.of(context).size.width * 0.03,
+          bottom: MediaQuery.of(context).size.width * 0.03,
+          ),
+              height: 80,
               decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
@@ -146,28 +146,47 @@ class _EditCategoryState extends State<EditCategory> {
                     colors: [Colors.amberAccent, Colors.lightGreenAccent],
                   ),
                   borderRadius: BorderRadius.circular(10)),
-              child: ListTile(
-                leading: CircleAvatar(
-                    child:
-                        Image(image: NetworkImage(cat[index].thumbnailPicUrl))),
-                title: Text(
-                  cat[index].name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.italic,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.fitHeight,
+                                image: NetworkImage(cat[index].thumbnailPicUrl,)
+                            )
+                        ),
+                        // child: ClipOval(child: Image(image: NetworkImage(cat[index].thumbnailPicUrl)))
+                      ),
+                      SizedBox(width: 15),
+                      Text(
+                        cat[index].name,
+                        style:const TextStyle(
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 20
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                trailing: IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
+                 IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      _deleteCategory(cat[index]);
+                    },
                   ),
-                  onPressed: () {
-                    _deleteCategory(cat[index]);
-                  },
-                ),
+                ],
               ),
-            ),
           );
         },
       ),

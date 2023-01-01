@@ -345,13 +345,16 @@ class Database {
     }
     String res = "Some error Occurred";
     try {
-      await firestore.collection('category').doc(category.catUid).delete();
 
-      // **********************************
+      //***************************************************************
 
       // delete from firebase storage..........
+      final httpsReference = FirebaseStorage.instance.refFromURL(category.thumbnailPicUrl);
+      await httpsReference.delete();
 
-      // **********************************
+      //**************************************************************
+
+      await firestore.collection('category').doc(category.catUid).delete();
 
       res = "Success";
       return res;

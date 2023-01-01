@@ -42,7 +42,6 @@ class _AddCategoryState extends State<AddCategory> {
               Navigator.of(ctx).pop();
               Uint8List im = await Shared().imagepicker1(
                 ImageSource.gallery,
-
               );
               setState(() {
                 image = im;
@@ -57,8 +56,8 @@ class _AddCategoryState extends State<AddCategory> {
 
   @override
   Widget build(BuildContext context) {
-    final size =
-        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    // final size =
+    //     MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Category'),
@@ -69,10 +68,13 @@ class _AddCategoryState extends State<AddCategory> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Container(
-              margin: EdgeInsets.all(15),
-              child: const Text('Please choose a 9:16 (Landscape) size image', style: TextStyle(color: Colors.deepOrange),),
+              margin: const EdgeInsets.all(15),
+              child: const Text(
+                'Please choose a 9:16 (Landscape) size image',
+                style: TextStyle(color: Colors.deepOrange),
+              ),
             ),
             Container(
               decoration: BoxDecoration(
@@ -95,15 +97,15 @@ class _AddCategoryState extends State<AddCategory> {
                       fit: BoxFit.contain,
                     )
                   : ClipRRect(
-                    child: Image(
+                      borderRadius: BorderRadius.circular(22),
+                      child: Image(
                         image: MemoryImage(
                           image!,
                         ),
                       ),
-                borderRadius: BorderRadius.circular(22),
-                  ),
+                    ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.1),
@@ -156,7 +158,7 @@ class _AddCategoryState extends State<AddCategory> {
                 ),
               ),
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             InkWell(
               onTap: _addcategory,
               child: Container(

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user/provider/user_provider.dart';
 import 'package:user/widgets/cart_tile.dart';
 
 import '../../models/product_model.dart';
@@ -15,12 +16,33 @@ class MyCart extends StatefulWidget {
 
 class _MyCartState extends State<MyCart> {
   List<Product> carts = [];
+  List<Product> allProds = [];
+  List cartProdIds = [];
   bool isChecked = false;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    isLoading = false;
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    allProds = Provider.of<List<Product>>(context, listen: false);
+    cartProdIds =
+        Provider.of<UserProvider>(context, listen: false).getUser.cart;
+    for (var i in cartProdIds) {
+      Product p = allProds.firstWhere((element) => element.id == i);
+      carts.add(p);
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    carts = Provider.of<List<Product>>(context);
     return Scaffold(
+      backgroundColor: carts.isEmpty ? Colors.white : Colors.grey[50],
       appBar: AppBar(
         elevation: 0,
         title: const Text(
@@ -32,43 +54,56 @@ class _MyCartState extends State<MyCart> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(10),
-              child: Row(
+      body: carts.isEmpty
+          ? Column(
+              children: const [
+                Image(image: AssetImage('assets/void.png')),
+                Text(
+                  'Nothing to show\n\nAdd something to cart\nNow',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 33),
+                )
+              ],
+            )
+          : SingleChildScrollView(
+              child: Column(
                 children: [
-                  Checkbox(
-                    value: isChecked,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isChecked = value!;
-                      });
-                    },
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value!;
+                            });
+                          },
+                        ),
+                        const Text(
+                          'Select All Item',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.teal,
+                              letterSpacing: 1),
+                        )
+                      ],
+                    ),
                   ),
-                  const Text(
-                    'Select All Item',
-                    style: TextStyle(
-                        fontSize: 17, color: Colors.teal, letterSpacing: 1),
-                  )
+                  SizedBox(
+                    width: double.infinity,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: carts.length,
+                        itemBuilder: (context, i) {
+                          return Cart_tile(
+                              carts[i].photoUrl, carts[i].name, carts[i].price);
+                        }),
+                  ),
                 ],
               ),
             ),
-            SizedBox(
-              width: double.infinity,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: carts.length,
-                  itemBuilder: (context, i) {
-                    return Cart_tile(
-                        carts[i].photoUrl, carts[i].name, carts[i].price);
-                  }),
-            ),
-          ],
-        ),
-      ),
       bottomNavigationBar: Container(
         height: MediaQuery.of(context).size.height * 0.11,
         width: double.infinity,

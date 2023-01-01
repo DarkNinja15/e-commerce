@@ -35,10 +35,12 @@ class _WishListState extends State<WishList> {
     // *********************************************************************
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wishlist', style: TextStyle(
+        title: const Text(
+          'Wishlist',
+          style: TextStyle(
             fontWeight: FontWeight.w400,
             letterSpacing: 0.8,
-        ),
+          ),
         ),
         elevation: 0,
         centerTitle: true,

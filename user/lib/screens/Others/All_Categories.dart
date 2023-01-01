@@ -20,10 +20,31 @@ class _All_CategoriesState extends State<All_Categories> {
 
     // cats array contains all the categories, to access name => cats[index].name etc....
 
-    return const Scaffold(
-      body: Center(
-        child: Text('All_Categories_Page'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('All Categories', style: TextStyle(fontWeight: FontWeight.w400,
+          letterSpacing: 0.8,),),
+        elevation: 0,
+        centerTitle: true,
       ),
+      body: ListView.builder(
+        itemCount: cats.length,
+          itemBuilder: (context, i) {
+            return Container(
+              height: 145,
+              width: 335,
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1.5, color: Colors.yellow),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: ClipRRect(
+                child: Image.network(cats[i].thumbnailPicUrl, fit: BoxFit.fill,),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            );
+          }
+      )
     );
   }
 }

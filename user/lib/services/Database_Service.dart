@@ -153,4 +153,33 @@ class DatabaseService {
       return res;
     }
   }
+
+  // add product to cart
+  Future<String> addProdToCart(String prodId, BuildContext context) async {
+    final user = Provider.of<UserProvider>(context, listen: false).getUser;
+    List cartProds = user.cart;
+    String res = "Something went wrong.";
+    try {
+      if (cartProds.contains(prodId)) {
+        cartProds.remove(prodId);
+        res = 'removed';
+      } else {
+        cartProds.add(prodId);
+        res = 'added';
+      }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'cart': cartProds,
+      });
+      return res;
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      return "Could not process";
+    } catch (e) {
+      return res;
+    }
+  }
 }

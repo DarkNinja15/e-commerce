@@ -21,6 +21,7 @@ class _ProductInfoState extends State<ProductInfo> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).getUser;
     bool isWishListed = user.wishlist.contains(widget.prod.id);
+    bool isInCart = user.cart.contains(widget.prod.id);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -140,12 +141,45 @@ class _ProductInfoState extends State<ProductInfo> {
                       width: 1.5, color: const Color.fromRGBO(255, 176, 57, 1)),
                   borderRadius: BorderRadius.circular(25),
                 ),
-                child: const Center(
-                    child: Text(
-                  'Add to Cart',
-                  style: TextStyle(
-                      color: Color.fromRGBO(255, 176, 57, 1), fontSize: 20),
-                )),
+                child: GestureDetector(
+                  onTap: () async {
+                    final res = await DatabaseService()
+                        .addProdToCart(widget.prod.id, context);
+                    setState(() {});
+                    if (res == 'added') {
+                      Shared().snackbar(
+                        'Product added to cart.',
+                        context,
+                      );
+                    } else if (res == 'removed') {
+                      Shared().snackbar(
+                        'Product removed from cart.',
+                        context,
+                      );
+                    } else {
+                      Shared().snackbar(
+                        res,
+                        context,
+                      );
+                    }
+                  },
+                  child: Center(
+                      child: isInCart
+                          ? const Text(
+                              'Added to cart',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: Color.fromRGBO(255, 176, 57, 1),
+                                  fontSize: 20),
+                            )
+                          : const Text(
+                              'Add to Cart',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: Color.fromRGBO(255, 176, 57, 1),
+                                  fontSize: 20),
+                            )),
+                ),
               ),
             ),
             const VerticalDivider(),

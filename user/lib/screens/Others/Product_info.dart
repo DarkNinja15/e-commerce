@@ -83,7 +83,7 @@ class _ProductInfoState extends State<ProductInfo> {
                           );
                         } else if (res == 'removed') {
                           Shared().snackbar(
-                            'Product removed to wishlist.',
+                            'Product removed from wishlist.',
                             context,
                           );
                         } else {

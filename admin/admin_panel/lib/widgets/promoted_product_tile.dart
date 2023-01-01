@@ -1,7 +1,5 @@
-import 'package:admin_panel/models/seller_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
 
 import '../auth&database/database.dart';
 import '../models/product_model.dart';
@@ -9,16 +7,17 @@ import '../shared/shared_properties.dart';
 
 class PromotedProductTile extends StatelessWidget {
   final Product snap;
+  final String sellerName;
+  final String sellerPhone;
   const PromotedProductTile({
-    super.key,
+    Key? key,
     required this.snap,
-  });
+    required this.sellerName,
+    required this.sellerPhone,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Seller seller = (Provider.of<List<Seller>>(context)
-        .where((element) => element.uid == snap.sellerUid)
-        .toList())[0];
     // print(seller);
     return Slidable(
       startActionPane: ActionPane(
@@ -31,7 +30,7 @@ class PromotedProductTile extends StatelessWidget {
               removefrompromoted(context);
             },
             foregroundColor: Colors.black,
-            label: 'phone: ${seller.phoneNum}',
+            label: 'phone: $sellerPhone',
           ),
         ],
       ),
@@ -85,7 +84,7 @@ class PromotedProductTile extends StatelessWidget {
             ),
             title: Text(snap.name),
             subtitle: Text(
-              'sold by: ${seller.name}',
+              'sold by: $sellerName',
               overflow: TextOverflow.visible,
             ),
             trailing: Column(

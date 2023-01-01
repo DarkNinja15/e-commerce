@@ -3,6 +3,7 @@ import 'package:admin_panel/screens/add_seller_screen.dart';
 import 'package:admin_panel/screens/edit_cattegories.dart';
 import 'package:admin_panel/screens/home_page.dart';
 import 'package:admin_panel/screens/promoted_products_screen.dart';
+import 'package:admin_panel/screens/send_notifications.dart';
 import 'package:admin_panel/screens/view_order_screen.dart';
 import 'package:admin_panel/screens/view_products_screen.dart';
 import 'package:admin_panel/widgets/logout.dart';
@@ -18,8 +19,8 @@ class Drawerc extends StatelessWidget {
     // print(seller);
     return seller.email == 'mybhrmar@gmail.com'
         ? Drawer(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 30,
@@ -33,9 +34,11 @@ class Drawerc extends StatelessWidget {
                         DecorationImage(image: AssetImage('assets/logo1.png')),
                   ),
                 ),
-                Text(
-                  'Welcome ${seller.name}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Center(
+                  child: Text(
+                    'Welcome ${seller.name}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const Divider(),
                 ListTile(
@@ -118,6 +121,19 @@ class Drawerc extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(
+                    Icons.send,
+                  ),
+                  title: const Text('Send Notifications'),
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const SendNotification(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
                     Icons.exit_to_app,
                   ),
                   title: const Text('LogOut'),
@@ -126,13 +142,14 @@ class Drawerc extends StatelessWidget {
                   },
                 ),
                 const Divider(),
-                const Spacer(),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Made with love ❤️',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  child: Center(
+                    child: Text(
+                      'Made with love ❤️',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 )
@@ -140,8 +157,8 @@ class Drawerc extends StatelessWidget {
             ),
           )
         : Drawer(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 30,
@@ -155,9 +172,11 @@ class Drawerc extends StatelessWidget {
                         DecorationImage(image: AssetImage('assets/logo1.png')),
                   ),
                 ),
-                Text(
-                  'Welcome ${seller.name}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Center(
+                  child: Text(
+                    'Welcome ${seller.name}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 const Divider(),
                 ListTile(
@@ -222,13 +241,15 @@ class Drawerc extends StatelessWidget {
                   },
                 ),
                 const Divider(),
-                const Spacer(),
+
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Made with love ❤️',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  child: Center(
+                    child: Text(
+                      'Made with love ❤️',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 )

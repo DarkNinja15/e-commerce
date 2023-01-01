@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/product_model.dart';
+import 'package:user/screens/Others/Cart_Page.dart';
+import 'package:user/screens/Others/Product_info.dart';
 import 'package:user/widgets/drawer.dart';
 import '../provider/user_provider.dart';
 import '../widgets/My_Widgets.dart';
@@ -72,6 +74,16 @@ class _HomePageState extends State<HomePage> {
             'B H R M A R',
             style: TextStyle(fontWeight: FontWeight.w400),
           ),
+          actions: [
+            IconButton(
+                onPressed: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyCart()));
+                },
+                icon: Icon(Icons.shopping_cart))
+          ],
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -94,12 +106,20 @@ class _HomePageState extends State<HomePage> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 1, childAspectRatio: 1.1875),
                     itemBuilder: (context, i) {
-                      return productTile(
-                          promotedProds[i].photoUrl,
-                          promotedProds[i].name,
-                          promotedProds[i].desc,
-                          promotedProds[i].price,
-                          promotedProds[i].discount);
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductInfo(prod: promotedProds[i])));
+                        },
+                        child: productTile(
+                            promotedProds[i].photoUrl,
+                            promotedProds[i].name,
+                            promotedProds[i].desc,
+                            promotedProds[i].price,
+                            promotedProds[i].discount),
+                      );
                     }),
               ),
               const SizedBox(
@@ -128,12 +148,20 @@ class _HomePageState extends State<HomePage> {
                     crossAxisSpacing: 10,
                     itemCount: allProds.length,
                     itemBuilder: (context, i) {
-                      return productTile(
-                          allProds[i].photoUrl,
-                          allProds[i].name,
-                          allProds[i].desc,
-                          allProds[i].price,
-                          allProds[i].discount);
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductInfo(prod: allProds[i])));
+                        },
+                        child: productTile(
+                            allProds[i].photoUrl,
+                            allProds[i].name,
+                            allProds[i].desc,
+                            allProds[i].price,
+                            allProds[i].discount),
+                      );
                     }),
               ),
             ],

@@ -1,14 +1,14 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 Widget counter() {
-  return Container(
-    child: Row(
-      children: [
-        button1(),
-        screen(1),
-        button2(),
-      ],
-    ),
+  return Row(
+    children: [
+      button1(),
+      screen(1),
+      button2(),
+    ],
   );
 }
 
@@ -34,39 +34,29 @@ Widget Cart_tile(String picUrl, String name, double price) {
             child: Image.network(picUrl, fit: BoxFit.contain),
           ),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Container(
           width: 190,
-            // decoration: BoxDecoration(
-            //   border: Border.all(width: 1)
-            // ),
-          margin: EdgeInsets.all(7),
+          // decoration: BoxDecoration(
+          //   border: Border.all(width: 1)
+          // ),
+          margin: const EdgeInsets.all(7),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                // decoration: BoxDecoration(
-                //     border: Border.all(width: 1)
-                // ),
-                child: Text(
-                  name,
-                  style: TextStyle(
-                      fontSize: 18,
-                      overflow: TextOverflow.ellipsis,
-                      color: Colors.teal),
-                ),
+              Text(
+                name,
+                style: const TextStyle(
+                    fontSize: 18,
+                    overflow: TextOverflow.ellipsis,
+                    color: Colors.teal),
               ),
-              Container(
-                // decoration: BoxDecoration(
-                //     border: Border.all(width: 1)
-                // ),
-                child: Text(
-                  '₹ ${price.ceil().toString()}',
-                  style: TextStyle(fontSize: 17, color: Colors.green),
-                ),
+              Text(
+                '₹ ${price.ceil().toString()}',
+                style: const TextStyle(fontSize: 17, color: Colors.green),
               ),
-              Container(
+              SizedBox(
                 height: 40,
                 child: Row(
                   // crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,7 +65,10 @@ Widget Cart_tile(String picUrl, String name, double price) {
                     counter(),
                     IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.delete_outline_outlined, color: Colors.redAccent.shade200,))
+                        icon: Icon(
+                          Icons.delete_outline_outlined,
+                          color: Colors.redAccent.shade200,
+                        ))
                   ],
                 ),
               )
@@ -87,37 +80,44 @@ Widget Cart_tile(String picUrl, String name, double price) {
   );
 }
 
-Widget button1(){
+Widget button1() {
   return Container(
-    margin: EdgeInsets.all(4),
-    height: 25,
-    width: 25,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(5),
-      border: Border.all(width: 0.7, color: Colors.teal),
-    ),
-    child: Icon(Icons.remove, color: Colors.teal,)
-  );
-}
-
-Widget button2(){
-  return Container(
-    margin: EdgeInsets.all(4),
-    height: 25,
-    width: 25,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(5),
-      color: Colors.teal,
-    ),
-    child: Icon(Icons.add, color: Colors.white,)
-  );
-}
-
-Widget screen(int count){
-  return Container(
-      margin: EdgeInsets.all(4),
+      margin: const EdgeInsets.all(4),
       height: 25,
       width: 25,
-      child: Center(child: Text(count.toString(), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),))
-  );
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(width: 0.7, color: Colors.teal),
+      ),
+      child: const Icon(
+        Icons.remove,
+        color: Colors.teal,
+      ));
+}
+
+Widget button2() {
+  return Container(
+      margin: const EdgeInsets.all(4),
+      height: 25,
+      width: 25,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.teal,
+      ),
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ));
+}
+
+Widget screen(int count) {
+  return Container(
+      margin: const EdgeInsets.all(4),
+      height: 25,
+      width: 25,
+      child: Center(
+          child: Text(
+        count.toString(),
+        style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+      )));
 }

@@ -76,13 +76,11 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyCart()));
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const MyCart()));
                 },
-                icon: Icon(Icons.shopping_cart))
+                icon: const Icon(Icons.shopping_cart))
           ],
           centerTitle: true,
         ),
@@ -107,11 +105,12 @@ class _HomePageState extends State<HomePage> {
                             crossAxisCount: 1, childAspectRatio: 1.1875),
                     itemBuilder: (context, i) {
                       return GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProductInfo(prod: promotedProds[i])));
+                                  builder: (context) =>
+                                      ProductInfo(prod: promotedProds[i])));
                         },
                         child: productTile(
                             promotedProds[i].photoUrl,
@@ -149,11 +148,12 @@ class _HomePageState extends State<HomePage> {
                     itemCount: allProds.length,
                     itemBuilder: (context, i) {
                       return GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProductInfo(prod: allProds[i])));
+                                  builder: (context) =>
+                                      ProductInfo(prod: allProds[i])));
                         },
                         child: productTile(
                             allProds[i].photoUrl,

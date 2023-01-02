@@ -333,6 +333,8 @@ class Database {
                     (documentSnapshot.data()! as Map<String, dynamic>)['desc'],
                 photoUrl: (documentSnapshot.data()!
                     as Map<String, dynamic>)['photoUrl'],
+                payMode: (documentSnapshot.data()!
+                    as Map<String, dynamic>)['payMode']
               ),
             )
             .toList());

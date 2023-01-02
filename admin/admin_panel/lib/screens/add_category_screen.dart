@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../auth&database/database.dart';
 import '../shared/shared_properties.dart';
@@ -16,6 +17,27 @@ class _AddCategoryState extends State<AddCategory> {
   TextEditingController namecontroller = TextEditingController();
   Uint8List? image;
   bool isLoading = false;
+  List<String> allCat = [];
+
+  @override
+  void initState() {
+    isLoading = true;
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    allCat = Provider.of<List<String>>(context);
+    Future.delayed(
+        const Duration(
+          seconds: 2,
+        ), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.didChangeDependencies();
+  }
 
   _selectImage() async {
     showDialog(
@@ -192,6 +214,15 @@ class _AddCategoryState extends State<AddCategory> {
     if (namecontroller.text.isEmpty) {
       Shared().snackbar(
         message: 'Please enter the category',
+        context: context,
+      );
+      return;
+    }
+    if (allCat.contains(namecontroller.text.trim())) {
+      image = null;
+      namecontroller.text = "";
+      Shared().snackbar(
+        message: 'Category already exists.',
         context: context,
       );
       return;

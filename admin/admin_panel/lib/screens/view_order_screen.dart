@@ -32,7 +32,9 @@ class _ViewOrderState extends State<ViewOrder> {
 
   @override
   void didChangeDependencies() {
-    ord = Provider.of<List<od.Order>>(context);
+    ord = Provider.of<List<od.Order>>(context)
+        .where((element) => element.status == 'yet to be delivered')
+        .toList();
     // print('ord');
     // print(ord);
     Future.delayed(

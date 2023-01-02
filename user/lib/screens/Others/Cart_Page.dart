@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/provider/user_provider.dart';
-import 'package:user/widgets/cart_tile.dart';
+import 'package:user/services/Database_Service.dart';
+import 'package:user/widgets/radio_button.dart';
 
 import '../../models/product_model.dart';
+import '../../widgets/cart_nav_bar.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -18,8 +20,52 @@ class _MyCartState extends State<MyCart> {
   List<Product> carts = [];
   List<Product> allProds = [];
   List cartProdIds = [];
-  bool isChecked = false;
+  bool isChecked = true;
   bool isLoading = false;
+
+  List<int> count = [];
+  List<int> isSelected = [];
+
+  int totalcost = 0;
+
+  void selectall(bool flag){
+    if(flag){
+      for(int i=0; i<carts.length; i++){
+        isSelected[i]=1;
+      }
+      calculate();
+      setState(() {});
+    }
+  }
+
+  void calculate(){
+    totalcost = 0;
+    for(int i=0; i<carts.length; i++){
+      if(isSelected[i]==1){
+        totalcost += carts[i].price.toInt()*count[i];
+      }
+    }
+  }
+
+
+  void deletefromcart(int ind, BuildContext ctx) {
+    try{
+      DatabaseService().addProdToCart(carts[ind].id, ctx);
+      carts.removeAt(ind);
+      count.removeAt(ind);
+      isSelected.removeAt(ind);
+      calculate();
+      setState(() {});
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text(' A Cart item deleted successfully. '),
+        ),
+      );
+    } catch(e){
+      throw(e);
+    }
+  }
 
   @override
   void initState() {
@@ -36,11 +82,92 @@ class _MyCartState extends State<MyCart> {
       Product p = allProds.firstWhere((element) => element.id == i);
       carts.add(p);
     }
+    for(int i=0; i<carts.length; i++){
+      count.add(1);
+      isSelected.add(1);
+    }
+    calculate();
     super.didChangeDependencies();
   }
 
+  //******************************************************************************
+
+  Widget counter(int tot, int ind) {
+    return Row(
+      children: [
+        button1(ind),
+        screen(count[ind]),
+        button2(tot, ind),
+      ],
+    );
+  }
+
+  Widget button1(int ind) {
+    return GestureDetector(
+      onTap: (){
+        if(count[ind]>0){
+          count[ind]--;
+        }
+        calculate();
+        setState(() {});
+      },
+      child: Container(
+          margin: const EdgeInsets.all(4),
+          height: 25,
+          width: 25,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(width: 0.7, color: Colors.teal),
+          ),
+          child: const Icon(
+            Icons.remove,
+            color: Colors.teal,
+          )),
+    );
+  }
+
+  Widget button2(int tot, int ind) {
+    return GestureDetector(
+      onTap: (){
+        if(count[ind]<tot){
+          count[ind]++;
+        }
+        calculate();
+        setState(() {});
+      },
+      child: Container(
+          margin: const EdgeInsets.all(4),
+          height: 25,
+          width: 25,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.teal,
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          )),
+    );
+  }
+
+  Widget screen(int ct) {
+    return Container(
+        margin: const EdgeInsets.all(4),
+        height: 25,
+        width: 25,
+        child: Center(
+            child: Text(
+              ct.toString(),
+              style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+            )));
+  }
+
+//****************************************************************************************
+
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    print(width);
     return Scaffold(
       backgroundColor: carts.isEmpty ? Colors.white : Colors.grey[50],
       appBar: AppBar(
@@ -77,6 +204,7 @@ class _MyCartState extends State<MyCart> {
                           onChanged: (bool? value) {
                             setState(() {
                               isChecked = value!;
+                              selectall(isChecked);
                             });
                           },
                         ),
@@ -91,56 +219,100 @@ class _MyCartState extends State<MyCart> {
                     ),
                   ),
                   SizedBox(
-                    width: double.infinity,
+                    width: width,
                     child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: carts.length,
                         itemBuilder: (context, i) {
-                          return Cart_tile(
-                              carts[i].photoUrl, carts[i].name, carts[i].price);
+                          return Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20), color: Colors.white),
+                            margin: EdgeInsets.all(width*0.025),
+                            padding: EdgeInsets.all(width*0.025),
+                            width: width,
+                            height: 125,
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  child: Container(
+                                    child: isSelected[i]==0? notselectbutton() : selectbutton() ,
+                                  ),
+                                  onTap: (){
+                                    if(isSelected[i]==0){isSelected[i]=1;}
+                                    else{isSelected[i]=0;}
+                                    calculate();
+                                    setState(() {});
+                                  },
+                                ),
+                                Container(
+                                  height: width*0.24,
+                                  width: width*0.24,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.blueGrey.shade200),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.network(carts[i].photoUrl, fit: BoxFit.contain),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  width: width*0.4846,
+                                  // decoration: BoxDecoration(
+                                  //   border: Border.all(width: 1)
+                                  // ),
+                                  margin: const EdgeInsets.all(7),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        carts[i].name,
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            overflow: TextOverflow.ellipsis,
+                                            color: Colors.teal),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '₹${carts[i].price.ceil().toString()} ',
+                                            style: const TextStyle(fontSize: 17, color: Colors.green),
+                                          ),
+                                          Text('x${count[i]} ', style: TextStyle(fontSize: 13, color: Colors.deepOrange),),
+                                          Text('= ₹${(count[i]*carts[i].price).round()}', style: const TextStyle(fontSize: 17, color: Colors.green, overflow: TextOverflow.ellipsis))
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 40,
+                                        child: Row(
+                                          // crossAxisAlignment: CrossAxisAlignment.center,
+                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            counter(carts[i].quantity, i),
+                                            Spacer(),
+                                            IconButton(
+                                                onPressed: (){deletefromcart(i, context);},
+                                                icon: Icon(
+                                                  Icons.delete_outline_outlined,
+                                                  color: Colors.redAccent.shade200,
+                                                ))
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
                         }),
                   ),
                 ],
               ),
             ),
-      bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.11,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-        child: Row(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: const Center(
-                child: Text(
-                  '₹',
-                  style: TextStyle(fontSize: 30, color: Colors.teal),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: const Color.fromRGBO(255, 176, 57, 1),
-                ),
-                child: const Center(
-                    child: Text(
-                  'Buy Now',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                )),
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: Nav(context, totalcost),
     );
   }
 }

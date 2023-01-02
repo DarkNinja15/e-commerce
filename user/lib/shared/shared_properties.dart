@@ -12,15 +12,16 @@ class Shared {
     );
   }
 
-  // imagepicker(ImageSource source) async {
-  //   ImagePicker imagePicker = ImagePicker();
-  //   XFile? file = await imagePicker.pickImage(
-  //     source: source,
-  //   );
-  //   if (file != null) {
-  //     return await file.readAsBytes();
-  //   }
-  //   // print('No Image Selected');
-  // }
-
+  snackbar2(String message, BuildContext context, Color clr) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: clr,
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+  
 }

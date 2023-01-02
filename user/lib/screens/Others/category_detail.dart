@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/product_model.dart';
 import 'package:user/widgets/loading.dart';
 
+import '../../widgets/product_tile.dart';
+import 'Product_info.dart';
+
 class CategoryDetail extends StatefulWidget {
   final String name;
-  const CategoryDetail({super.key, required this.name});
+  final String picUrl;
+  const CategoryDetail({super.key, required this.name, required this.picUrl});
 
   @override
   State<CategoryDetail> createState() => _CategoryDetailState();
@@ -37,9 +42,30 @@ class _CategoryDetailState extends State<CategoryDetail> {
     super.didChangeDependencies();
   }
 
+  Widget Tile(){
+    return Container(
+      height: 145,
+      width: 335,
+      margin: const EdgeInsets.symmetric(
+          vertical: 15, horizontal: 25),
+      decoration: BoxDecoration(
+        border: Border.all(width: 1.5, color: Colors.yellow),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: Image.network(
+            widget.picUrl,
+            fit: BoxFit.fill,
+          ),
+        ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // catProds contains all the products related to that category.
+    // catProds contains
+    // catthe products related to that category.
     // print(catProds);
 
     return isLoading
@@ -48,10 +74,46 @@ class _CategoryDetailState extends State<CategoryDetail> {
           )
         : Scaffold(
             appBar: AppBar(
-              title: Text(widget.name),
+              elevation: 0,
+              title: Text(widget.name, style: TextStyle(letterSpacing: 1.2, fontWeight: FontWeight.w400),),
               centerTitle: true,
             ),
-            body: Container(),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Tile(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: MasonryGridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 2,
+                        crossAxisSpacing: 10,
+                        itemCount:
+                        catProds.length,
+                        itemBuilder: (context, i) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductInfo(prod:
+                                          catProds[i])));
+                            },
+                            child: productTile(
+                                catProds[i].photoUrl,
+                                catProds[i].name,
+                                catProds[i].desc,
+                                catProds[i].price,
+                                catProds[i].discount),
+                          );
+                        }),
+                  ),
+                ],
+              ),
+            ),
           );
   }
 }

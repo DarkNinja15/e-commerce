@@ -20,6 +20,13 @@ Widget productTile(String url, String Name, String Description, double price,
       child: Column(
         children: [
           Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              color: Colors.blueGrey,
+            ),
             height: 110,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(

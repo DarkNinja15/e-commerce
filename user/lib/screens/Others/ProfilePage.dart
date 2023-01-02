@@ -244,8 +244,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         const SizedBox(height: 15),
                         TextFormField(
                           controller: addresscontroller,
-                          keyboardType: TextInputType.text,
-                          maxLines: 3,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
                           decoration: textInputDecoration.copyWith(
                             labelText: "Address",
                             prefixIcon: Icon(

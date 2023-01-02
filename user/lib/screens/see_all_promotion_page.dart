@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/product_model.dart';
 import '../widgets/My_Widgets.dart';
 import '../widgets/product_tile.dart';
+import 'Others/Product_info.dart';
 
 class SeeAllPromotionPage extends StatefulWidget {
   const SeeAllPromotionPage({super.key});
@@ -82,12 +83,21 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
                   crossAxisSpacing: 10,
                   itemCount: promotedProds.length,
                   itemBuilder: (context, i) {
-                    return productTile(
-                        promotedProds[i].photoUrl,
-                        promotedProds[i].name,
-                        promotedProds[i].desc,
-                        promotedProds[i].price,
-                        promotedProds[i].discount);
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductInfo(prod: promotedProds[i])));
+                      },
+                      child: productTile(
+                          promotedProds[i].photoUrl,
+                          promotedProds[i].name,
+                          promotedProds[i].desc,
+                          promotedProds[i].price,
+                          promotedProds[i].discount),
+                    );
                   }),
             ),
           ],

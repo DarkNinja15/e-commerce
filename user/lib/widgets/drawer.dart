@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user/services/Auth_Service.dart';
+import 'package:user/widgets/logout.dart';
 
 class Drawerc extends StatefulWidget {
   const Drawerc({super.key});
@@ -26,10 +27,6 @@ class _DrawercState extends State<Drawerc> {
               image: DecorationImage(image: AssetImage('assets/logo1.png')),
             ),
           ),
-          // Text(
-          //   'Welcome ${seller.name}',
-          //   style: const TextStyle(fontWeight: FontWeight.bold),
-          // ),
           const Divider(),
 
           ListTile(
@@ -38,9 +35,7 @@ class _DrawercState extends State<Drawerc> {
             ),
             title: const Text('LogOut'),
             onTap: () {
-              Authentication.signOut(
-                context: context,
-              );
+              logout(context);
             },
           ),
           const Divider(),

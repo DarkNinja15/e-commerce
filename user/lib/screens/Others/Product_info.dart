@@ -24,7 +24,8 @@ class _ProductInfoState extends State<ProductInfo> {
     bool isInCart = user.cart.contains(widget.prod.id);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        foregroundColor: Colors.blueGrey,
+        backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           Row(
@@ -43,10 +44,6 @@ class _ProductInfoState extends State<ProductInfo> {
         child: Column(
           children: [
             Container(
-              height: 20,
-              color: Colors.white,
-            ),
-            Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.30,
               decoration: BoxDecoration(
@@ -56,8 +53,42 @@ class _ProductInfoState extends State<ProductInfo> {
                       fit: BoxFit.contain)),
             ),
             Container(
-              height: 20,
+              height: 35,
               color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                      margin: const EdgeInsets.only(right: 15, bottom: 5),
+                      child: GestureDetector(
+                        onTap: () async {
+                          final res = await DatabaseService()
+                              .addProdToWishList(widget.prod.id, context);
+                          setState(() {});
+                          if (res == 'added') {
+                            Shared().snackbar2(
+                              'Product added to wishlist.',
+                              context,
+                              Colors.green,
+                            );
+                          } else if (res == 'removed') {
+                            Shared().snackbar2(
+                              'Product removed from wishlist.',
+                              context,
+                              Colors.redAccent,
+                            );
+                          } else {
+                            Shared().snackbar(
+                              res,
+                              context,
+                            );
+                          }
+                        },
+                        child: isWishListed ? const Icon(Icons.favorite, color: Colors.redAccent, size: 35)
+                            : const Icon(Icons.favorite_outline_outlined, color: Colors.blueGrey, size: 35)
+                      )),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,36 +101,7 @@ class _ProductInfoState extends State<ProductInfo> {
                     style: const TextStyle(fontSize: 30),
                   ),
                 ),
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    child: GestureDetector(
-                      onTap: () async {
-                        final res = await DatabaseService()
-                            .addProdToWishList(widget.prod.id, context);
-                        setState(() {});
-                        if (res == 'added') {
-                          Shared().snackbar(
-                            'Product added to wishlist.',
-                            context,
-                          );
-                        } else if (res == 'removed') {
-                          Shared().snackbar(
-                            'Product removed from wishlist.',
-                            context,
-                          );
-                        } else {
-                          Shared().snackbar(
-                            res,
-                            context,
-                          );
-                        }
-                      },
-                      child: Icon(
-                        Icons.favorite,
-                        size: 40,
-                        color: isWishListed ? Colors.red : Colors.white,
-                      ),
-                    )),
+
               ],
             ),
             const Divider(),
@@ -112,7 +114,7 @@ class _ProductInfoState extends State<ProductInfo> {
               ),
             ),
             const Divider(),
-            Container(
+            widget.prod.discount>0 ? Container(
               margin: const EdgeInsets.all(20),
               child: Text(
                 'NOTE : There is a discount of ${widget.prod.discount.round()}%  on this product if your order quantity on this product is more than ${widget.prod.discountProductLimit} .',
@@ -121,14 +123,17 @@ class _ProductInfoState extends State<ProductInfo> {
                 ),
                 textAlign: TextAlign.center,
               ),
-            ),
+            ) : const SizedBox(),
           ],
         ),
       ),
       bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))
+        ),
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.075,
-        color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

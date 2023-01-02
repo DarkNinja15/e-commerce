@@ -75,6 +75,7 @@ class _All_CategoriesState extends State<All_Categories> {
                           MaterialPageRoute(
                             builder: (context) => CategoryDetail(
                               name: cats[i].name,
+                              picUrl: cats[i].thumbnailPicUrl,
                             ),
                           ),
                         );

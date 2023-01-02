@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
     await Provider.of<SellerProvider>(context, listen: false).refreshUser();
   }
 
-  String selectedCattegory = "others";
+  String selectedCattegory = "Others";
 
   _selectImage() async {
     showDialog(

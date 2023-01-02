@@ -184,6 +184,20 @@ class _OrderDetailState extends State<OrderDetail> {
                     ],
                   ),
                   const Divider(height: 35),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        child: const Text('Paymode  :   ',
+                            style: TextStyle(fontWeight: FontWeight.w500)),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        child: Text(widget.snap.payMode),
+                      )
+                    ],
+                  ),
+                  const Divider(height: 35),
                   const SizedBox(
                     height: 10,
                   ),

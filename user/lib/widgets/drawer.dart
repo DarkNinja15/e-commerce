@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Others/order_history_screen.dart';
 import 'package:user/widgets/logout.dart';
 
@@ -12,6 +14,7 @@ class Drawerc extends StatefulWidget {
 class _DrawercState extends State<Drawerc> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).getUser;
     return Drawer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -25,6 +28,12 @@ class _DrawercState extends State<Drawerc> {
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(image: AssetImage('assets/logo1.png')),
+            ),
+          ),
+          Text(
+            'Welcome ${user.userName}',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
             ),
           ),
           const Divider(),

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:user/models/user_model.dart';
 import 'package:user/screens/Intro-Screens/login_page.dart';
+import 'package:user/shared/shared_properties.dart';
 import 'Database_Service.dart';
 import 'Shared_Pref.dart';
 
@@ -217,6 +218,24 @@ class Authentication {
       return res;
     } catch (e) {
       return res;
+    }
+  }
+
+  // forgot password
+  Future<String> resetPassword(String email, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: email,
+      );
+      Shared().snackbar(
+        'An email with a link for reseting the password has been sent to $email\nPlease check your spam box if you have not received the email.',
+        context,
+      );
+      return 'Success';
+    } on FirebaseAuthException catch (e) {
+      return e.code.toString();
+    } catch (e) {
+      return e.toString();
     }
   }
 }

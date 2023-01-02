@@ -256,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Did not have a account ? '),
+                            const Text('Do not have a account ? '),
                             InkWell(
                                 onTap: () {
                                   Navigator.pushReplacement(

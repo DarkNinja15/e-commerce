@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:user/services/Auth_Service.dart';
+import '../../shared/shared_properties.dart';
 import '../../widgets/textfield.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -53,7 +57,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               height: 20,
             ),
             InkWell(
-              onTap: (){},
+              onTap: _forgotpass,
               child: Container(
                 height: 40,
                 width: double.infinity,
@@ -81,18 +85,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 
-  // void _forgotpass() async {
-  //   // final res = await AuthMethods().resetPassword(
-  //   //   emailcontroller.text.trim(),
-  //   // );
-  //   if (res != 'Success') {
-  //     Shared().snackbar(res, context
-  //     );
-  //   } else {
-  //     Shared().snackbar(
-  //       'An email with a link for reseting the password has been sent to ${emailcontroller.text}\nPlease check your spam box if you have not received the email.',
-  //       context,
-  //     );
-  //   }
-  // }
+  void _forgotpass() async {
+    final res = await Authentication().resetPassword(
+      emailcontroller.text.trim(),
+      context,
+    );
+    if (res != 'Success') {
+      Shared().snackbar(res, context);
+    } else {
+      Shared().snackbar(
+        'Some Error Occured.\nPlease try again later.',
+        context,
+      );
+    }
+  }
 }

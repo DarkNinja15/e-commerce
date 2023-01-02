@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/category_model.dart' as cate;
+import 'package:user/models/order_model.dart' as ord;
 import 'package:user/provider/user_provider.dart';
 
 import '../models/product_model.dart';
@@ -121,6 +122,45 @@ class DatabaseService {
                       as Map<String, dynamic>)['userName'],
                   userUid: (documentSnapshot.data()!
                       as Map<String, dynamic>)['userUid'],
+                ))
+            .toList());
+  }
+
+  // retrieving orders from database
+  Stream<List<ord.Order>> get order {
+    return FirebaseFirestore.instance
+        .collection('allorders')
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((DocumentSnapshot documentSnapshot) => ord.Order(
+                  category: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['category'],
+                  desc: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['desc'],
+                  name: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['name'],
+                  orderDate: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['orderDate'],
+                  orderId: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['orderId'],
+                  payMode: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['payMode'],
+                  photoUrl: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['photoUrl'],
+                  price: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['price'],
+                  quantity: int.parse((documentSnapshot.data()!
+                      as Map<String, dynamic>)['quantity']),
+                  status: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['status'],
+                  userAddress: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userAddress'],
+                  userId: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userId'],
+                  userName: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userName'],
+                  userPhone: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userPhone'],
                 ))
             .toList());
   }

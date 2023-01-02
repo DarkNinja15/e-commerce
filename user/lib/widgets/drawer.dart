@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user/screens/Others/order_history_screen.dart';
 import 'package:user/widgets/logout.dart';
 
 class Drawerc extends StatefulWidget {
@@ -27,6 +28,19 @@ class _DrawercState extends State<Drawerc> {
             ),
           ),
           const Divider(),
+          ListTile(
+            leading: const Icon(
+              Icons.history,
+            ),
+            title: const Text('Order History'),
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const OrderHistory(),
+                ),
+              );
+            },
+          ),
           ListTile(
             leading: const Icon(
               Icons.exit_to_app,

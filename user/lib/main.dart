@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/category_model.dart' as cate;
+import 'package:user/models/order_model.dart' as ord;
 import 'package:user/models/product_model.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Intro-Screens/Splash_Screen.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
         ),
         StreamProvider<List<cate.Category>>.value(
           value: DatabaseService().category,
+          initialData: const [],
+        ),
+        StreamProvider<List<ord.Order>>.value(
+          value: DatabaseService().order,
           initialData: const [],
         ),
         ChangeNotifierProvider(

@@ -34,7 +34,7 @@ class _DrawercState extends State<Drawerc> {
             ),
             title: const Text('Order History'),
             onTap: () {
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const OrderHistory(),
                 ),

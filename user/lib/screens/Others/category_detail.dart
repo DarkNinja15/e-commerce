@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -42,23 +44,22 @@ class _CategoryDetailState extends State<CategoryDetail> {
     super.didChangeDependencies();
   }
 
-  Widget Tile(){
+  Widget Tile() {
     return Container(
       height: 145,
       width: 335,
-      margin: const EdgeInsets.symmetric(
-          vertical: 15, horizontal: 25),
+      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
       decoration: BoxDecoration(
         border: Border.all(width: 1.5, color: Colors.yellow),
         borderRadius: BorderRadius.circular(30),
       ),
       child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Image.network(
-            widget.picUrl,
-            fit: BoxFit.fill,
-          ),
+        borderRadius: BorderRadius.circular(30),
+        child: Image.network(
+          widget.picUrl,
+          fit: BoxFit.fill,
         ),
+      ),
     );
   }
 
@@ -75,7 +76,11 @@ class _CategoryDetailState extends State<CategoryDetail> {
         : Scaffold(
             appBar: AppBar(
               elevation: 0,
-              title: Text(widget.name, style: TextStyle(letterSpacing: 1.2, fontWeight: FontWeight.w400),),
+              title: Text(
+                widget.name,
+                style: const TextStyle(
+                    letterSpacing: 1.2, fontWeight: FontWeight.w400),
+              ),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -90,8 +95,7 @@ class _CategoryDetailState extends State<CategoryDetail> {
                         crossAxisCount: 2,
                         mainAxisSpacing: 2,
                         crossAxisSpacing: 10,
-                        itemCount:
-                        catProds.length,
+                        itemCount: catProds.length,
                         itemBuilder: (context, i) {
                           return GestureDetector(
                             onTap: () {
@@ -99,8 +103,7 @@ class _CategoryDetailState extends State<CategoryDetail> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ProductInfo(prod:
-                                          catProds[i])));
+                                          ProductInfo(prod: catProds[i])));
                             },
                             child: productTile(
                                 catProds[i].photoUrl,

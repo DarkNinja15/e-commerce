@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:user/services/Auth_Service.dart';
-import '../screens/Intro-Screens/login_page.dart';
-import '../shared/shared_properties.dart';
 
 void logout(BuildContext ctx) {
   showDialog(
@@ -81,12 +79,12 @@ void logout(BuildContext ctx) {
                           ),
                           child: const Center(
                               child: Text(
-                                'Log Out',
-                                style: TextStyle(color: Colors.white),
-                              )),
+                            'Log Out',
+                            style: TextStyle(color: Colors.white),
+                          )),
                         ),
                         onTap: () async {
-                            Authentication.signOut(context: context);
+                          Authentication.signOut(context: context);
                         },
                       ),
                     ],

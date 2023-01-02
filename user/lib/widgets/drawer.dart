@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user/services/Auth_Service.dart';
 import 'package:user/widgets/logout.dart';
 
 class Drawerc extends StatefulWidget {
@@ -28,7 +27,6 @@ class _DrawercState extends State<Drawerc> {
             ),
           ),
           const Divider(),
-
           ListTile(
             leading: const Icon(
               Icons.exit_to_app,

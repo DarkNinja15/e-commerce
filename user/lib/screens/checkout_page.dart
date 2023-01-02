@@ -33,12 +33,12 @@ class _CheckoutState extends State<Checkout> {
   int totalcost = 0;
   bool cashondelivery = false;
 
-  void fun(){
-    for(int i=0; i<widget.prod.length; i++){
-      if(widget.isSelected[i]==1){
+  void fun() {
+    for (int i = 0; i < widget.prod.length; i++) {
+      if (widget.isSelected[i] == 1) {
         prod.add(widget.prod[i]);
         count.add(widget.count[i]);
-        totalcost += widget.prod[i].price.toInt()*widget.count[i];
+        totalcost += widget.prod[i].price.toInt() * widget.count[i];
       }
     }
   }
@@ -51,7 +51,7 @@ class _CheckoutState extends State<Checkout> {
 
   @override
   Widget build(BuildContext context) {
-    print(count);
+    // print(count);
     var width = MediaQuery.of(context).size.width;
     final user = Provider.of<UserProvider>(context).getUser;
     namecontroller.text = user.userName;
@@ -61,14 +61,11 @@ class _CheckoutState extends State<Checkout> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        MyCart()));
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const MyCart()));
           },
-          icon:Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           //replace with our own icon data.
         ),
         elevation: 0,
@@ -86,104 +83,96 @@ class _CheckoutState extends State<Checkout> {
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.white,
               ),
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: width * 0.25,
-                          child: const Text(
-                            'Name : ',
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Name : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: namecontroller,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
                           ),
                         ),
-                        Container(
-                          width: width * 0.60,
-                          child: TextField(
-                            controller: namecontroller,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Divider(height: 0),
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: width * 0.25,
-                          child: const Text(
-                            'Contact No : ',
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                  const Divider(height: 0),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Contact No : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: phonecontroller,
+                          keyboardType: TextInputType.phone,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
                           ),
                         ),
-                        Container(
-                          width: width * 0.60,
-                          child: TextField(
-                            controller: phonecontroller,
-                            keyboardType: TextInputType.phone,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Divider(height: 0),
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: width * 0.25,
-                          child: const Text(
-                            'Email \nAddress : ',
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                  const Divider(height: 0),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Email \nAddress : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: emailcontroller,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
                           ),
                         ),
-                        Container(
-                          width: width * 0.60,
-                          child: TextField(
-                            controller: emailcontroller,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Divider(height: 0),
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: width * 0.25,
-                          child: const Text(
-                            'Shipping \nAddress : ',
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                  const Divider(height: 0),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Shipping \nAddress : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: addresscontroller,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
                           ),
                         ),
-                        Container(
-                          width: width * 0.60,
-                          child: TextField(
-                            controller: addresscontroller,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -191,28 +180,45 @@ class _CheckoutState extends State<Checkout> {
             SizedBox(
               width: double.infinity,
               child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: prod.length,
-                  itemBuilder: (context, i){
-                    return tile(width, prod[i].photoUrl, prod[i].name, (prod[i].price*count[i]).toString(), prod[i].quantity.toString());
-              }),
+                  itemBuilder: (context, i) {
+                    return tile(
+                        width,
+                        prod[i].photoUrl,
+                        prod[i].name,
+                        (prod[i].price * count[i]).toString(),
+                        prod[i].quantity.toString());
+                  }),
             ),
             Container(
-              margin: EdgeInsets.all(15),
+              margin: const EdgeInsets.all(15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Total Payment : ', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25, color: Colors.teal),),
-                  Text(totalcost.toString(), style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25, color: Colors.blueGrey),)
+                  const Text(
+                    'Total Payment : ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 25,
+                        color: Colors.teal),
+                  ),
+                  Text(
+                    totalcost.toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 25,
+                        color: Colors.blueGrey),
+                  )
                 ],
               ),
             ),
             Container(
               width: double.infinity,
               // height: 105,
-              margin: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              padding: EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.white,
@@ -220,29 +226,36 @@ class _CheckoutState extends State<Checkout> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Select a Payment Method', style: TextStyle(color: Colors.redAccent),),
+                  const Text(
+                    'Select a Payment Method',
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
                   Row(
                     children: [
-                    Checkbox(value: cashondelivery,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          cashondelivery = value!;
-                        });
-                      },
-                    ),
-                      Text('Cash On Delivery')
-                  ],),
+                      Checkbox(
+                        value: cashondelivery,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            cashondelivery = value!;
+                          });
+                        },
+                      ),
+                      const Text('Cash On Delivery')
+                    ],
+                  ),
                   Row(
                     children: [
-                      Checkbox(value: !cashondelivery,
+                      Checkbox(
+                        value: !cashondelivery,
                         onChanged: (bool? value) {
                           setState(() {
                             cashondelivery = !value!;
                           });
                         },
                       ),
-                      Text('Pay Online')
-                    ],),
+                      const Text('Pay Online')
+                    ],
+                  ),
                   Container(
                     height: 40,
                     width: double.infinity,
@@ -267,11 +280,10 @@ class _CheckoutState extends State<Checkout> {
                 ],
               ),
             ),
-            SizedBox(height: 30)
+            const SizedBox(height: 30)
           ],
         ),
       ),
     );
   }
 }
-

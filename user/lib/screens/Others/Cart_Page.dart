@@ -29,28 +29,27 @@ class _MyCartState extends State<MyCart> {
 
   int totalcost = 0;
 
-  void selectall(bool flag){
-    if(flag){
-      for(int i=0; i<carts.length; i++){
-        isSelected[i]=1;
+  void selectall(bool flag) {
+    if (flag) {
+      for (int i = 0; i < carts.length; i++) {
+        isSelected[i] = 1;
       }
       calculate();
       setState(() {});
     }
   }
 
-  void calculate(){
+  void calculate() {
     totalcost = 0;
-    for(int i=0; i<carts.length; i++){
-      if(isSelected[i]==1){
-        totalcost += carts[i].price.toInt()*count[i];
+    for (int i = 0; i < carts.length; i++) {
+      if (isSelected[i] == 1) {
+        totalcost += carts[i].price.toInt() * count[i];
       }
     }
   }
 
-
   void deletefromcart(int ind, BuildContext ctx) {
-    try{
+    try {
       DatabaseService().addProdToCart(carts[ind].id, ctx);
       carts.removeAt(ind);
       count.removeAt(ind);
@@ -63,8 +62,8 @@ class _MyCartState extends State<MyCart> {
           content: Text(' A Cart item deleted successfully. '),
         ),
       );
-    } catch(e){
-      throw(e);
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -83,7 +82,7 @@ class _MyCartState extends State<MyCart> {
       Product p = allProds.firstWhere((element) => element.id == i);
       carts.add(p);
     }
-    for(int i=0; i<carts.length; i++){
+    for (int i = 0; i < carts.length; i++) {
       count.add(1);
       isSelected.add(1);
     }
@@ -105,8 +104,8 @@ class _MyCartState extends State<MyCart> {
 
   Widget button1(int ind) {
     return GestureDetector(
-      onTap: (){
-        if(count[ind]>0){
+      onTap: () {
+        if (count[ind] > 0) {
           count[ind]--;
         }
         calculate();
@@ -129,8 +128,8 @@ class _MyCartState extends State<MyCart> {
 
   Widget button2(int tot, int ind) {
     return GestureDetector(
-      onTap: (){
-        if(count[ind]<tot){
+      onTap: () {
+        if (count[ind] < tot) {
           count[ind]++;
         }
         calculate();
@@ -158,9 +157,9 @@ class _MyCartState extends State<MyCart> {
         width: 25,
         child: Center(
             child: Text(
-              ct.toString(),
-              style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-            )));
+          ct.toString(),
+          style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+        )));
   }
 
 //****************************************************************************************
@@ -168,19 +167,16 @@ class _MyCartState extends State<MyCart> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    print(width);
+    // print(width);
     return Scaffold(
       backgroundColor: carts.isEmpty ? Colors.white : Colors.grey[50],
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HomePage()));
+          onPressed: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
           },
-          icon:Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           //replace with our own icon data.
         ),
         elevation: 0,
@@ -239,45 +235,54 @@ class _MyCartState extends State<MyCart> {
                         itemBuilder: (context, i) {
                           return Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20), color: Colors.white),
-                            margin: EdgeInsets.all(width*0.025),
-                            padding: EdgeInsets.all(width*0.025),
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white),
+                            margin: EdgeInsets.all(width * 0.025),
+                            padding: EdgeInsets.all(width * 0.025),
                             width: width,
                             height: 125,
                             child: Row(
                               children: [
                                 InkWell(
                                   child: Container(
-                                    child: isSelected[i]==0? notselectbutton() : selectbutton() ,
+                                    child: isSelected[i] == 0
+                                        ? notselectbutton()
+                                        : selectbutton(),
                                   ),
-                                  onTap: (){
-                                    if(isSelected[i]==0){isSelected[i]=1;}
-                                    else{isSelected[i]=0;}
+                                  onTap: () {
+                                    if (isSelected[i] == 0) {
+                                      isSelected[i] = 1;
+                                    } else {
+                                      isSelected[i] = 0;
+                                    }
                                     calculate();
                                     setState(() {});
                                   },
                                 ),
                                 Container(
-                                  height: width*0.24,
-                                  width: width*0.24,
+                                  height: width * 0.24,
+                                  width: width * 0.24,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Colors.blueGrey.shade200),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(carts[i].photoUrl, fit: BoxFit.contain),
+                                    child: Image.network(carts[i].photoUrl,
+                                        fit: BoxFit.contain),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
                                 Container(
-                                  width: width*0.4846,
+                                  width: width * 0.4846,
                                   // decoration: BoxDecoration(
                                   //   border: Border.all(width: 1)
                                   // ),
                                   margin: const EdgeInsets.all(7),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         carts[i].name,
@@ -290,10 +295,23 @@ class _MyCartState extends State<MyCart> {
                                         children: [
                                           Text(
                                             '₹${carts[i].price.ceil().toString()} ',
-                                            style: const TextStyle(fontSize: 17, color: Colors.green),
+                                            style: const TextStyle(
+                                                fontSize: 17,
+                                                color: Colors.green),
                                           ),
-                                          Text('x${count[i]} ', style: TextStyle(fontSize: 13, color: Colors.deepOrange),),
-                                          Text('= ₹${(count[i]*carts[i].price).round()}', style: const TextStyle(fontSize: 17, color: Colors.green, overflow: TextOverflow.ellipsis))
+                                          Text(
+                                            'x${count[i]} ',
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.deepOrange),
+                                          ),
+                                          Text(
+                                              '= ₹${(count[i] * carts[i].price).round()}',
+                                              style: const TextStyle(
+                                                  fontSize: 17,
+                                                  color: Colors.green,
+                                                  overflow:
+                                                      TextOverflow.ellipsis))
                                         ],
                                       ),
                                       SizedBox(
@@ -303,12 +321,15 @@ class _MyCartState extends State<MyCart> {
                                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             counter(carts[i].quantity, i),
-                                            Spacer(),
+                                            const Spacer(),
                                             IconButton(
-                                                onPressed: (){deletefromcart(i, context);},
+                                                onPressed: () {
+                                                  deletefromcart(i, context);
+                                                },
                                                 icon: Icon(
                                                   Icons.delete_outline_outlined,
-                                                  color: Colors.redAccent.shade200,
+                                                  color:
+                                                      Colors.redAccent.shade200,
                                                 ))
                                           ],
                                         ),
@@ -324,7 +345,7 @@ class _MyCartState extends State<MyCart> {
                 ],
               ),
             ),
-      bottomNavigationBar: Nav(context, totalcost, carts, isSelected, count ),
+      bottomNavigationBar: Nav(context, totalcost, carts, isSelected, count),
     );
   }
 }

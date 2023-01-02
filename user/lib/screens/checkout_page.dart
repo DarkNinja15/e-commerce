@@ -1,6 +1,11 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/screens/Others/Cart_Page.dart';
+import 'package:user/shared/shared_properties.dart';
 
 import '../models/product_model.dart';
 import '../provider/user_provider.dart';
@@ -27,6 +32,7 @@ class _CheckoutState extends State<Checkout> {
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
+  TextEditingController controller = TextEditingController();
 
   List<Product> prod = [];
   List<int> count = [];
@@ -47,6 +53,16 @@ class _CheckoutState extends State<Checkout> {
   void initState() {
     fun();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    namecontroller.dispose();
+    phonecontroller.dispose();
+    addresscontroller.dispose();
+    emailcontroller.dispose();
+    controller.dispose();
   }
 
   @override
@@ -256,23 +272,26 @@ class _CheckoutState extends State<Checkout> {
                       const Text('Pay Online')
                     ],
                   ),
-                  Container(
-                    height: 40,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 176, 57, 1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.06,
-                        vertical: MediaQuery.of(context).size.width * 0.05),
-                    child: const Center(
-                      child: Text(
-                        'Check Out',
-                        style: TextStyle(
-                          color: Colors.white,
-                          letterSpacing: 3.5,
-                          fontWeight: FontWeight.w500,
+                  InkWell(
+                    onTap: _checkout,
+                    child: Container(
+                      height: 40,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      margin: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.06,
+                          vertical: MediaQuery.of(context).size.width * 0.05),
+                      child: const Center(
+                        child: Text(
+                          'Check Out',
+                          style: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 3.5,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -285,5 +304,148 @@ class _CheckoutState extends State<Checkout> {
         ),
       ),
     );
+  }
+
+  void _checkout() {
+    int randomNum = Random().nextInt(900) + 100;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          "$randomNum",
+          textAlign: TextAlign.center,
+        ),
+        content: const Text(
+          "Enter the above number to proceed",
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              // controller: controller,
+              keyboardType: TextInputType.text,
+              style: const TextStyle(),
+              decoration: InputDecoration(
+                fillColor: Colors.grey.shade100,
+                // filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 40,
+                  width: 110,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1.5,
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                      ),
+                      borderRadius: BorderRadius.circular(35)),
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    label: const Text(
+                      "Cancel",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 110,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1.5,
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                      ),
+                      borderRadius: BorderRadius.circular(35)),
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.confirmation_num,
+                      color: Color.fromRGBO(255, 176, 57, 1),
+                    ),
+                    onPressed: () async {
+                      if (controller.text != randomNum.toString()) {
+                        Navigator.of(context).pop();
+                        Shared().snackbar(
+                          "Please Enter the number correctly.",
+                          context,
+                        );
+                        return;
+                      } else {
+                        doAll();
+                        // the above function will do all the task after checkout.
+                      }
+                    },
+                    label: const Text(
+                      "Proceed",
+                      style: TextStyle(
+                        color: Color.fromRGBO(255, 176, 57, 1),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void doAll() async {
+    // ! make cart empty
+    final user = Provider.of<UserProvider>(context, listen: false).getUser;
+    List cartProds = user.cart;
+    // print(cartProds);
+    for (var i in prod) {
+      cartProds.remove(i.id);
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.userUid)
+          .update({"cart": cartProds});
+      print('done updating cart');
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      // print('cart was not empty.');
+    } catch (e) {
+      // print('cart was not empty.in error');
+    }
+
+    // ! decrease quantity
+    // try {
+    //   for (var i in prod) {
+    //     await FirebaseFirestore.instance
+    //         .collection('products')
+    //         .doc(i.id)
+    //         .update({
+    //           "quantity":,
+    //         });
+    //   }
+    // } catch (e) {}
+    // post in allOrders
+    // push Notification in allOrders
+    // post in Order History.
   }
 }

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/HomePage.dart';
 import 'package:user/services/Database_Service.dart';
+import 'package:user/shared/shared_properties.dart';
 import 'package:user/widgets/radio_button.dart';
 
 import '../../models/product_model.dart';
@@ -23,6 +24,7 @@ class _MyCartState extends State<MyCart> {
   List cartProdIds = [];
   bool isChecked = true;
   bool isLoading = false;
+  int quantity = 0;
 
   List<int> count = [];
   List<int> isSelected = [];
@@ -105,11 +107,14 @@ class _MyCartState extends State<MyCart> {
   Widget button1(int ind) {
     return GestureDetector(
       onTap: () {
-        if (count[ind] > 0) {
+        if (count[ind] > 1) {
           count[ind]--;
+          calculate();
         }
-        calculate();
-        setState(() {});
+
+        setState(() {
+          quantity = count[ind];
+        });
       },
       child: Container(
           margin: const EdgeInsets.all(4),
@@ -131,9 +136,16 @@ class _MyCartState extends State<MyCart> {
       onTap: () {
         if (count[ind] < tot) {
           count[ind]++;
+        } else {
+          Shared().snackbar(
+            'You have reached maximum product limit',
+            context,
+          );
         }
         calculate();
-        setState(() {});
+        setState(() {
+          quantity = count[ind];
+        });
       },
       child: Container(
           margin: const EdgeInsets.all(4),
@@ -345,7 +357,13 @@ class _MyCartState extends State<MyCart> {
                 ],
               ),
             ),
-      bottomNavigationBar: Nav(context, totalcost, carts, isSelected, count),
+      bottomNavigationBar: Nav(
+        context,
+        totalcost,
+        carts,
+        isSelected,
+        count,
+      ),
     );
   }
 }

@@ -1,10 +1,15 @@
 // ignore_for_file: file_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/product_model.dart';
 import 'package:user/screens/Others/Cart_Page.dart';
 import 'package:user/screens/Others/Product_info.dart';
+import 'package:user/screens/Others/search_page.dart';
 import 'package:user/widgets/drawer.dart';
 import '../provider/user_provider.dart';
 import '../widgets/My_Widgets.dart';
@@ -20,6 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // bool isLoading = false;
+  String? mtoken = '';
   List<Product> allProds = [];
   List<Product> promotedProds = [];
 
@@ -31,6 +37,100 @@ class _HomePageState extends State<HomePage> {
     // isLoading = true;
     super.initState();
     addData();
+    requestPermession();
+    getToken();
+    initInfo();
+  }
+
+  void requestPermession() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      // print('User Permission Granted');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      // print('User granted provisional permission.');
+    } else {
+      // print('User permission not granted.');
+    }
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mtoken = token;
+        // print('My token is $mtoken');
+      });
+      saveToken(token!);
+    });
+  }
+
+  void saveToken(String token) async {
+    await FirebaseFirestore.instance
+        .collection('UserTokens')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({'token': token});
+  }
+
+  initInfo() {
+    var androidInitialize =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationsSettings = InitializationSettings(
+      android: androidInitialize,
+    );
+    FlutterLocalNotificationsPlugin().initialize(initializationsSettings,
+        onSelectNotification: (String? payload) async {
+      // print('&&&');
+      // print(payload);
+      try {
+        if (payload != null && payload.isNotEmpty) {
+          // print('Ready to navigate...');
+        }
+      } catch (e) {
+        // print('error');
+        // print(e.toString());
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
+      // print('**************');
+      // print(
+      //     'onMessage: ${remoteMessage.notification?.title} / ${remoteMessage.notification?.body}');
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+        remoteMessage.notification!.body.toString(),
+        htmlFormatTitle: true,
+        contentTitle: remoteMessage.notification!.title.toString(),
+        htmlFormatContentTitle: true,
+      );
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails(
+        'dbfood',
+        'dbfood',
+        importance: Importance.high,
+        styleInformation: bigTextStyleInformation,
+        priority: Priority.high,
+        playSound: true,
+      );
+      NotificationDetails platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+      );
+      await FlutterLocalNotificationsPlugin().show(
+          0,
+          remoteMessage.notification?.title,
+          remoteMessage.notification?.body,
+          platformChannelSpecifics,
+          payload: remoteMessage.data['body']);
+    });
   }
 
   addData() async {
@@ -76,7 +176,13 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SearchPage(),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.search_rounded)),
             IconButton(
                 onPressed: () {
@@ -153,10 +259,13 @@ class _HomePageState extends State<HomePage> {
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductInfo(prod: allProds[i])));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductInfo(
+                                prod: allProds[i],
+                              ),
+                            ),
+                          );
                         },
                         child: productTile(
                             allProds[i].photoUrl,

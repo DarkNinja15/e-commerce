@@ -26,6 +26,15 @@ class _ProfilePageState extends State<ProfilePage> {
   String url = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
   File? _pickedImage;
 
+  @override
+  void dispose() {
+    super.dispose();
+    namecontroller.dispose();
+    phonecontroller.dispose();
+    addresscontroller.dispose();
+    emailcontroller.dispose();
+  }
+
   void chooseImage0() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(

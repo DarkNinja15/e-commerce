@@ -7,10 +7,18 @@ import 'package:user/models/product_model.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Intro-Screens/Splash_Screen.dart';
 import 'package:user/services/Database_Service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(
+    RemoteMessage remoteMessage) async {
+  // print('Handling a background message ${remoteMessage.messageId}');
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
 }
 

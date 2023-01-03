@@ -26,10 +26,10 @@ class _ProductInfoState extends State<ProductInfo> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: const Icon(Icons.arrow_back_ios),
         ),
         foregroundColor: Colors.blueGrey,
         backgroundColor: Colors.white,
@@ -43,8 +43,7 @@ class _ProductInfoState extends State<ProductInfo> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                MyCart()));
+                            builder: (context) => const MyCart()));
                   },
                   icon: const Icon(
                     Icons.shopping_cart,

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:user/screens/Navigation_Page.dart';
 
@@ -65,8 +67,11 @@ void Order_Succes(BuildContext ctx) {
                           ),
                           onTap: () {
                             Navigator.of(context).pop();
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const NavigationPage()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const NavigationPage()));
                           }),
                     ],
                   ),

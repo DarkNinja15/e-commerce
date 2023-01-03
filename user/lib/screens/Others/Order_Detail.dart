@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import '../../models/order_model.dart';
@@ -25,7 +27,7 @@ class _OrderDetailState extends State<OrderDetail> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: const Icon(Icons.arrow_back_ios),
         ),
         elevation: 0,
         title: Text(
@@ -212,4 +214,6 @@ class _OrderDetailState extends State<OrderDetail> {
           ],
         ),
       ),
-    );}}
+    );
+  }
+}

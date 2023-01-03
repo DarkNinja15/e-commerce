@@ -74,12 +74,13 @@ class _CategoryDetailState extends State<CategoryDetail> {
             body: Loading(),
           )
         : Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
               leading: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.pop(context);
                 },
-                child: Icon(Icons.arrow_back_ios),
+                child: const Icon(Icons.arrow_back_ios),
               ),
               elevation: 0,
               title: Text(
@@ -93,33 +94,44 @@ class _CategoryDetailState extends State<CategoryDetail> {
               child: Column(
                 children: [
                   Tile(),
-                  SizedBox(
-                    width: double.infinity,
-                    child: MasonryGridView.count(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 2,
-                        crossAxisSpacing: 10,
-                        itemCount: catProds.length,
-                        itemBuilder: (context, i) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductInfo(prod: catProds[i])));
-                            },
-                            child: productTile(
-                                catProds[i].photoUrl,
-                                catProds[i].name,
-                                catProds[i].desc,
-                                catProds[i].price,
-                                catProds[i].discount),
-                          );
-                        }),
-                  ),
+                  catProds.isEmpty
+                      ? Column(
+                          children: const [
+                            Image(image: AssetImage('assets/void.png')),
+                            Text(
+                              'Nothing to show\n\nAdd something to cart\nNow',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 33),
+                            )
+                          ],
+                        )
+                      : SizedBox(
+                          width: double.infinity,
+                          child: MasonryGridView.count(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 2,
+                              crossAxisSpacing: 10,
+                              itemCount: catProds.length,
+                              itemBuilder: (context, i) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ProductInfo(
+                                                prod: catProds[i])));
+                                  },
+                                  child: productTile(
+                                      catProds[i].photoUrl,
+                                      catProds[i].name,
+                                      catProds[i].desc,
+                                      catProds[i].price,
+                                      catProds[i].discount),
+                                );
+                              }),
+                        ),
                 ],
               ),
             ),

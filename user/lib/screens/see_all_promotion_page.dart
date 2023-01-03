@@ -47,10 +47,10 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: const Icon(Icons.arrow_back_ios),
         ),
         elevation: 0,
         title: const Text(
@@ -90,7 +90,7 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
                   itemCount: promotedProds.length,
                   itemBuilder: (context, i) {
                     return GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(

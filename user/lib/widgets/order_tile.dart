@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-Widget Order_tile(
-    var width, String url, String name, String total_price, String quality, String Status) {
+Widget Order_tile(var width, String url, String name, String total_price,
+    String quality, String Status) {
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20), color: Colors.white),
@@ -39,9 +39,19 @@ Widget Order_tile(
                     overflow: TextOverflow.ellipsis,
                     color: Colors.teal),
               ),
-              Text('Total Price : ₹${total_price}', style: TextStyle(color: Colors.deepPurple, overflow: TextOverflow.ellipsis ),),
-              Text('Quantity : $quality', style: TextStyle(color: Colors.deepPurple),),
-              Text('Status : $Status', style: TextStyle(color: Colors.deepPurple),),
+              Text(
+                'Total Price : ₹$total_price',
+                style: const TextStyle(
+                    color: Colors.deepPurple, overflow: TextOverflow.ellipsis),
+              ),
+              Text(
+                'Quantity : $quality',
+                style: const TextStyle(color: Colors.deepPurple),
+              ),
+              Text(
+                'Status : $Status',
+                style: const TextStyle(color: Colors.deepPurple),
+              ),
               // Text('Status : $quality', style: TextStyle(color: Colors.deepPurple),)
             ],
           ),

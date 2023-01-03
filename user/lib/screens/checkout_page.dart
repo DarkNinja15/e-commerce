@@ -1,18 +1,22 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:user/screens/Navigation_Page.dart';
+import 'package:user/models/order_model.dart' as ord;
 import 'package:user/screens/Others/Cart_Page.dart';
 import 'package:user/shared/shared_properties.dart';
 import 'package:user/widgets/Order_notice.dart';
+import 'package:uuid/uuid.dart';
 
 import '../models/product_model.dart';
 import '../provider/user_provider.dart';
 import '../widgets/checkout_tile.dart';
+import 'package:http/http.dart' as http;
 
 class Checkout extends StatefulWidget {
   const Checkout(
@@ -40,6 +44,7 @@ class _CheckoutState extends State<Checkout> {
   List<Product> prod = [];
   List<int> count = [];
   int totalcost = 0;
+  bool f = true;
   // bool cashondelivery = false;
 
   void fun() {
@@ -73,10 +78,13 @@ class _CheckoutState extends State<Checkout> {
     // print(count);
     var width = MediaQuery.of(context).size.width;
     final user = Provider.of<UserProvider>(context).getUser;
-    namecontroller.text = user.userName;
-    phonecontroller.text = user.phoneNo;
-    addresscontroller.text = user.address;
-    emailcontroller.text = user.email;
+    if (f) {
+      namecontroller.text = user.userName;
+      phonecontroller.text = user.phoneNo;
+      addresscontroller.text = user.address;
+      emailcontroller.text = user.email;
+      f = false;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -264,7 +272,10 @@ class _CheckoutState extends State<Checkout> {
                         value: false,
                         onChanged: (bool? value) {},
                       ),
-                      const Text('Pay Online', style: TextStyle(color: Colors.blueGrey),)
+                      const Text(
+                        'Pay Online',
+                        style: TextStyle(color: Colors.blueGrey),
+                      )
                     ],
                   ),
                   InkWell(
@@ -386,14 +397,13 @@ class _CheckoutState extends State<Checkout> {
                         );
                         return;
                       } else {
-
                         doAll().then((value) {
-                          if(value==true){
+                          if (value == true) {
                             Navigator.of(context).pop();
                             Order_Succes(context);
-                          }
-                          else if(value==false){
-                            Shared().snackbar2('Server Error. Try Again', context, Colors.redAccent);
+                          } else if (value == false) {
+                            Shared().snackbar2('Server Error. Try Again',
+                                context, Colors.redAccent);
                           }
                         });
 
@@ -429,34 +439,174 @@ class _CheckoutState extends State<Checkout> {
           .collection('users')
           .doc(user.userUid)
           .update({"cart": cartProds});
-      print('done updating cart');
-      return true;
+      // print('done updating cart');
     } on FirebaseException catch (_) {
-      return false;
       // Caught an exception from Firebase.
       // print("Failed with error '${e.code}': ${e.message}");
       // print('cart was not empty.');
-    } on PlatformException catch(_){
       return false;
-    }
-    catch (e) {
+    } on PlatformException catch (_) {
+      return false;
+    } catch (e) {
       return false;
       // print('cart was not empty.in error');
     }
 
+    // ! post in allOrders ... // post in Order History.
+    try {
+      int j = 0;
+      List orderHistory = user.orders;
+      for (var i in prod) {
+        String orderId = const Uuid().v1();
+        orderHistory.add(orderId);
+        ord.Order order = ord.Order(
+          category: i.category,
+          desc: i.desc,
+          name: i.name,
+          orderDate: DateFormat('dd-MM-yyyy').format(DateTime.now()).toString(),
+          orderId: orderId,
+          payMode: "cash",
+          photoUrl: i.photoUrl,
+          price: (i.price * count[j]).toString(),
+          quantity: count[j],
+          status: "yet not delivered",
+          userAddress: addresscontroller.text.trim(),
+          userId: user.userUid,
+          userName: namecontroller.text.trim(),
+          userPhone: phonecontroller.text.trim(),
+        );
+        await FirebaseFirestore.instance
+            .collection('allorders')
+            .doc(orderId)
+            .set(
+              order.toMap(),
+            );
+
+        j++;
+      }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.userUid)
+          .update({
+        "orders": orderHistory,
+      });
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      // print('not posted in all orders');
+      return false;
+    } on PlatformException catch (_) {
+      return false;
+    } catch (e) {
+      return false;
+      // print('not posted in all orders. in error');
+    }
+
     // ! decrease quantity
-    // try {
-    //   for (var i in prod) {
-    //     await FirebaseFirestore.instance
-    //         .collection('products')
-    //         .doc(i.id)
-    //         .update({
-    //           "quantity":,
-    //         });
-    //   }
-    // } catch (e) {}
-    // post in allOrders
-    // push Notification in allOrders
-    // post in Order History.
+    try {
+      int j = 0;
+      for (var i in prod) {
+        if ((i.quantity - count[j]) == 0) {
+          await FirebaseFirestore.instance
+              .collection('products')
+              .doc(i.id)
+              .delete();
+        } else {
+          await FirebaseFirestore.instance
+              .collection('products')
+              .doc(i.id)
+              .update({
+            "quantity": i.quantity - count[j],
+          });
+        }
+        j++;
+      }
+      // print('done decreasing quantity');
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      // print('quantity not decreased.');
+      return false;
+    } on PlatformException catch (_) {
+      return false;
+    } catch (e) {
+      return false;
+      // print('quantity not decreased. in error');
+    }
+
+    // ! push Notification in allOrders
+    try {
+      CollectionReference collectionReference =
+          FirebaseFirestore.instance.collection('SellerTokens');
+      DocumentSnapshot documentSnapshot1 =
+          await collectionReference.doc('ELO4z0WvXLgHgHSlVuagYBrunXK2').get();
+
+      for (var i in prod) {
+        DocumentSnapshot documentSnapshot2 =
+            await collectionReference.doc(i.sellerUid).get();
+        sendPushMessage(
+          (documentSnapshot2.data() as Map<String, dynamic>)['token'],
+          "You have an Order",
+          "Order form ${user.userName}",
+        );
+      }
+      sendPushMessage(
+        (documentSnapshot1.data() as Map<String, dynamic>)['token'],
+        "You have an Order",
+        "Order form ${user.userName}",
+      );
+    } on FirebaseException catch (_) {
+      // Caught an exception from Firebase.
+      // print("Failed with error '${e.code}': ${e.message}");
+      // print('push notification exception.');
+      return false;
+    } on PlatformException catch (_) {
+      return false;
+    } catch (e) {
+      return false;
+      // print('push notification exception. in error');
+    }
+    // print("all done ha ha ha....");
+    return true;
+  }
+
+  void sendPushMessage(
+    String token,
+    String body,
+    String title,
+  ) async {
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAEJpdyQU:APA91bEm3DSJuAjMvxQOXw9ITXx2C6CORljTw6AwYXtk7R3ON43qNRKt_7V_ScYZM10uObH1zvJwjxo1jT1KjIiTWOc6jLxNf2gz8zRgBr8UMgl_Uz2ckVkHikiSPlgjW8Q-eLUWfYsR',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'status': 'done',
+            'body': body,
+            'title': title,
+          },
+          "notification": <String, dynamic>{
+            "title": title,
+            "body": body,
+            "android_channel_id": "dbfood"
+          },
+          "to": token,
+        }),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print("error push notification");
+        // Shared().snackbar(
+        //   "Could not send notification. Please try later.",
+        //   context,
+        // );
+      }
+    }
   }
 }

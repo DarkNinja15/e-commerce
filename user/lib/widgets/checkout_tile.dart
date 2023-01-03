@@ -39,8 +39,17 @@ Widget tile(
                     overflow: TextOverflow.ellipsis,
                     color: Colors.teal),
               ),
-              Text('Total Price : ₹${total_price}', style: TextStyle(fontSize: 17, color: Colors.deepPurple, overflow: TextOverflow.ellipsis ),),
-              Text('Quantity : $quality', style: TextStyle(fontSize: 17, color: Colors.deepPurple),)
+              Text(
+                'Total Price : ₹$total_price',
+                style: const TextStyle(
+                    fontSize: 17,
+                    color: Colors.deepPurple,
+                    overflow: TextOverflow.ellipsis),
+              ),
+              Text(
+                'Quantity : $quality',
+                style: const TextStyle(fontSize: 17, color: Colors.deepPurple),
+              )
             ],
           ),
         )

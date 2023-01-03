@@ -149,8 +149,8 @@ class DatabaseService {
                       as Map<String, dynamic>)['photoUrl'],
                   price: (documentSnapshot.data()!
                       as Map<String, dynamic>)['price'],
-                  quantity: int.parse((documentSnapshot.data()!
-                      as Map<String, dynamic>)['quantity']),
+                  quantity: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['quantity'],
                   status: (documentSnapshot.data()!
                       as Map<String, dynamic>)['status'],
                   userAddress: (documentSnapshot.data()!

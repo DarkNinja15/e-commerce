@@ -99,7 +99,7 @@ class _CategoryDetailState extends State<CategoryDetail> {
                           children: const [
                             Image(image: AssetImage('assets/void.png')),
                             Text(
-                              'Nothing to show\n\nAdd something to cart\nNow',
+                              'Nothing to show\n',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 33),
                             )

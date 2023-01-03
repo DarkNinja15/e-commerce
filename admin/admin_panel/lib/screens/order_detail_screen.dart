@@ -321,7 +321,10 @@ class _OrderDetailState extends State<OrderDetail> {
                       if (controller.text.trim() == widget.snap.name) {
                         // print(widget.snap['orderId']);
                         String s = widget.snap.orderId;
-                        final res = await Database().deleteOrder(s);
+                        final res = await Database().deleteOrder(
+                          s,
+                          widget.snap.userId,
+                        );
                         if (res != 'Success') {
                           Shared().snackbar(
                             message: res,

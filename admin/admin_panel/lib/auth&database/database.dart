@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:admin_panel/auth&database/storage_methods.dart';
 import 'package:admin_panel/models/category_model.dart' as cate;
 import 'package:admin_panel/models/order_model.dart' as od;
@@ -14,6 +16,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/seller_model.dart';
 
@@ -307,35 +310,31 @@ class Database {
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map(
               (DocumentSnapshot documentSnapshot) => od.Order(
-                userId: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['userId'],
-                orderId: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['orderId'],
-                name:
-                    (documentSnapshot.data()! as Map<String, dynamic>)['name'],
-                price:
-                    (documentSnapshot.data()! as Map<String, dynamic>)['price'],
-                userName: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['userName'],
-                userAddress: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['userAddress'],
-                userPhone: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['userPhone'],
-                orderDate: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['orderDate'],
-                status: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['status'],
-                quantity: int.parse((documentSnapshot.data()!
-                    as Map<String, dynamic>)['quantity']),
-                category: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['category'],
-                desc:
-                    (documentSnapshot.data()! as Map<String, dynamic>)['desc'],
-                photoUrl: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['photoUrl'],
-                payMode: (documentSnapshot.data()!
-                    as Map<String, dynamic>)['payMode']
-              ),
+                  userId: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userId'],
+                  orderId: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['orderId'],
+                  name: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['name'],
+                  price: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['price'],
+                  userName: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userName'],
+                  userAddress: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userAddress'],
+                  userPhone: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['userPhone'],
+                  orderDate: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['orderDate'],
+                  status: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['status'],
+                  quantity: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['quantity'],
+                  category:
+                      (documentSnapshot.data()! as Map<String, dynamic>)['category'],
+                  desc: (documentSnapshot.data()! as Map<String, dynamic>)['desc'],
+                  photoUrl: (documentSnapshot.data()! as Map<String, dynamic>)['photoUrl'],
+                  payMode: (documentSnapshot.data()! as Map<String, dynamic>)['payMode']),
             )
             .toList());
   }
@@ -347,11 +346,11 @@ class Database {
     }
     String res = "Some error Occurred";
     try {
-
       //***************************************************************
 
       // delete from firebase storage..........
-      final httpsReference = FirebaseStorage.instance.refFromURL(category.thumbnailPicUrl);
+      final httpsReference =
+          FirebaseStorage.instance.refFromURL(category.thumbnailPicUrl);
       await httpsReference.delete();
 
       //**************************************************************
@@ -419,26 +418,73 @@ class Database {
   }
 
   // delete order from allorders
-  Future<String> deleteOrder(String id) async {
+  Future<String> deleteOrder(String id, String buyerId) async {
     // print(id);
     if (auth.currentUser!.uid != 'ELO4z0WvXLgHgHSlVuagYBrunXK2') {
       return 'Only "MyBhrmar" has option to decide this.';
     }
     String res = "Some error Occurred";
     try {
-      await firestore.collection('allorders').doc(id).delete();
-      await firestore.collection('userOrders').doc(id).update({
+      await firestore.collection('allorders').doc(id).update({
         'status': 'delivered',
       });
+      CollectionReference collectionReference =
+          FirebaseFirestore.instance.collection('UserTokens');
+      DocumentSnapshot snapshot = await collectionReference.doc(buyerId).get();
+      sendPushMessage(
+        (snapshot.data() as Map<String,dynamic>)['token'],
+        "Your Order is Delivered",
+        "Order Delivered",
+      );
       res = "Success";
       return res;
-    } on FirebaseException catch (_) {
+    } on FirebaseException catch (e) {
       // Caught an exception from Firebase.
-      // print("Failed with error '${e.code}': ${e.message}");
+      print("Failed with error '${e.code}': ${e.message}");
       return "Could not process";
     } catch (e) {
       // print(e.toString());
       return e.toString();
+    }
+  }
+
+  void sendPushMessage(
+    String token,
+    String body,
+    String title,
+  ) async {
+    try {
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAEJpdyQU:APA91bEm3DSJuAjMvxQOXw9ITXx2C6CORljTw6AwYXtk7R3ON43qNRKt_7V_ScYZM10uObH1zvJwjxo1jT1KjIiTWOc6jLxNf2gz8zRgBr8UMgl_Uz2ckVkHikiSPlgjW8Q-eLUWfYsR',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'status': 'done',
+            'body': body,
+            'title': title,
+          },
+          "notification": <String, dynamic>{
+            "title": title,
+            "body": body,
+            "android_channel_id": "dbfood"
+          },
+          "to": token,
+        }),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print("error push notification");
+        // Shared().snackbar(
+        //   message: "Could not send notification. Please try later.",
+        //   context: context,
+        // );
+      }
     }
   }
 

@@ -152,7 +152,6 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 60),
                       isLoading
                           ? const Loading()
                           : GestureDetector(

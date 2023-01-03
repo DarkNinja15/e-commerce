@@ -124,6 +124,7 @@ class _EditCategoryState extends State<EditCategory> {
       ),
       drawer: const Drawerc(),
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Edit Categories'),
         centerTitle: true,
       ),

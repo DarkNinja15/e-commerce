@@ -218,9 +218,9 @@ class _EditProductState extends State<EditProduct> {
                   horizontal: MediaQuery.of(context).size.width * 0.1),
               child: TextField(
                 controller: desccontroller,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.multiline,
                 style: const TextStyle(),
-                maxLines: 3,
+                maxLines: null,
                 decoration: InputDecoration(
                   fillColor: Colors.grey.shade100,
                   // filled: true,

@@ -112,14 +112,14 @@ class _AddSellerState extends State<AddSeller> {
                     child: TextField(
                       controller: addresscontroller,
                       style: const TextStyle(),
-                      keyboardType: TextInputType.text,
-                      maxLines: 3,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
                       decoration: InputDecoration(
                         fillColor: Colors.grey.shade100,
                         // filled: true,
                         hintText: "Address",
                         icon: const Icon(
-                          Icons.description,
+                          Icons.home,
                           // color: Colors.black,
                         ),
                         border: OutlineInputBorder(

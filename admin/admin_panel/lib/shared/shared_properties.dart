@@ -18,7 +18,20 @@ class Shared {
       source: source,
     );
     if (file != null) {
-      return await file.readAsBytes();
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: file.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.teal,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: true
+          ),
+        ],
+      );
+      return croppedFile?.readAsBytes();
     }
     // print('No Image Selected');
   }

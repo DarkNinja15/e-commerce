@@ -76,6 +76,9 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.search_rounded)),
+            IconButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const MyCart()));

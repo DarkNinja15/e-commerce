@@ -45,6 +45,7 @@ class _All_CategoriesState extends State<All_Categories> {
 
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(
             'All Categories',
             style: TextStyle(

@@ -46,6 +46,12 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
         elevation: 0,
         title: const Text(
           'Featured Product',

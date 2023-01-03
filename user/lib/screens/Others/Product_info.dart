@@ -6,6 +6,7 @@ import 'package:user/provider/user_provider.dart';
 import 'package:user/services/Database_Service.dart';
 import 'package:user/shared/shared_properties.dart';
 import '../../models/product_model.dart';
+import 'Cart_Page.dart';
 
 class ProductInfo extends StatefulWidget {
   const ProductInfo({Key? key, required this.prod}) : super(key: key);
@@ -24,6 +25,12 @@ class _ProductInfoState extends State<ProductInfo> {
     bool isInCart = user.cart.contains(widget.prod.id);
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
         foregroundColor: Colors.blueGrey,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -32,7 +39,13 @@ class _ProductInfoState extends State<ProductInfo> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MyCart()));
+                  },
                   icon: const Icon(
                     Icons.shopping_cart,
                   ))

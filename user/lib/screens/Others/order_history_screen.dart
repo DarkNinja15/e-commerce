@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/models/order_model.dart' as ord;
+import 'package:user/screens/Others/Order_Detail.dart';
 import 'package:user/widgets/loading.dart';
+import 'package:user/widgets/order_tile.dart';
 
 import '../../provider/user_provider.dart';
 import '../../widgets/drawer.dart';
@@ -42,19 +44,45 @@ class _OrderHistoryState extends State<OrderHistory> {
 
   @override
   Widget build(BuildContext context) {
-    // print(allOrders);
+    var width = MediaQuery.of(context).size.width;
+    print(allOrders);
     // allOrders contains all the previous orders of user.
     return Scaffold(
       drawer: const Drawerc(),
       appBar: AppBar(
-        title: const Text('Order History'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
+        elevation: 0,
+        title: const Text('Order History', style: TextStyle(letterSpacing: 2, fontWeight: FontWeight.w400),),
         centerTitle: true,
       ),
       body: isLoading
           ? const Loading()
-          : Container(
-              // remove this container and add all order history....
-              ),
+          : ListView.builder(
+              itemCount: allOrders.length,
+              itemBuilder: (context, i) {
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                OrderDetail(snap: allOrders[i])));
+                  },
+                  child: Order_tile(
+                      width,
+                      allOrders[i].photoUrl,
+                      allOrders[i].name,
+                      allOrders[i].price,
+                      allOrders[i].quantity.toString(),
+                      allOrders[i].status
+                  ),
+                );
+              }),
     );
   }
 }

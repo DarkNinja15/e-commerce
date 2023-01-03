@@ -75,6 +75,12 @@ class _CategoryDetailState extends State<CategoryDetail> {
           )
         : Scaffold(
             appBar: AppBar(
+              leading: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back_ios),
+              ),
               elevation: 0,
               title: Text(
                 widget.name,

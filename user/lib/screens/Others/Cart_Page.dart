@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/HomePage.dart';
+import 'package:user/screens/Navigation_Page.dart';
 import 'package:user/services/Database_Service.dart';
 import 'package:user/shared/shared_properties.dart';
 import 'package:user/widgets/radio_button.dart';
@@ -186,7 +187,7 @@ class _MyCartState extends State<MyCart> {
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const HomePage()));
+                MaterialPageRoute(builder: (context) => const NavigationPage()));
           },
           icon: const Icon(Icons.arrow_back_ios),
           //replace with our own icon data.

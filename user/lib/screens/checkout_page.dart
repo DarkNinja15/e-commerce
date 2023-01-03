@@ -3,9 +3,12 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:user/screens/Navigation_Page.dart';
 import 'package:user/screens/Others/Cart_Page.dart';
 import 'package:user/shared/shared_properties.dart';
+import 'package:user/widgets/Order_notice.dart';
 
 import '../models/product_model.dart';
 import '../provider/user_provider.dart';
@@ -37,7 +40,7 @@ class _CheckoutState extends State<Checkout> {
   List<Product> prod = [];
   List<int> count = [];
   int totalcost = 0;
-  bool cashondelivery = false;
+  // bool cashondelivery = false;
 
   void fun() {
     for (int i = 0; i < widget.prod.length; i++) {
@@ -204,8 +207,8 @@ class _CheckoutState extends State<Checkout> {
                         width,
                         prod[i].photoUrl,
                         prod[i].name,
-                        (prod[i].price * count[i]).toString(),
-                        prod[i].quantity.toString());
+                        (prod[i].price * count[i]).round().toString(),
+                        count[i].toString());
                   }),
             ),
             Container(
@@ -249,12 +252,8 @@ class _CheckoutState extends State<Checkout> {
                   Row(
                     children: [
                       Checkbox(
-                        value: cashondelivery,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            cashondelivery = value!;
-                          });
-                        },
+                        value: true,
+                        onChanged: (_) {},
                       ),
                       const Text('Cash On Delivery')
                     ],
@@ -262,14 +261,10 @@ class _CheckoutState extends State<Checkout> {
                   Row(
                     children: [
                       Checkbox(
-                        value: !cashondelivery,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            cashondelivery = !value!;
-                          });
-                        },
+                        value: false,
+                        onChanged: (bool? value) {},
                       ),
-                      const Text('Pay Online')
+                      const Text('Pay Online', style: TextStyle(color: Colors.blueGrey),)
                     ],
                   ),
                   InkWell(
@@ -323,7 +318,7 @@ class _CheckoutState extends State<Checkout> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
-              // controller: controller,
+              controller: controller,
               keyboardType: TextInputType.text,
               style: const TextStyle(),
               decoration: InputDecoration(
@@ -391,7 +386,17 @@ class _CheckoutState extends State<Checkout> {
                         );
                         return;
                       } else {
-                        doAll();
+
+                        doAll().then((value) {
+                          if(value==true){
+                            Navigator.of(context).pop();
+                            Order_Succes(context);
+                          }
+                          else if(value==false){
+                            Shared().snackbar2('Server Error. Try Again', context, Colors.redAccent);
+                          }
+                        });
+
                         // the above function will do all the task after checkout.
                       }
                     },
@@ -411,7 +416,7 @@ class _CheckoutState extends State<Checkout> {
     );
   }
 
-  void doAll() async {
+  Future<bool> doAll() async {
     // ! make cart empty
     final user = Provider.of<UserProvider>(context, listen: false).getUser;
     List cartProds = user.cart;
@@ -425,11 +430,17 @@ class _CheckoutState extends State<Checkout> {
           .doc(user.userUid)
           .update({"cart": cartProds});
       print('done updating cart');
+      return true;
     } on FirebaseException catch (_) {
+      return false;
       // Caught an exception from Firebase.
       // print("Failed with error '${e.code}': ${e.message}");
       // print('cart was not empty.');
-    } catch (e) {
+    } on PlatformException catch(_){
+      return false;
+    }
+    catch (e) {
+      return false;
       // print('cart was not empty.in error');
     }
 

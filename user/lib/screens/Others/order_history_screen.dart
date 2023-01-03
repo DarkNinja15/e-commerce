@@ -137,7 +137,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                         children: const [
                           Image(image: AssetImage('assets/void.png')),
                           Text(
-                            'Nothing to show\n\nAdd something to cart\nNow',
+                            'Nothing to show',
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 33),
                           )

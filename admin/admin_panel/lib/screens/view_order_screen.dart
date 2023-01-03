@@ -35,8 +35,8 @@ class _ViewOrderState extends State<ViewOrder> {
     ord = Provider.of<List<od.Order>>(context)
         .where((element) => element.status == 'yet to be delivered')
         .toList();
-    print('ord');
-    print(ord);
+    // print('ord');
+    // print(ord);
     Future.delayed(
         const Duration(
           seconds: 2,

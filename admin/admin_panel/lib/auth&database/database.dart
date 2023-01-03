@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/seller_model.dart';
@@ -438,9 +437,9 @@ class Database {
       );
       res = "Success";
       return res;
-    } on FirebaseException catch (e) {
+    } on FirebaseException catch (_) {
       // Caught an exception from Firebase.
-      print("Failed with error '${e.code}': ${e.message}");
+      // print("Failed with error '${e.code}': ${e.message}");
       return "Could not process";
     } catch (e) {
       // print(e.toString());

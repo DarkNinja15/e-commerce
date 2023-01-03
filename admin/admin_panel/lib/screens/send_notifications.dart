@@ -18,6 +18,7 @@ class SendNotification extends StatefulWidget {
 class _SendNotificationState extends State<SendNotification> {
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController contentcontroller = TextEditingController();
+  bool sendtosellers = true;
 
   @override
   void dispose() {
@@ -34,6 +35,19 @@ class _SendNotificationState extends State<SendNotification> {
         title: const Text('Send Notifications'),
         centerTitle: true,
         elevation: 0,
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return {'To sellers', 'To Users'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          )
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,20 +134,40 @@ class _SendNotificationState extends State<SendNotification> {
   }
 
   void _notificationSender() async {
-    CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('SellerTokens');
-    QuerySnapshot querySnapshot = await collectionReference.get();
-    final allData = querySnapshot.docs
-        .map((e) => e.data() as Map<String, dynamic>)
-        .toList();
-    // print(allData[0]['token']);
-    for (var i in allData) {
-      sendPushMessage(
-        i['token'],
-        contentcontroller.text,
-        titlecontroller.text,
-      );
+    // print("sendtosellers");
+    // print(sendtosellers);
+    if (sendtosellers) {
+      CollectionReference collectionReference =
+          FirebaseFirestore.instance.collection('SellerTokens');
+      QuerySnapshot querySnapshot = await collectionReference.get();
+      final allData = querySnapshot.docs
+          .map((e) => e.data() as Map<String, dynamic>)
+          .toList();
+      // print(allData[0]['token']);
+      for (var i in allData) {
+        sendPushMessage(
+          i['token'],
+          contentcontroller.text,
+          titlecontroller.text,
+        );
+      }
+    } else {
+      CollectionReference collectionReference =
+          FirebaseFirestore.instance.collection('UserTokens');
+      QuerySnapshot querySnapshot = await collectionReference.get();
+      final allData = querySnapshot.docs
+          .map((e) => e.data() as Map<String, dynamic>)
+          .toList();
+      // print(allData[0]['token']);
+      for (var i in allData) {
+        sendPushMessage(
+          i['token'],
+          contentcontroller.text,
+          titlecontroller.text,
+        );
+      }
     }
+
     contentcontroller.text = "";
     titlecontroller.text = "";
     Shared().snackbar(
@@ -180,6 +214,21 @@ class _SendNotificationState extends State<SendNotification> {
           context: context,
         );
       }
+    }
+  }
+
+  void handleClick(String value) {
+    switch (value) {
+      case 'To sellers':
+        setState(() {
+          sendtosellers = true;
+        });
+        break;
+      case 'To Users':
+        setState(() {
+          sendtosellers = false;
+        });
+        break;
     }
   }
 }

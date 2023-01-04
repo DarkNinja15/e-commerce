@@ -470,7 +470,7 @@ class _CheckoutState extends State<Checkout> {
           photoUrl: i.photoUrl,
           price: (i.price * count[j]).toString(),
           quantity: count[j],
-          status: "yet not delivered",
+          status: "yet to be delivered",
           userAddress: addresscontroller.text.trim(),
           userId: user.userUid,
           userName: namecontroller.text.trim(),

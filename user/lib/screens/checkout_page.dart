@@ -460,6 +460,7 @@ class _CheckoutState extends State<Checkout> {
         String orderId = const Uuid().v1();
         orderHistory.add(orderId);
         ord.Order order = ord.Order(
+          sellerUid: i.sellerUid,
           category: i.category,
           desc: i.desc,
           name: i.name,

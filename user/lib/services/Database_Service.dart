@@ -133,6 +133,8 @@ class DatabaseService {
         .snapshots()
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map((DocumentSnapshot documentSnapshot) => ord.Order(
+              sellerUid: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['sellerUid'],
                   category: (documentSnapshot.data()!
                       as Map<String, dynamic>)['category'],
                   desc: (documentSnapshot.data()!

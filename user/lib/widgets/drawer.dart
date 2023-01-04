@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Others/order_history_screen.dart';
+import 'package:user/screens/Others/terms.dart';
 import 'package:user/widgets/logout.dart';
 
 class Drawerc extends StatefulWidget {
@@ -46,6 +47,19 @@ class _DrawercState extends State<Drawerc> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const OrderHistory(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.sticky_note_2_sharp,
+            ),
+            title: const Text('Terms and Condition'),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const Terms(),
                 ),
               );
             },

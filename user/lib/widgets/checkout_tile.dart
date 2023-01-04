@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 Widget tile(
     var width, String url, String name, String total_price, String quality) {
@@ -10,7 +11,7 @@ Widget tile(
     margin: EdgeInsets.all(width * 0.025),
     padding: EdgeInsets.all(width * 0.025),
     width: width,
-    height: 125,
+    height: 15.h,
     child: Row(
       children: [
         Container(
@@ -26,7 +27,7 @@ Widget tile(
         ),
         const SizedBox(width: 8),
         Container(
-          width: width * 0.4846,
+          width: width * 0.4,
           margin: const EdgeInsets.all(7),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,21 +35,21 @@ Widget tile(
             children: [
               Text(
                 name,
-                style: const TextStyle(
-                    fontSize: 18,
+                style: TextStyle(
+                    fontSize: 9.sp,
                     overflow: TextOverflow.ellipsis,
                     color: Colors.teal),
               ),
               Text(
                 'Total Price : ₹$total_price',
-                style: const TextStyle(
-                    fontSize: 17,
+                style: TextStyle(
+                    fontSize: 7.5.sp,
                     color: Colors.deepPurple,
                     overflow: TextOverflow.ellipsis),
               ),
               Text(
                 'Quantity : $quality',
-                style: const TextStyle(fontSize: 17, color: Colors.deepPurple),
+                style: TextStyle(fontSize: 7.5.sp, color: Colors.deepPurple),
               )
             ],
           ),

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:user/models/product_model.dart';
 import 'package:user/widgets/loading.dart';
 
@@ -46,8 +47,8 @@ class _CategoryDetailState extends State<CategoryDetail> {
 
   Widget Tile() {
     return Container(
-      height: 145,
-      width: 335,
+      height: 17.5.h,
+      width: 100.h,
       margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
       decoration: BoxDecoration(
         border: Border.all(width: 1.5, color: Colors.yellow),
@@ -90,49 +91,57 @@ class _CategoryDetailState extends State<CategoryDetail> {
               ),
               centerTitle: true,
             ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Tile(),
-                  catProds.isEmpty
-                      ? Column(
-                          children: const [
-                            Image(image: AssetImage('assets/void.png')),
-                            Text(
-                              'Nothing to show\n',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 33),
+            body: Container(
+              alignment: Alignment.center,
+              child: AspectRatio(
+                aspectRatio: 440/725,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Tile(),
+                      catProds.isEmpty
+                          ? Column(
+                              children: const [
+                                Image(image: AssetImage('assets/void.png')),
+                                Text(
+                                  'Nothing to show\n',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 33),
+                                )
+                              ],
                             )
-                          ],
-                        )
-                      : SizedBox(
-                          width: double.infinity,
-                          child: MasonryGridView.count(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 2,
-                              crossAxisSpacing: 10,
-                              itemCount: catProds.length,
-                              itemBuilder: (context, i) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ProductInfo(
-                                                prod: catProds[i])));
-                                  },
-                                  child: productTile(
-                                      catProds[i].photoUrl,
-                                      catProds[i].name,
-                                      catProds[i].desc,
-                                      catProds[i].price,
-                                      catProds[i].discount),
-                                );
-                              }),
-                        ),
-                ],
+                          : SizedBox(
+                              width: double.infinity,
+                              child: MasonryGridView.count(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 2,
+                                  crossAxisSpacing: 10,
+                                  itemCount: catProds.length,
+                                  itemBuilder: (context, i) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => ProductInfo(
+                                                    prod: catProds[i])));
+                                      },
+                                      child: productTile(
+                                          catProds[i].photoUrl,
+                                          catProds[i].name,
+                                          catProds[i].desc,
+                                          catProds[i].price,
+                                          catProds[i].discount,
+                                          context
+                                      ),
+                                    );
+                                  }),
+                            ),
+                    ],
+                  ),
+                ),
               ),
             ),
           );

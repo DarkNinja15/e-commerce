@@ -1,83 +1,86 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 // ignore: non_constant_identifier_names
 Widget productTile(String url, String Name, String Description, double price,
-    double discount) {
+    double discount, BuildContext ctx) {
   return Container(
+    height: 27.h,
+    width: 27.h,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(12.sp),
       // border: Border.all(width: 1),
     ),
-    margin: const EdgeInsets.symmetric(
+    margin: EdgeInsets.symmetric(
       horizontal: 15,
       vertical: 12,
     ),
     child: SizedBox(
-      // height: 206,
-      // width: 50,
+      width: 20.h,
       child: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            height: 15.h,
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+                topLeft: Radius.circular(12.sp),
+                topRight: Radius.circular(12.sp),
               ),
               color: Colors.blueGrey,
             ),
-            height: 110,
             child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+              borderRadius:BorderRadius.only(
+                topLeft: Radius.circular(12.sp),
+                topRight: Radius.circular(12.sp),
               ),
               child:
-                  SizedBox.expand(child: Image.network(url, fit: BoxFit.fill)),
+                  SizedBox.expand(child: Image.network(url, fit: BoxFit.fitWidth)),
             ),
           ),
           Container(
-            height: 94,
-            padding: const EdgeInsets.all(4),
-            decoration: const BoxDecoration(
+            height: 12.h,
+            padding: EdgeInsets.all(5.sp),
+            decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+                bottomLeft: Radius.circular(12.sp),
+                bottomRight: Radius.circular(12.sp),
               ),
             ),
             child: SizedBox.expand(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 5),
+                  SizedBox(height: 0.6.h),
                   Text(
                     Name,
                     textAlign: TextAlign.start,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w500, color: Colors.black87),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 9.sp),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 0.6.h),
                   Text(
                     Description,
                     overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 7.sp),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 0.6.h),
                   Row(
                     children: [
                       FittedBox(
                         fit: BoxFit.contain,
                         child: Text(
-                          '₹$price',
-                          style: const TextStyle(
+                          '₹${price.round()}',
+                          style: TextStyle(
                               color: Colors.teal,
                               fontWeight: FontWeight.bold,
-                              fontSize: 17,
+                              fontSize: 9.sp,
                               overflow: TextOverflow.ellipsis),
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      // const SizedBox(width: 10),
                       // FittedBox(
                       //     fit: BoxFit.contain,
                       //     child: Text(

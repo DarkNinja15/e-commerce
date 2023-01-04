@@ -102,7 +102,9 @@ class _SeeAllPromotionPageState extends State<SeeAllPromotionPage> {
                           promotedProds[i].name,
                           promotedProds[i].desc,
                           promotedProds[i].price,
-                          promotedProds[i].discount),
+                          promotedProds[i].discount,
+                          context
+                      ),
                     );
                   }),
             ),

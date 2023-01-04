@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../models/order_model.dart';
 
@@ -51,6 +52,7 @@ class _OrderDetailState extends State<OrderDetail> {
               child: Image(
                 image: NetworkImage(
                   widget.snap.photoUrl,
+                  scale: 0.5.h
                 ),
               ),
             ),

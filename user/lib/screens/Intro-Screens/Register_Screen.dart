@@ -35,7 +35,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return AspectRatio(
+      aspectRatio: 440/725,
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

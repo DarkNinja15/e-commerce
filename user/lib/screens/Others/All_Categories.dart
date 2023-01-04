@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:user/models/category_model.dart' as cate;
 import 'package:user/screens/Others/category_detail.dart';
 import 'package:user/widgets/loading.dart';
@@ -56,40 +57,46 @@ class _All_CategoriesState extends State<All_Categories> {
           elevation: 0,
           centerTitle: true,
         ),
-        body: isLoading
-            ? const Loading()
-            : ListView.builder(
-                itemCount: cats.length,
-                itemBuilder: (context, i) {
-                  return Container(
-                    height: 145,
-                    width: 335,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 25),
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1.5, color: Colors.yellow),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => CategoryDetail(
-                              name: cats[i].name,
-                              picUrl: cats[i].thumbnailPicUrl,
+        body: Container(
+          alignment: Alignment.center,
+          child: AspectRatio(
+            aspectRatio: 440/725,
+            child: isLoading
+                ? const Loading()
+                : ListView.builder(
+                    itemCount: cats.length,
+                    itemBuilder: (context, i) {
+                      return Container(
+                        height: 17.5.h,
+                        // width: 100.w,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 25),
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1.5, color: Colors.yellow),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => CategoryDetail(
+                                  name: cats[i].name,
+                                  picUrl: cats[i].thumbnailPicUrl,
+                                ),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              cats[i].thumbnailPicUrl,
+                              fit: BoxFit.fill,
                             ),
                           ),
-                        );
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
-                          cats[i].thumbnailPicUrl,
-                          fit: BoxFit.fill,
                         ),
-                      ),
-                    ),
-                  );
-                }));
+                      );
+                    }),
+          ),
+        ));
   }
 }

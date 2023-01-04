@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Navigation_Page.dart';
 import 'package:user/services/Database_Service.dart';
@@ -203,162 +204,168 @@ class _MyCartState extends State<MyCart> {
         ),
         centerTitle: true,
       ),
-      body: carts.isEmpty
-          ? Column(
-              children: const [
-                Image(image: AssetImage('assets/void.png')),
-                Text(
-                  'Nothing to show\n\nAdd something to cart\nNow',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 33),
+      body: Container(
+        alignment: Alignment.center,
+        child: AspectRatio(
+          aspectRatio: 440/725,
+          child: carts.isEmpty
+              ? Column(
+                  children: const [
+                    Image(image: AssetImage('assets/void.png')),
+                    Text(
+                      'Nothing to show\n\nAdd something to cart\nNow',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 33),
+                    )
+                  ],
                 )
-              ],
-            )
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Checkbox(
-                          value: isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              isChecked = value!;
-                              selectall(isChecked);
-                            });
-                          },
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Checkbox(
+                              value: isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  isChecked = value!;
+                                  selectall(isChecked);
+                                });
+                              },
+                            ),
+                            const Text(
+                              'Select All Item',
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.teal,
+                                  letterSpacing: 1),
+                            )
+                          ],
                         ),
-                        const Text(
-                          'Select All Item',
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.teal,
-                              letterSpacing: 1),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: width,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: carts.length,
-                        itemBuilder: (context, i) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white),
-                            margin: EdgeInsets.all(width * 0.025),
-                            padding: EdgeInsets.all(width * 0.025),
-                            width: width,
-                            height: 125,
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  child: Container(
-                                    child: isSelected[i] == 0
-                                        ? notselectbutton()
-                                        : selectbutton(),
-                                  ),
-                                  onTap: () {
-                                    if (isSelected[i] == 0) {
-                                      isSelected[i] = 1;
-                                    } else {
-                                      isSelected[i] = 0;
-                                    }
-                                    calculate();
-                                    setState(() {});
-                                  },
-                                ),
-                                Container(
-                                  height: width * 0.24,
-                                  width: width * 0.24,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: Colors.blueGrey.shade200),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(carts[i].photoUrl,
-                                        fit: BoxFit.contain),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Container(
-                                  width: width * 0.4846,
-                                  // decoration: BoxDecoration(
-                                  //   border: Border.all(width: 1)
-                                  // ),
-                                  margin: const EdgeInsets.all(7),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        carts[i].name,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            overflow: TextOverflow.ellipsis,
-                                            color: Colors.teal),
+                      ),
+                      SizedBox(
+                        width: width,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: carts.length,
+                            itemBuilder: (context, i) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white),
+                                margin: EdgeInsets.all(width * 0.020),
+                                padding: EdgeInsets.all(width * 0.020),
+                                width: width,
+                                height: 15.h,
+                                child: Row(
+                                  children: [
+                                    InkWell(
+                                      child: Container(
+                                        child: isSelected[i] == 0
+                                            ? notselectbutton()
+                                            : selectbutton(),
                                       ),
-                                      Row(
+                                      onTap: () {
+                                        if (isSelected[i] == 0) {
+                                          isSelected[i] = 1;
+                                        } else {
+                                          isSelected[i] = 0;
+                                        }
+                                        calculate();
+                                        setState(() {});
+                                      },
+                                    ),
+                                    SizedBox(width: 1.w,),
+                                    Container(
+                                      height: width * 0.24,
+                                      width: width * 0.24,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.blueGrey.shade200),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Image.network(carts[i].photoUrl,
+                                            fit: BoxFit.contain),
+                                      ),
+                                    ),
+                                    SizedBox(width: 1.w),
+                                    Container(
+                                      // decoration: BoxDecoration(
+                                      //   border: Border.all(width: 1)
+                                      // ),
+                                      width: width * 0.28,
+                                      margin: const EdgeInsets.all(7),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            '₹${carts[i].price.ceil().toString()} ',
-                                            style: const TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.green),
+                                            carts[i].name,
+                                            style: TextStyle(
+                                                fontSize: 9.sp,
+                                                overflow: TextOverflow.ellipsis,
+                                                color: Colors.teal),
                                           ),
-                                          Text(
-                                            'x${count[i]} ',
-                                            style: const TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.deepOrange),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '₹${carts[i].price.ceil().toString()} ',
+                                                style: TextStyle(
+                                                    fontSize: 7.5.sp,
+                                                    color: Colors.green),
+                                              ),
+                                              Text(
+                                                'x${count[i]} ',
+                                                style: TextStyle(
+                                                    fontSize: 4.5.sp,
+                                                    color: Colors.deepOrange),
+                                              ),
+                                              Text(
+                                                  '= ₹${(count[i] * carts[i].price).round()}',
+                                                  style: TextStyle(
+                                                      fontSize: 7.5.sp,
+                                                      color: Colors.green,
+                                                      overflow:
+                                                          TextOverflow.ellipsis))
+                                            ],
                                           ),
-                                          Text(
-                                              '= ₹${(count[i] * carts[i].price).round()}',
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  color: Colors.green,
-                                                  overflow:
-                                                      TextOverflow.ellipsis))
+                                          SizedBox(
+                                            height: 40,
+                                            child: Row(
+                                              // crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                counter(carts[i].quantity, i),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      deletefromcart(i, context);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.delete_outline_outlined,
+                                                      color:
+                                                          Colors.redAccent.shade200,
+                                                    ))
+                                              ],
+                                            ),
+                                          )
                                         ],
                                       ),
-                                      SizedBox(
-                                        height: 40,
-                                        child: Row(
-                                          // crossAxisAlignment: CrossAxisAlignment.center,
-                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            counter(carts[i].quantity, i),
-                                            const Spacer(),
-                                            IconButton(
-                                                onPressed: () {
-                                                  deletefromcart(i, context);
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete_outline_outlined,
-                                                  color:
-                                                      Colors.redAccent.shade200,
-                                                ))
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+        ),
+      ),
       bottomNavigationBar: Nav(
         context,
         totalcost,

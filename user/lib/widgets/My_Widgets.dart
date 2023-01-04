@@ -1,14 +1,14 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
 import 'package:flutter/material.dart';
-
+import 'package:sizer/sizer.dart';
 import '../screens/see_all_promotion_page.dart';
 
 Widget Roww() {
   return Container(
-    margin: const EdgeInsets.symmetric(vertical: 10),
+    margin: EdgeInsets.symmetric(vertical: 1.h),
     width: double.infinity,
-    height: 65,
+    height: 8.h,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -24,15 +24,15 @@ Widget Roww() {
 
 Widget Roww2(BuildContext ctx) {
   return Container(
-    height: 25,
-    margin: const EdgeInsets.symmetric(horizontal: 15),
+    height: 3.h,
+    margin: EdgeInsets.symmetric(horizontal: 4.w),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           'Featured Product',
           style: TextStyle(
-              fontWeight: FontWeight.w500, color: Colors.teal, fontSize: 17),
+              fontWeight: FontWeight.w500, color: Colors.teal, fontSize: 9.sp),
         ),
         GestureDetector(
           onTap: () {
@@ -41,9 +41,9 @@ Widget Roww2(BuildContext ctx) {
                 MaterialPageRoute(
                     builder: (context) => const SeeAllPromotionPage()));
           },
-          child: const Text(
+          child: Text(
             'See All',
-            style: TextStyle(color: Color.fromRGBO(255, 176, 57, 1)),
+            style: TextStyle(color: const Color.fromRGBO(255, 176, 57, 1), fontSize: 9.sp),
           ),
         ),
       ],

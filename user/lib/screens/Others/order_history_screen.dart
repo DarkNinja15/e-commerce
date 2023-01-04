@@ -69,7 +69,6 @@ class _OrderHistoryState extends State<OrderHistory> {
     // print(deliverdOrders);
     // allOrders contains all the previous orders of user.
     return Scaffold(
-        backgroundColor: Colors.white,
         drawer: const Drawerc(),
         appBar: AppBar(
           leading: GestureDetector(
@@ -98,70 +97,76 @@ class _OrderHistoryState extends State<OrderHistory> {
             )
           ],
         ),
-        body: isLoading
-            ? const Loading()
-            : !isDelivered
-                ? allOrders.isEmpty
-                    ? Column(
-                        children: const [
-                          Image(image: AssetImage('assets/void.png')),
-                          Text(
-                            'Nothing to show',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 33),
+        body: Container(
+          alignment: Alignment.center,
+          child: AspectRatio(
+            aspectRatio: 440/725,
+            child: isLoading
+                ? const Loading()
+                : !isDelivered
+                    ? allOrders.isEmpty
+                        ? Column(
+                            children: const [
+                              Image(image: AssetImage('assets/void.png')),
+                              Text(
+                                'Nothing to show',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 33),
+                              )
+                            ],
                           )
-                        ],
-                      )
-                    : ListView.builder(
-                        itemCount: allOrders.length,
-                        itemBuilder: (context, i) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          OrderDetail(snap: allOrders[i])));
-                            },
-                            child: Order_tile(
-                                width,
-                                allOrders[i].photoUrl,
-                                allOrders[i].name,
-                                allOrders[i].price,
-                                allOrders[i].quantity.toString(),
-                                allOrders[i].status),
-                          );
-                        })
-                : deliverdOrders.isEmpty
-                    ? Column(
-                        children: const [
-                          Image(image: AssetImage('assets/void.png')),
-                          Text(
-                            'Nothing to show',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 33),
+                        : ListView.builder(
+                            itemCount: allOrders.length,
+                            itemBuilder: (context, i) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              OrderDetail(snap: allOrders[i])));
+                                },
+                                child: Order_tile(
+                                    width,
+                                    allOrders[i].photoUrl,
+                                    allOrders[i].name,
+                                    allOrders[i].price,
+                                    allOrders[i].quantity.toString(),
+                                    allOrders[i].status),
+                              );
+                            })
+                    : deliverdOrders.isEmpty
+                        ? Column(
+                            children: const [
+                              Image(image: AssetImage('assets/void.png')),
+                              Text(
+                                'Nothing to show',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 33),
+                              )
+                            ],
                           )
-                        ],
-                      )
-                    : ListView.builder(
-                        itemCount: deliverdOrders.length,
-                        itemBuilder: (context, i) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => OrderDetail(
-                                          snap: deliverdOrders[i])));
-                            },
-                            child: Order_tile(
-                                width,
-                                deliverdOrders[i].photoUrl,
-                                deliverdOrders[i].name,
-                                deliverdOrders[i].price,
-                                deliverdOrders[i].quantity.toString(),
-                                deliverdOrders[i].status),
-                          );
-                        }));
+                        : ListView.builder(
+                            itemCount: deliverdOrders.length,
+                            itemBuilder: (context, i) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => OrderDetail(
+                                              snap: deliverdOrders[i])));
+                                },
+                                child: Order_tile(
+                                    width,
+                                    deliverdOrders[i].photoUrl,
+                                    deliverdOrders[i].name,
+                                    deliverdOrders[i].price,
+                                    deliverdOrders[i].quantity.toString(),
+                                    deliverdOrders[i].status),
+                              );
+                            }),
+          ),
+        ));
   }
 }

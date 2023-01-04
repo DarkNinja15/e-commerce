@@ -5,6 +5,7 @@ import 'HomePage.dart';
 import 'Others/All_Categories.dart';
 import 'Others/ProfilePage.dart';
 import 'Others/WishList.dart';
+import 'package:sizer/sizer.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -31,14 +32,14 @@ class _NavigationPageState extends State<NavigationPage> {
           child: Page_List[_selectedIndex],
         ),
         bottomNavigationBar: Container(
-          height: MediaQuery.of(context).size.height * 0.072,
+          height: MediaQuery.of(context).size.height * 0.075,
           width: double.infinity,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
                   color: Color.fromRGBO(255, 176, 57, 1),
-                  spreadRadius: 0.5,
-                  blurRadius: 1.0)
+                  spreadRadius: 0.5.sp,
+                  blurRadius: 1.sp)
             ],
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(24), topRight: Radius.circular(24)),
@@ -53,19 +54,23 @@ class _NavigationPageState extends State<NavigationPage> {
                     _selectedIndex = 0;
                   });
                 },
-                child: SizedBox(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: width * 0.25,
                   child: _selectedIndex == 0
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.home_filled,
+                            Icon(Icons.home_filled,
+                                size: 17.sp,
                                 color: Color.fromRGBO(255, 176, 57, 1)),
-                            const SizedBox(height: 3),
+                            SizedBox(height: 0.05.h),
                             Container(
-                              width: 6,
-                              height: 3,
+                              width: 1.5.w,
+                              height: 0.4.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: const Color.fromRGBO(255, 176, 57, 1),
@@ -75,7 +80,7 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(6),
-                          child: const Icon(Icons.home_outlined),
+                          child: Icon(Icons.home_outlined, size: 17.sp,),
                         ),
                 ),
               ),
@@ -85,21 +90,25 @@ class _NavigationPageState extends State<NavigationPage> {
                     _selectedIndex = 1;
                   });
                 },
-                child: SizedBox(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white
+                  ),
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: width * 0.25,
                   child: _selectedIndex == 1
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.category,
+                              size: 17.sp,
                               color: Color.fromRGBO(255, 176, 57, 1),
                             ),
                             const SizedBox(height: 3),
                             Container(
-                              width: 6,
-                              height: 3,
+                              width: 1.5.w,
+                              height: 0.4.h,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: const Color.fromRGBO(255, 176, 57, 1),
@@ -109,7 +118,7 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(6),
-                          child: const Icon(Icons.category_outlined)),
+                          child:Icon(Icons.category_outlined,  size: 17.sp,)),
                 ),
               ),
               GestureDetector(
@@ -118,7 +127,10 @@ class _NavigationPageState extends State<NavigationPage> {
                     _selectedIndex = 2;
                   });
                 },
-                child: SizedBox(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
                   // margin: EdgeInsets.fromLTRB(0, 0, 40, 0),
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: width * 0.25,
@@ -126,12 +138,13 @@ class _NavigationPageState extends State<NavigationPage> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.favorite,
+                            Icon(Icons.favorite,
+                                size: 17.sp,
                                 color: Color.fromRGBO(255, 176, 57, 1)),
                             const SizedBox(height: 3),
                             Container(
-                              width: 6,
-                              height: 3,
+                              width: 1.5.w,
+                              height: 0.4.h,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: const Color.fromRGBO(255, 176, 57, 1)),
@@ -140,7 +153,7 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(6),
-                          child: const Icon(Icons.favorite_outline_outlined)),
+                          child:Icon(Icons.favorite_outline_outlined, size: 17.sp,),  ),
                 ),
               ),
               GestureDetector(
@@ -149,20 +162,23 @@ class _NavigationPageState extends State<NavigationPage> {
                     _selectedIndex = 3;
                   });
                 },
-                child: SizedBox(
-                  // margin: EdgeInsets.fromLTRB(0, 0, 40, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: width * 0.25,
                   child: _selectedIndex == 3
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.person,
-                                color: Color.fromRGBO(255, 176, 57, 1)),
+                            Icon(Icons.person,
+                                color: Color.fromRGBO(255, 176, 57, 1),
+                              size: 17.sp,),
                             const SizedBox(height: 3),
                             Container(
-                              width: 6,
-                              height: 3,
+                              width: 1.5.w,
+                              height: 0.4.h,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   color: const Color.fromRGBO(255, 176, 57, 1)),
@@ -171,7 +187,7 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(10),
-                          child: const Icon(Icons.person_outline_outlined)),
+                          child: Icon(Icons.person_outline_outlined, size: 17.sp,)),
                 ),
               ),
             ],

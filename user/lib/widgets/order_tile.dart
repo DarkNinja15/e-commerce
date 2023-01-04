@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 Widget Order_tile(var width, String url, String name, String total_price,
     String quality, String Status) {
@@ -10,7 +11,7 @@ Widget Order_tile(var width, String url, String name, String total_price,
     margin: EdgeInsets.all(width * 0.025),
     padding: EdgeInsets.all(width * 0.025),
     width: width,
-    height: 125,
+    height: 15.h,
     child: Row(
       children: [
         Container(
@@ -24,9 +25,10 @@ Widget Order_tile(var width, String url, String name, String total_price,
             child: Image.network(url, fit: BoxFit.contain),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: width*0.01),
         Container(
-          width: width * 0.4846,
+          // decoration: BoxDecoration(border: Border.all(width: 1)),
+          width: width * 0.4,
           margin: const EdgeInsets.all(7),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,23 +36,23 @@ Widget Order_tile(var width, String url, String name, String total_price,
             children: [
               Text(
                 name,
-                style: const TextStyle(
-                    fontSize: 18,
+                style: TextStyle(
+                    fontSize: 9.sp,
                     overflow: TextOverflow.ellipsis,
                     color: Colors.teal),
               ),
               Text(
                 'Total Price : ₹$total_price',
-                style: const TextStyle(
-                    color: Colors.deepPurple, overflow: TextOverflow.ellipsis),
+                style: TextStyle(
+                    color: Colors.deepPurple, overflow: TextOverflow.ellipsis, fontSize: 6.5.sp),
               ),
               Text(
                 'Quantity : $quality',
-                style: const TextStyle(color: Colors.deepPurple),
+                style: TextStyle(color: Colors.deepPurple, fontSize: 6.5.sp),
               ),
               Text(
                 'Status : $Status',
-                style: const TextStyle(color: Colors.deepPurple),
+                style: TextStyle(color: Colors.deepPurple, fontSize: 6.5.sp),
               ),
               // Text('Status : $quality', style: TextStyle(color: Colors.deepPurple),)
             ],

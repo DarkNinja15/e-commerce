@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Others/order_history_screen.dart';
 import 'package:user/screens/Others/terms.dart';
@@ -32,9 +33,11 @@ class _DrawercState extends State<Drawerc> {
             ),
           ),
           Text(
-            'Welcome ${user.userName}',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+            'Welcome   ${user.userName}',
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              letterSpacing: 3.5,
+              fontSize: 5.sp
             ),
           ),
           const Divider(),

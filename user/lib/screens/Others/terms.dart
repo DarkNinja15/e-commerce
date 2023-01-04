@@ -41,6 +41,14 @@ class _TermsState extends State<Terms> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+           Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+          //replace with our own icon data.
+        ),
+        elevation: 0,
         title: const Text('Terms and Conditions'),
         centerTitle: true,
       ),

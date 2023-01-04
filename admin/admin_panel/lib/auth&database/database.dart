@@ -309,6 +309,8 @@ class Database {
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map(
               (DocumentSnapshot documentSnapshot) => od.Order(
+                sellerUid: (documentSnapshot.data()!
+                      as Map<String, dynamic>)['sellerUid'],
                   userId: (documentSnapshot.data()!
                       as Map<String, dynamic>)['userId'],
                   orderId: (documentSnapshot.data()!
@@ -333,7 +335,7 @@ class Database {
                       (documentSnapshot.data()! as Map<String, dynamic>)['category'],
                   desc: (documentSnapshot.data()! as Map<String, dynamic>)['desc'],
                   photoUrl: (documentSnapshot.data()! as Map<String, dynamic>)['photoUrl'],
-                  payMode: (documentSnapshot.data()! as Map<String, dynamic>)['payMode']),
+                  payMode: (documentSnapshot.data()! as Map<String, dynamic>)['payMode']) 
             )
             .toList());
   }

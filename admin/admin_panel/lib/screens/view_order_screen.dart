@@ -1,5 +1,7 @@
 import 'package:admin_panel/models/order_model.dart' as od;
 import 'package:admin_panel/widgets/drawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/loading.dart';
@@ -16,6 +18,7 @@ class _ViewOrderState extends State<ViewOrder> {
   List<od.Order> searchResult = [];
   TextEditingController controller = TextEditingController();
   List<od.Order> ord = [];
+  List<od.Order> nonAdminOrders = [];
   bool isLoading = false;
 
   @override
@@ -34,6 +37,10 @@ class _ViewOrderState extends State<ViewOrder> {
   void didChangeDependencies() {
     ord = Provider.of<List<od.Order>>(context)
         .where((element) => element.status == 'yet to be delivered')
+        .toList();
+    nonAdminOrders = ord
+        .where((element) =>
+            element.sellerUid == FirebaseAuth.instance.currentUser!.uid)
         .toList();
     // print('ord');
     // print(ord);
@@ -100,65 +107,126 @@ class _ViewOrderState extends State<ViewOrder> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  ord.isEmpty
-                      ? Column(
-                          children: const [
-                            Image(
-                              image: AssetImage(
-                                'assets/void.png',
-                              ),
-                            ),
-                            Text(
-                              'Nothing to Show',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 33,
-                              ),
-                            ),
-                          ],
-                        )
-                      : controller.text == ''
-                          ? Expanded(
-                              child: ListView.builder(
-                                itemCount: ord.length,
-                                itemBuilder: (context, index) {
-                                  return OrderTile(
-                                    snap: ord[index],
-                                  );
-                                },
-                              ),
-                            )
-                          : searchResult.isEmpty
-                              ? Expanded(
-                                  child: Column(
-                                    children: const [
-                                      Image(
-                                        image: AssetImage(
-                                          'assets/void.png',
-                                        ),
-                                      ),
-                                      Text(
-                                        'Nothing to Show',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 33,
-                                        ),
-                                      ),
-                                    ],
+                  FirebaseAuth.instance.currentUser!.uid ==
+                          "ELO4z0WvXLgHgHSlVuagYBrunXK2"
+                      ? ord.isEmpty
+                          ? Column(
+                              children: const [
+                                Image(
+                                  image: AssetImage(
+                                    'assets/void.png',
                                   ),
-                                )
-                              : Expanded(
+                                ),
+                                Text(
+                                  'Nothing to Show',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 33,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : controller.text == ''
+                              ? Expanded(
                                   child: ListView.builder(
-                                    // shrinkWrap: true,
-                                    itemCount: searchResult.length,
+                                    itemCount: ord.length,
                                     itemBuilder: (context, index) {
-                                      // print(searchResult[index]);
-                                      // print('searchResult[index]');
                                       return OrderTile(
-                                          snap: searchResult[index]);
+                                        snap: ord[index],
+                                      );
                                     },
                                   ),
                                 )
+                              : searchResult.isEmpty
+                                  ? Expanded(
+                                      child: Column(
+                                        children: const [
+                                          Image(
+                                            image: AssetImage(
+                                              'assets/void.png',
+                                            ),
+                                          ),
+                                          Text(
+                                            'Nothing to Show',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 33,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: ListView.builder(
+                                        // shrinkWrap: true,
+                                        itemCount: searchResult.length,
+                                        itemBuilder: (context, index) {
+                                          // print(searchResult[index]);
+                                          // print('searchResult[index]');
+                                          return OrderTile(
+                                              snap: searchResult[index]);
+                                        },
+                                      ),
+                                    )
+                      : nonAdminOrders.isEmpty
+                          ? Column(
+                              children: const [
+                                Image(
+                                  image: AssetImage(
+                                    'assets/void.png',
+                                  ),
+                                ),
+                                Text(
+                                  'Nothing to Show',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 33,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : controller.text == ''
+                              ? Expanded(
+                                  child: ListView.builder(
+                                    itemCount: nonAdminOrders.length,
+                                    itemBuilder: (context, index) {
+                                      return OrderTile(
+                                        snap: nonAdminOrders[index],
+                                      );
+                                    },
+                                  ),
+                                )
+                              : searchResult.isEmpty
+                                  ? Expanded(
+                                      child: Column(
+                                        children: const [
+                                          Image(
+                                            image: AssetImage(
+                                              'assets/void.png',
+                                            ),
+                                          ),
+                                          Text(
+                                            'Nothing to Show',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 33,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: ListView.builder(
+                                        // shrinkWrap: true,
+                                        itemCount: searchResult.length,
+                                        itemBuilder: (context, index) {
+                                          // print(searchResult[index]);
+                                          // print('searchResult[index]');
+                                          return OrderTile(
+                                              snap: searchResult[index]);
+                                        },
+                                      ),
+                                    )
                 ],
               ));
   }

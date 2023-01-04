@@ -15,6 +15,7 @@ class Order {
   final String desc;
   final String photoUrl;
   final String payMode;
+  final String sellerUid;
   Order({
     required this.userId,
     required this.orderId,
@@ -30,6 +31,7 @@ class Order {
     required this.desc,
     required this.photoUrl,
     required this.payMode,
+    required this.sellerUid,
   });
 
   Order copyWith({
@@ -47,6 +49,7 @@ class Order {
     String? desc,
     String? photoUrl,
     String? payMode,
+    String? sellerUid,
   }) {
     return Order(
       userId: userId ?? this.userId,
@@ -63,6 +66,7 @@ class Order {
       desc: desc ?? this.desc,
       photoUrl: photoUrl ?? this.photoUrl,
       payMode: payMode ?? this.payMode,
+      sellerUid: sellerUid ?? this.sellerUid,
     );
   }
 
@@ -83,6 +87,7 @@ class Order {
     result.addAll({'desc': desc});
     result.addAll({'photoUrl': photoUrl});
     result.addAll({'payMode': payMode});
+    result.addAll({'sellerUid': sellerUid});
 
     return result;
   }
@@ -103,6 +108,7 @@ class Order {
       desc: map['desc'] ?? '',
       photoUrl: map['photoUrl'] ?? '',
       payMode: map['payMode'] ?? '',
+      sellerUid: map['sellerUid'] ?? '',
     );
   }
 
@@ -112,7 +118,7 @@ class Order {
 
   @override
   String toString() {
-    return 'Order(userId: $userId, orderId: $orderId, name: $name, price: $price, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, orderDate: $orderDate, status: $status, quantity: $quantity, category: $category, desc: $desc, photoUrl: $photoUrl, payMode: $payMode)';
+    return 'Order(userId: $userId, orderId: $orderId, name: $name, price: $price, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, orderDate: $orderDate, status: $status, quantity: $quantity, category: $category, desc: $desc, photoUrl: $photoUrl, payMode: $payMode, sellerUid: $sellerUid)';
   }
 
   @override
@@ -133,7 +139,8 @@ class Order {
         other.category == category &&
         other.desc == desc &&
         other.photoUrl == photoUrl &&
-        other.payMode == payMode;
+        other.payMode == payMode &&
+        other.sellerUid == sellerUid;
   }
 
   @override
@@ -151,6 +158,7 @@ class Order {
         category.hashCode ^
         desc.hashCode ^
         photoUrl.hashCode ^
-        payMode.hashCode;
+        payMode.hashCode ^
+        sellerUid.hashCode;
   }
 }

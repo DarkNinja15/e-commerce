@@ -45,6 +45,7 @@ class _CheckoutState extends State<Checkout> {
   List<int> count = [];
   int totalcost = 0;
   bool f = true;
+  double discount = 0;
   // bool cashondelivery = false;
 
   void fun() {
@@ -53,6 +54,19 @@ class _CheckoutState extends State<Checkout> {
         prod.add(widget.prod[i]);
         count.add(widget.count[i]);
         totalcost += widget.prod[i].price.toInt() * widget.count[i];
+      }
+    }
+  }
+
+  void calculateDis() {
+    for (var i = 0; i < prod.length; i++) {
+      // print(count[i]);
+      // print('>>>');
+      // print(prod[i].discountProductLimit);
+      if (count[i] >= prod[i].discountProductLimit) {
+        // print('hello');
+        discount =
+            discount + ((prod[i].price * count[i]) * prod[i].discount) / 100;
       }
     }
   }
@@ -76,6 +90,7 @@ class _CheckoutState extends State<Checkout> {
   @override
   Widget build(BuildContext context) {
     // print(count);
+
     var width = MediaQuery.of(context).size.width;
     final user = Provider.of<UserProvider>(context).getUser;
     if (f) {
@@ -83,6 +98,7 @@ class _CheckoutState extends State<Checkout> {
       phonecontroller.text = user.phoneNo;
       addresscontroller.text = user.address;
       emailcontroller.text = user.email;
+      calculateDis();
       f = false;
     }
     return Scaffold(
@@ -219,27 +235,39 @@ class _CheckoutState extends State<Checkout> {
                         count[i].toString());
                   }),
             ),
-            Container(
-              margin: const EdgeInsets.all(15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Total Payment : ',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 25,
-                        color: Colors.teal),
-                  ),
-                  Text(
-                    totalcost.toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 25,
-                        color: Colors.blueGrey),
-                  )
-                ],
-              ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Discount : ',
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  color: Colors.teal),
+            ),
+            Text(
+              (discount).toString(),
+              style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25,
+                  color: Colors.blueGrey),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Total Payment : ',
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25,
+                  color: Colors.teal),
+            ),
+            Text(
+              (totalcost - discount).toString(),
+              style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25,
+                  color: Colors.blueGrey),
             ),
             Container(
               width: double.infinity,
@@ -457,6 +485,17 @@ class _CheckoutState extends State<Checkout> {
       int j = 0;
       List orderHistory = user.orders;
       for (var i in prod) {
+        double dis = 0;
+        // print('abc');
+        // print(i.discountProductLimit);
+        // print(count[j]);
+        if (i.discountProductLimit <= count[j]) {
+          // print('...');
+          dis = dis + ((i.price * count[j]) * i.discount) / 100;
+          // print(dis);
+        }
+        // print('jjj');
+        // print(dis);
         String orderId = const Uuid().v1();
         orderHistory.add(orderId);
         ord.Order order = ord.Order(
@@ -468,7 +507,7 @@ class _CheckoutState extends State<Checkout> {
           orderId: orderId,
           payMode: "cash",
           photoUrl: i.photoUrl,
-          price: (i.price * count[j]).toString(),
+          price: ((i.price * count[j]) - dis).toString(),
           quantity: count[j],
           status: "yet to be delivered",
           userAddress: addresscontroller.text.trim(),

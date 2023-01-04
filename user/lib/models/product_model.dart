@@ -5,7 +5,7 @@ class Product {
   final String photoUrl;
   final String name;
   final String desc;
-  final double price;
+  late final double price;
   final int quantity;
   final double discount;
   final int discountProductLimit;

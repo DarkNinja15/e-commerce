@@ -25,27 +25,30 @@ class _DrawercState extends State<Drawerc> {
             height: 30,
           ),
           Container(
-            width: 200,
-            height: 200,
+            width: 170,
+            height: 170,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(image: AssetImage('assets/logo1.png')),
             ),
           ),
+          SizedBox(height: 10.sp),
           Text(
             'Welcome   ${user.userName}',
             style: TextStyle(
               fontWeight: FontWeight.w300,
               letterSpacing: 3.5,
-              fontSize: 5.sp
+              fontSize: 11.sp
             ),
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(
+            leading: Icon(
               Icons.history,
+              size: 17.sp,
             ),
-            title: const Text('Order History'),
+            title: Text('Order History', style: TextStyle(fontSize: 12.sp),),
+            trailing: Icon(Icons.arrow_forward_ios, size: 12.sp,),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -54,11 +57,15 @@ class _DrawercState extends State<Drawerc> {
               );
             },
           ),
+          SizedBox(height: 7.sp),
           ListTile(
-            leading: const Icon(
+            leading: Icon(
               Icons.sticky_note_2_sharp,
+              size: 17.sp,
             ),
-            title: const Text('Terms and Condition'),
+            title: Text('Terms and Condition', style: TextStyle(fontSize: 12.sp),),
+            trailing: Icon(Icons.arrow_forward_ios, size: 12.sp,),
+
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -67,11 +74,14 @@ class _DrawercState extends State<Drawerc> {
               );
             },
           ),
+          SizedBox(height: 7.sp),
           ListTile(
-            leading: const Icon(
+            leading: Icon(
               Icons.exit_to_app,
+              size: 17.sp,
             ),
-            title: const Text('LogOut'),
+            trailing: Icon(Icons.arrow_forward_ios, size: 12.sp,),
+            title:Text('LogOut', style: TextStyle(fontSize: 12.sp),),
             onTap: () {
               logout(context);
             },

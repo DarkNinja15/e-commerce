@@ -166,165 +166,159 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: AspectRatio(
-          aspectRatio: 440/725,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 2.h,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 2.h,
+            ),
+            Container(
+              width: 15.h,
+              height: 15.h,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1.7, color: Colors.yellow),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: _pickedImage == null
+                          ? (user.profilePicUrl.isEmpty
+                              ? NetworkImage(url)
+                              : NetworkImage(user.profilePicUrl))
+                          : FileImage(_pickedImage!) as ImageProvider,
+                      fit: BoxFit.fitHeight)),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            InkWell(
+              onTap: () {
+                showForm0(context);
+              },
+              child: Text(
+                'Change Profile Pic',
+                style: TextStyle(
+                  color: Color.fromRGBO(255, 176, 57, 1),
+                  fontSize: 8.sp
                 ),
-                Container(
-                  width: 80.sp,
-                  height: 80.sp,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.7, color: Colors.yellow),
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: _pickedImage == null
-                              ? (user.profilePicUrl.isEmpty
-                                  ? NetworkImage(url)
-                                  : NetworkImage(user.profilePicUrl))
-                              : FileImage(_pickedImage!) as ImageProvider,
-                          fit: BoxFit.fitHeight)),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                InkWell(
-                  onTap: () {
-                    showForm0(context);
-                  },
-                  child: Text(
-                    'Change Profile Pic',
-                    style: TextStyle(
-                      color: Color.fromRGBO(255, 176, 57, 1),
-                      fontSize: 8.sp
+              ),
+            ),
+            SizedBox(height: 2.h,),
+            Container(
+              width: double.infinity,
+              height: 57.h,
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.all(25),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.lightGreenAccent.withOpacity(0.8)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Form(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(height: 2.h),
+                        TextFormField(
+                          controller: namecontroller,
+                          keyboardType: TextInputType.text,
+                          decoration: textInputDecoration.copyWith(
+                            labelText: "Name",
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          controller: phonecontroller,
+                          keyboardType: TextInputType.phone,
+                          decoration: textInputDecoration.copyWith(
+                            labelText: "Contact Number",
+                            prefixIcon: Icon(
+                              Icons.phone,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          enabled: false,
+                          controller: emailcontroller,
+                          keyboardType: TextInputType.phone,
+                          decoration: textInputDecoration.copyWith(
+                            labelText: "Email Address",
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        TextFormField(
+                          controller: addresscontroller,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          decoration: textInputDecoration.copyWith(
+                            labelText: "Address",
+                            prefixIcon: Icon(
+                              Icons.location_city,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Timer(const Duration(seconds: 2), () {
+                              DatabaseService(
+                                      uid: FirebaseAuth
+                                          .instance.currentUser?.uid)
+                                  .savechanges(
+                                      url,
+                                      namecontroller.text,
+                                      phonecontroller.text,
+                                      addresscontroller.text,
+                                      context);
+                            });
+                            // setState(() {});
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 8),
+                            width: double.infinity,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(255, 176, 57, 1),
+                                // border: Border.all(width: 1),
+                                borderRadius: BorderRadius.circular(35)),
+                            child: const Center(
+                              child: Text(
+                                'Save Changes',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 17.5),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                SizedBox(height: 2.h,),
-                Container(
-                  width: double.infinity,
-                  height: 38.h,
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  padding: const EdgeInsets.all(25),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Colors.lightGreenAccent.withOpacity(0.8)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Form(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const SizedBox(height: 10),
-                            TextFormField(
-                              controller: namecontroller,
-                              keyboardType: TextInputType.text,
-                              decoration: textInputDecoration.copyWith(
-                                labelText: "Name",
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            TextFormField(
-                              controller: phonecontroller,
-                              keyboardType: TextInputType.phone,
-                              decoration: textInputDecoration.copyWith(
-                                labelText: "Contact Number",
-                                prefixIcon: Icon(
-                                  Icons.phone,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            TextFormField(
-                              enabled: false,
-                              controller: emailcontroller,
-                              keyboardType: TextInputType.phone,
-                              decoration: textInputDecoration.copyWith(
-                                labelText: "Email Address",
-                                prefixIcon: Icon(
-                                  Icons.email,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            TextFormField(
-                              controller: addresscontroller,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
-                              decoration: textInputDecoration.copyWith(
-                                labelText: "Address",
-                                prefixIcon: Icon(
-                                  Icons.location_city,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Timer(const Duration(seconds: 2), () {
-                                  DatabaseService(
-                                          uid: FirebaseAuth
-                                              .instance.currentUser?.uid)
-                                      .savechanges(
-                                          url,
-                                          namecontroller.text,
-                                          phonecontroller.text,
-                                          addresscontroller.text,
-                                          context);
-                                });
-                                // setState(() {});
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 8),
-                                width: double.infinity,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    color: const Color.fromRGBO(255, 176, 57, 1),
-                                    // border: Border.all(width: 1),
-                                    borderRadius: BorderRadius.circular(35)),
-                                child: const Center(
-                                  child: Text(
-                                    'Save Changes',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17.5),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

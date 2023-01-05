@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                         'All Products',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 9.sp,
+                            fontSize: 11.sp,
                             color: Colors.teal),
                         textAlign: TextAlign.start,
                       )),

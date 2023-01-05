@@ -6,23 +6,22 @@ import 'package:sizer/sizer.dart';
 // ignore: non_constant_identifier_names
 Widget productTile(String url, String Name, String Description, double price,
     double discount, BuildContext ctx) {
-  return Container(
-    height: 27.h,
-    width: 27.h,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12.sp),
-      // border: Border.all(width: 1),
-    ),
-    margin: EdgeInsets.symmetric(
-      horizontal: 15,
-      vertical: 12,
-    ),
-    child: SizedBox(
+  return UnconstrainedBox(
+    child: Container(
+      height: 25.h,
       width: 20.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.sp),
+        // border: Border.all(width: 1),
+      ),
+      margin: EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 12,
+      ),
       child: Column(
         children: [
           Container(
-            height: 15.h,
+            height: 14.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12.sp),
@@ -40,7 +39,7 @@ Widget productTile(String url, String Name, String Description, double price,
             ),
           ),
           Container(
-            height: 12.h,
+            height: 10.h,
             padding: EdgeInsets.all(5.sp),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -58,7 +57,7 @@ Widget productTile(String url, String Name, String Description, double price,
                     Name,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 9.sp),
+                        fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 11.sp),
                   ),
                   SizedBox(height: 0.6.h),
                   Text(
@@ -76,7 +75,7 @@ Widget productTile(String url, String Name, String Description, double price,
                           style: TextStyle(
                               color: Colors.teal,
                               fontWeight: FontWeight.bold,
-                              fontSize: 9.sp,
+                              fontSize: 11.sp,
                               overflow: TextOverflow.ellipsis),
                         ),
                       ),

@@ -37,22 +37,22 @@ Widget Order_tile(var width, String url, String name, String total_price,
               Text(
                 name,
                 style: TextStyle(
-                    fontSize: 9.sp,
+                    fontSize: 13.sp,
                     overflow: TextOverflow.ellipsis,
                     color: Colors.teal),
               ),
               Text(
                 'Total Price : ₹$total_price',
                 style: TextStyle(
-                    color: Colors.deepPurple, overflow: TextOverflow.ellipsis, fontSize: 6.5.sp),
+                    color: Colors.deepPurple, overflow: TextOverflow.ellipsis, fontSize: 9.sp),
               ),
               Text(
                 'Quantity : $quality',
-                style: TextStyle(color: Colors.deepPurple, fontSize: 6.5.sp),
+                style: TextStyle(color: Colors.deepPurple, fontSize: 9.sp),
               ),
               Text(
                 'Status : $Status',
-                style: TextStyle(color: Colors.deepPurple, fontSize: 6.5.sp),
+                style: TextStyle(color: Colors.deepPurple, fontSize: 9.sp),
               ),
               // Text('Status : $quality', style: TextStyle(color: Colors.deepPurple),)
             ],

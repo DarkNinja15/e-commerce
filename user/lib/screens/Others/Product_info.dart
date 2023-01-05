@@ -18,6 +18,8 @@ class ProductInfo extends StatefulWidget {
 }
 
 class _ProductInfoState extends State<ProductInfo> {
+
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).getUser;
@@ -52,6 +54,7 @@ class _ProductInfoState extends State<ProductInfo> {
           )
         ],
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -104,6 +107,7 @@ class _ProductInfoState extends State<ProductInfo> {
                 ],
               ),
             ),
+            const Divider(thickness: 1.5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -117,7 +121,6 @@ class _ProductInfoState extends State<ProductInfo> {
                 ),
               ],
             ),
-            const Divider(),
             Container(
               width: double.infinity,
               margin: const EdgeInsets.all(10),
@@ -203,19 +206,47 @@ class _ProductInfoState extends State<ProductInfo> {
               ),
             ),
             const VerticalDivider(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.45,
-              child: Container(
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: const Color.fromRGBO(255, 176, 57, 1),
+            GestureDetector(
+              onTap: () async {
+                final res = await DatabaseService()
+                    .addProdToCart(widget.prod.id, context);
+                if (res == 'added') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyCart(),
+                    ),
+                  );
+                } else if (res == 'removed') {
+                  final res = await DatabaseService()
+                      .addProdToCart(widget.prod.id, context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyCart(),
+                    ),
+                  );
+                } else {
+                  Shared().snackbar(
+                    res,
+                    context,
+                  );
+                }
+              },
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.45,
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: const Color.fromRGBO(255, 176, 57, 1),
+                  ),
+                  child: const Center(
+                      child: Text(
+                    'Buy Now',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  )),
                 ),
-                child: const Center(
-                    child: Text(
-                  'Buy Now',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                )),
               ),
             ),
           ],

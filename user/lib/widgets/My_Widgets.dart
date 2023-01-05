@@ -32,7 +32,7 @@ Widget Roww2(BuildContext ctx) {
         Text(
           'Featured Product',
           style: TextStyle(
-              fontWeight: FontWeight.w500, color: Colors.teal, fontSize: 9.sp),
+              fontWeight: FontWeight.w500, color: Colors.teal, fontSize: 11.sp),
         ),
         GestureDetector(
           onTap: () {
@@ -43,7 +43,7 @@ Widget Roww2(BuildContext ctx) {
           },
           child: Text(
             'See All',
-            style: TextStyle(color: const Color.fromRGBO(255, 176, 57, 1), fontSize: 9.sp),
+            style: TextStyle(color: const Color.fromRGBO(255, 176, 57, 1), fontSize: 11.sp),
           ),
         ),
       ],

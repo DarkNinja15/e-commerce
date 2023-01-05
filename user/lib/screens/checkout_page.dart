@@ -119,230 +119,224 @@ class _CheckoutState extends State<Checkout> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: AspectRatio(
-          aspectRatio: 440/725,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.white,
-                  ),
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.white,
+              ),
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width * 0.25,
-                            child: const Text(
-                              'Name : ',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.60,
-                            child: TextField(
-                              controller: namecontroller,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ],
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Name : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                       ),
-                      const Divider(height: 0),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width * 0.25,
-                            child: const Text(
-                              'Contact No : ',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.60,
-                            child: TextField(
-                              controller: phonecontroller,
-                              keyboardType: TextInputType.phone,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Divider(height: 0),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width * 0.25,
-                            child: const Text(
-                              'Email \nAddress : ',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.60,
-                            child: TextField(
-                              controller: emailcontroller,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Divider(height: 0),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width * 0.25,
-                            child: const Text(
-                              'Shipping \nAddress : ',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.60,
-                            child: TextField(
-                              controller: addresscontroller,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: prod.length,
-                      itemBuilder: (context, i) {
-                        return tile(
-                            width,
-                            prod[i].photoUrl,
-                            prod[i].name,
-                            (prod[i].price * count[i]).round().toString(),
-                            count[i].toString());
-                      }),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Discount : ',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      color: Colors.teal),
-                ),
-                Text(
-                  (discount).toString(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25,
-                      color: Colors.blueGrey),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Total Payment : ',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25,
-                      color: Colors.teal),
-                ),
-                Text(
-                  (totalcost - discount).toString(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25,
-                      color: Colors.blueGrey),
-                ),
-                Container(
-                  width: double.infinity,
-                  // height: 105,
-                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Select a Payment Method',
-                        style: TextStyle(color: Colors.redAccent),
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: true,
-                            onChanged: (_) {},
-                          ),
-                          const Text('Cash On Delivery')
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: false,
-                            onChanged: (bool? value) {},
-                          ),
-                          const Text(
-                            'Pay Online',
-                            style: TextStyle(color: Colors.blueGrey),
-                          )
-                        ],
-                      ),
-                      InkWell(
-                        onTap: _checkout,
-                        child: Container(
-                          height: 5.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(255, 176, 57, 1),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          margin: EdgeInsets.symmetric(
-                              horizontal: MediaQuery.of(context).size.width * 0.06,
-                              vertical: MediaQuery.of(context).size.width * 0.05),
-                          child: Center(
-                            child: Text(
-                              'Check Out',
-                              style: TextStyle(
-                                color: Colors.white,
-                                letterSpacing: 3.5,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 9.sp,
-                              ),
-                            ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: namecontroller,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 30)
-              ],
+                  const Divider(height: 0),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Contact No : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: phonecontroller,
+                          keyboardType: TextInputType.phone,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 0),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Email \nAddress : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: emailcontroller,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 0),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.25,
+                        child: const Text(
+                          'Shipping \nAddress : ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width * 0.60,
+                        child: TextField(
+                          controller: addresscontroller,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
+            SizedBox(
+              width: double.infinity,
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: prod.length,
+                  itemBuilder: (context, i) {
+                    return tile(
+                        width,
+                        prod[i].photoUrl,
+                        prod[i].name,
+                        (prod[i].price * count[i]).round().toString(),
+                        count[i].toString());
+                  }),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Discount : ',
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  color: Colors.teal),
+            ),
+            Text(
+              (discount).toString(),
+              style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25,
+                  color: Colors.blueGrey),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              'Total Payment : ',
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25,
+                  color: Colors.teal),
+            ),
+            Text(
+              (totalcost - discount).toString(),
+              style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25,
+                  color: Colors.blueGrey),
+            ),
+            Container(
+              width: double.infinity,
+              // height: 105,
+              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Select a Payment Method',
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: true,
+                        onChanged: (_) {},
+                      ),
+                      const Text('Cash On Delivery')
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: false,
+                        onChanged: (bool? value) {},
+                      ),
+                      const Text(
+                        'Pay Online',
+                        style: TextStyle(color: Colors.blueGrey),
+                      )
+                    ],
+                  ),
+                  InkWell(
+                    onTap: _checkout,
+                    child: Container(
+                      height: 5.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 176, 57, 1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      margin: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.06,
+                          vertical: MediaQuery.of(context).size.width * 0.05),
+                      child: Center(
+                        child: Text(
+                          'Check Out',
+                          style: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 3.5,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 9.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30)
+          ],
         ),
       ),
     );

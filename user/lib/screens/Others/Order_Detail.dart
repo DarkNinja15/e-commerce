@@ -40,6 +40,7 @@ class _OrderDetailState extends State<OrderDetail> {
         child: Column(
           children: [
             Container(
+              height: 40.h,
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 2.5,
@@ -52,7 +53,6 @@ class _OrderDetailState extends State<OrderDetail> {
               child: Image(
                 image: NetworkImage(
                   widget.snap.photoUrl,
-                  scale: 0.5.h
                 ),
               ),
             ),

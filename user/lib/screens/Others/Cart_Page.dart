@@ -119,8 +119,8 @@ class _MyCartState extends State<MyCart> {
       },
       child: Container(
           margin: const EdgeInsets.all(4),
-          height: 25,
-          width: 25,
+          height: 3.h,
+          width: 3.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(width: 0.7, color: Colors.teal),
@@ -150,8 +150,8 @@ class _MyCartState extends State<MyCart> {
       },
       child: Container(
           margin: const EdgeInsets.all(4),
-          height: 25,
-          width: 25,
+          height: 3.h,
+          width: 3.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: Colors.teal,
@@ -166,13 +166,25 @@ class _MyCartState extends State<MyCart> {
   Widget screen(int ct) {
     return Container(
         margin: const EdgeInsets.all(4),
-        height: 25,
-        width: 25,
+        height: 3.h,
+        width: 3.h,
         child: Center(
             child: Text(
           ct.toString(),
           style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
         )));
+  }
+
+  Widget deletebutton(int i){
+    return  IconButton(
+        onPressed: () {
+          deletefromcart(i, context);
+        },
+        icon: Icon(
+          Icons.delete_outline_outlined,
+          color:
+              Colors.redAccent.shade200,
+        ));
   }
 
 //****************************************************************************************
@@ -293,10 +305,6 @@ class _MyCartState extends State<MyCart> {
                                     ),
                                     SizedBox(width: 1.w),
                                     Container(
-                                      // decoration: BoxDecoration(
-                                      //   border: Border.all(width: 1)
-                                      // ),
-                                      width: width * 0.28,
                                       margin: const EdgeInsets.all(7),
                                       child: Column(
                                         mainAxisAlignment:
@@ -304,55 +312,52 @@ class _MyCartState extends State<MyCart> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            carts[i].name,
-                                            style: TextStyle(
-                                                fontSize: 9.sp,
-                                                overflow: TextOverflow.ellipsis,
-                                                color: Colors.teal),
+                                          Container(
+                                            width: width*0.49,
+                                            child: Text(
+                                              carts[i].name,
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  color: Colors.teal),
+                                            ),
                                           ),
                                           Row(
                                             children: [
                                               Text(
                                                 '₹${carts[i].price.ceil().toString()} ',
                                                 style: TextStyle(
-                                                    fontSize: 7.5.sp,
+                                                    fontSize: 11.sp,
                                                     color: Colors.green),
                                               ),
                                               Text(
                                                 'x${count[i]} ',
                                                 style: TextStyle(
-                                                    fontSize: 4.5.sp,
+                                                    fontSize: 8.sp,
                                                     color: Colors.deepOrange),
                                               ),
                                               Text(
                                                   '= ₹${(count[i] * carts[i].price).round()}',
                                                   style: TextStyle(
-                                                      fontSize: 7.5.sp,
+                                                      fontSize: 11.sp,
                                                       color: Colors.green,
                                                       overflow:
                                                           TextOverflow.ellipsis))
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: 40,
-                                            child: Row(
-                                              // crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                counter(carts[i].quantity, i),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      deletefromcart(i, context);
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.delete_outline_outlined,
-                                                      color:
-                                                          Colors.redAccent.shade200,
-                                                    ))
-                                              ],
-                                            ),
-                                          )
+                                         Container(
+                                           width: width*0.49,
+
+                                           child: Row(
+                                             mainAxisAlignment:
+                                             MainAxisAlignment.spaceBetween,
+                                             children: [
+                                               counter(carts[i].quantity, i),
+                                               deletebutton(i),
+                                             ],
+                                           ),
+                                         )
+
                                         ],
                                       ),
                                     )

@@ -30,12 +30,12 @@ Widget productTile(String url, String Name, String Description, double price,
               color: Colors.blueGrey,
             ),
             child: ClipRRect(
-              borderRadius:BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12.sp),
                 topRight: Radius.circular(12.sp),
               ),
-              child:
-                  SizedBox.expand(child: Image.network(url, fit: BoxFit.fitWidth)),
+              child: SizedBox.expand(
+                  child: Image.network(url, fit: BoxFit.fitWidth)),
             ),
           ),
           Container(
@@ -57,7 +57,9 @@ Widget productTile(String url, String Name, String Description, double price,
                     Name,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        fontWeight: FontWeight.w500, color: Colors.black87, fontSize: 11.sp),
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                        fontSize: 9.sp),
                   ),
                   SizedBox(height: 0.6.h),
                   Text(

@@ -231,19 +231,7 @@ class Drawerc extends StatelessWidget {
                     );
                   },
                 ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.category,
-                  ),
-                  title: const Text('Edit Categories'),
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const EditCategory(),
-                      ),
-                    );
-                  },
-                ),
+
                 ListTile(
                   leading: const Icon(
                     Icons.exit_to_app,

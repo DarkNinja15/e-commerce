@@ -108,25 +108,23 @@ class _ProductInfoState extends State<ProductInfo> {
               ),
             ),
             const Divider(thickness: 1.5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Text(
-                    widget.prod.name,
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                ),
-              ],
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width * 0.7,
+              child: Text(
+                widget.prod.name,
+                style: const TextStyle(fontSize: 30, color: Colors.teal, fontStyle: FontStyle.italic, letterSpacing: 2.5),
+              ),
             ),
             Container(
+              alignment: Alignment.center,
               width: double.infinity,
               margin: const EdgeInsets.all(10),
               child: Text(
                 widget.prod.desc,
-                style: const TextStyle(fontSize: 20, color: Colors.grey),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20, color: Colors.grey, fontStyle: FontStyle.italic, letterSpacing: 2, fontWeight: FontWeight.w300),
               ),
             ),
             const Divider(),
@@ -146,9 +144,9 @@ class _ProductInfoState extends State<ProductInfo> {
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+            color: Colors.blueGrey.withOpacity(0.05),
+            borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(20), topLeft: Radius.circular(20))),
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.075,
@@ -186,22 +184,25 @@ class _ProductInfoState extends State<ProductInfo> {
                       );
                     }
                   },
-                  child: Center(
-                      child: isInCart
-                          ? const Text(
-                              'Added to cart',
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(255, 176, 57, 1),
-                                  fontSize: 20),
-                            )
-                          : const Text(
-                              'Add to Cart',
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(255, 176, 57, 1),
-                                  fontSize: 20),
-                            )),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    child: Center(
+                        child: isInCart
+                            ? const Text(
+                                'Added to cart',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Color.fromRGBO(255, 176, 57, 1),
+                                    fontSize: 17),
+                              )
+                            : const Text(
+                                'Add to Cart',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Color.fromRGBO(255, 176, 57, 1),
+                                    fontSize: 17),
+                              )),
+                  ),
                 ),
               ),
             ),
@@ -234,7 +235,7 @@ class _ProductInfoState extends State<ProductInfo> {
                 }
               },
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.45,
+                width: MediaQuery.of(context).size.width * 0.40,
                 child: Container(
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -244,7 +245,7 @@ class _ProductInfoState extends State<ProductInfo> {
                   child: const Center(
                       child: Text(
                     'Buy Now',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white, fontSize: 17),
                   )),
                 ),
               ),

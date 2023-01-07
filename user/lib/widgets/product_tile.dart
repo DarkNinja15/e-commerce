@@ -8,8 +8,8 @@ Widget productTile(String url, String Name, String Description, double price,
     double discount, BuildContext ctx) {
   return UnconstrainedBox(
     child: Container(
-      height: 25.h,
-      width: 20.h,
+      height: 27.h,
+      width: 18.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.sp),
         // border: Border.all(width: 1),
@@ -39,7 +39,7 @@ Widget productTile(String url, String Name, String Description, double price,
             ),
           ),
           Container(
-            height: 10.h,
+            height: 12.h,
             padding: EdgeInsets.all(5.sp),
             decoration: BoxDecoration(
               color: Colors.white,

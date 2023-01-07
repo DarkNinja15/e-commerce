@@ -48,20 +48,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     fun(context);
     return Container(
-      color: const Color.fromRGBO(6, 168, 138, 1),
-      child: AspectRatio(
-        aspectRatio: 440/725,
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/splash.png'),
-              fit: BoxFit.fitHeight,
-            ),
-          ),
-          child: const Scaffold(
-            backgroundColor: Colors.transparent,
-          ),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/splash.png'),
+          fit: BoxFit.fill,
         ),
+      ),
+      child: const Scaffold(
+        backgroundColor: Colors.transparent,
       ),
     );
   }

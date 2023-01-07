@@ -78,16 +78,22 @@ class _WishListState extends State<WishList> {
           child: isLoading
               ? const Loading()
               : wishListedProducts.isEmpty
-                  ? Column(
-                      children: const [
-                        Image(image: AssetImage('assets/void.png')),
-                        Text(
-                          'Nothing to show\n\nAdd items you like',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 33),
-                        )
-                      ],
-                    )
+                  ? Center(
+                    child: Stack(
+                      alignment: Alignment.center,
+                        children: [
+                          Image(image: AssetImage('assets/void.png')),
+                          Container(
+                            color: Colors.teal.withOpacity(0.6),
+                            child: const Text(
+                              'Nothing to show\n\nAdd items you like',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 25, color: Colors.white, letterSpacing: 5),
+                            ),
+                          )
+                        ],
+                      ),
+                  )
                   : MasonryGridView.count(
                       shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),

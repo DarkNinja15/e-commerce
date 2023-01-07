@@ -206,7 +206,6 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: 2.h,),
             Container(
               width: double.infinity,
-              height: 57.h,
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               padding: const EdgeInsets.all(25),
               decoration: BoxDecoration(

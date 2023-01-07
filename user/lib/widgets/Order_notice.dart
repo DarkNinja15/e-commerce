@@ -14,7 +14,7 @@ void Order_Succes(BuildContext ctx) {
           child: Container(
             padding: const EdgeInsets.all(10),
             height: 210.0,
-            width: 320.0,
+            // width: 330.0,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ void Order_Succes(BuildContext ctx) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: const EdgeInsets.fromLTRB(18, 7, 0, 7),
+                      margin: const EdgeInsets.fromLTRB(16, 7, 16, 7),
                       child: Text(
                         'Order Successful',
                         style: TextStyle(
@@ -34,7 +34,7 @@ void Order_Succes(BuildContext ctx) {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(18, 2.5, 0, 15),
+                      margin: const EdgeInsets.fromLTRB(16, 2.5, 16, 15),
                       child: const Text(
                         '\nThanks for shopping from B H R M A R.\n\nClick on OK to go to the Main Page and continue shopping.',
                         style: TextStyle(

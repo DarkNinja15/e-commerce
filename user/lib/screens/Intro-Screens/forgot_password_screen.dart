@@ -35,63 +35,57 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: AspectRatio(
-          aspectRatio: 440/725,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.06),
-                    child: Form(
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: emailcontroller,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: textInputDecoration.copyWith(
-                              labelText: "Email",
-                              prefixIcon: Icon(
-                                Icons.email,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.06),
+                child: Form(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: emailcontroller,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: textInputDecoration.copyWith(
+                          labelText: "Email",
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Theme.of(context).primaryColor,
                           ),
-                        ],
-                      ),
-                    )),
-                const SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                  onTap: _forgotpass,
-                  child: Container(
-                    height: 40,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(255, 176, 57, 1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.06,
-                        vertical: MediaQuery.of(context).size.width * 0.05),
-                    child: const Center(
-                      child: Text(
-                        'Reset Password',
-                        style: TextStyle(
-                          color: Colors.white,
-                          // fontWeight: FontWeight.bold,
                         ),
                       ),
+                    ],
+                  ),
+                )),
+            const SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: _forgotpass,
+              child: Container(
+                height: 40,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(255, 176, 57, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.06,
+                    vertical: MediaQuery.of(context).size.width * 0.05),
+                child: const Center(
+                  child: Text(
+                    'Reset Password',
+                    style: TextStyle(
+                      color: Colors.white,
+                      // fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
-              ],
-            ),
-          ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

@@ -159,11 +159,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(100.h);
-    print(100.w);
-    print('-------------');
-    print(MediaQuery.of(context).size.height);
-    print(MediaQuery.of(context).size.width);
     return Scaffold(
         key: _scaffoldKey,
         drawer: const Drawerc(),
@@ -200,99 +195,93 @@ class _HomePageState extends State<HomePage> {
           ],
           centerTitle: true,
         ),
-        body: Container(
-          alignment: Alignment.center,
-          child: AspectRatio(
-            aspectRatio: 440/725,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Roww(),
-                  SizedBox(height: 2.h),
-                  Roww2(context),
-                  SizedBox(height: 0.5.h),
-                  SizedBox(
-                    height: 30.h,
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: promotedProds.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 1, childAspectRatio: 1.1875),
-                        itemBuilder: (context, i) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductInfo(prod: promotedProds[i])));
-                            },
-                            child: productTile(
-                                promotedProds[i].photoUrl,
-                                promotedProds[i].name,
-                                promotedProds[i].desc,
-                                promotedProds[i].price,
-                                promotedProds[i].discount,
-                                context
-                            ),
-                          );
-                        }),
-                  ),
-                  SizedBox(
-                    height: 1.2.h,
-                  ),
-                  Container(
-                      height: 4.2.h,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 4.w,
-                      ),
-                      child: Text(
-                        'All Products',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11.sp,
-                            color: Colors.teal),
-                        textAlign: TextAlign.start,
-                      )),
-                  SizedBox(
-                    width: double.infinity,
-                    child: MasonryGridView.count(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 9.sp,
-                        itemCount: allProds.length,
-                        itemBuilder: (context, i) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductInfo(
-                                    prod: allProds[i],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: productTile(
-                                allProds[i].photoUrl,
-                                allProds[i].name,
-                                allProds[i].desc,
-                                allProds[i].price,
-                                allProds[i].discount,
-                                context
-                            ),
-                          );
-                        }),
-                  ),
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Roww(),
+              SizedBox(height: 2.h),
+              Roww2(context),
+              SizedBox(height: 0.5.h),
+              SizedBox(
+                height: 33.h,
+                child: GridView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: promotedProds.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1, childAspectRatio: 1.1875),
+                    itemBuilder: (context, i) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductInfo(prod: promotedProds[i])));
+                        },
+                        child: productTile(
+                            promotedProds[i].photoUrl,
+                            promotedProds[i].name,
+                            promotedProds[i].desc,
+                            promotedProds[i].price,
+                            promotedProds[i].discount,
+                            context
+                        ),
+                      );
+                    }),
               ),
-            ),
+              SizedBox(
+                height: 1.2.h,
+              ),
+              Container(
+                  height: 4.2.h,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 4.w,
+                  ),
+                  child: Text(
+                    'All Products',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 11.sp,
+                        color: Colors.teal),
+                    textAlign: TextAlign.start,
+                  )),
+              SizedBox(
+                width: double.infinity,
+                child: MasonryGridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 9.sp,
+                    itemCount: allProds.length,
+                    itemBuilder: (context, i) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductInfo(
+                                prod: allProds[i],
+                              ),
+                            ),
+                          );
+                        },
+                        child: productTile(
+                            allProds[i].photoUrl,
+                            allProds[i].name,
+                            allProds[i].desc,
+                            allProds[i].price,
+                            allProds[i].discount,
+                            context
+                        ),
+                      );
+                    }),
+              ),
+            ],
           ),
         ));
   }

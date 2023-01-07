@@ -10,9 +10,9 @@ Widget Nav(BuildContext ctx, int amount, List<Product> prod,
   return Container(
     height: MediaQuery.of(ctx).size.height * 0.09,
     width: double.infinity,
-    decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+    decoration: BoxDecoration(
+        color: Colors.blueGrey.withOpacity(0.05),
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(25), topRight: Radius.circular(25))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,9 +38,9 @@ Widget Nav(BuildContext ctx, int amount, List<Product> prod,
                         )));
           },
           child: SizedBox(
-            width: MediaQuery.of(ctx).size.width * 0.4,
+            width: MediaQuery.of(ctx).size.width * 0.5,
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 17, horizontal: 15),
+              margin: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 color: const Color.fromRGBO(255, 176, 57, 1),
@@ -48,7 +48,7 @@ Widget Nav(BuildContext ctx, int amount, List<Product> prod,
               child: const Center(
                   child: Text(
                 'Buy Now',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 17),
               )),
             ),
           ),

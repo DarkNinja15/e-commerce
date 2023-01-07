@@ -25,8 +25,8 @@ class _DrawercState extends State<Drawerc> {
             height: 30,
           ),
           Container(
-            width: 170,
-            height: 170,
+            width: 150,
+            height: 150,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(image: AssetImage('assets/logo1.png')),
@@ -47,7 +47,7 @@ class _DrawercState extends State<Drawerc> {
               Icons.history,
               size: 17.sp,
             ),
-            title: Text('Order History', style: TextStyle(fontSize: 12.sp),),
+            title: Text('Order History', style: TextStyle(fontSize: 10.sp, color: Colors.blueGrey),),
             trailing: Icon(Icons.arrow_forward_ios, size: 12.sp,),
             onTap: () {
               Navigator.of(context).push(
@@ -63,7 +63,7 @@ class _DrawercState extends State<Drawerc> {
               Icons.sticky_note_2_sharp,
               size: 17.sp,
             ),
-            title: Text('Terms and Condition', style: TextStyle(fontSize: 12.sp),),
+            title: Text('Terms and Condition', style: TextStyle(fontSize: 10.sp, color: Colors.blueGrey),),
             trailing: Icon(Icons.arrow_forward_ios, size: 12.sp,),
 
             onTap: () {
@@ -81,7 +81,7 @@ class _DrawercState extends State<Drawerc> {
               size: 17.sp,
             ),
             trailing: Icon(Icons.arrow_forward_ios, size: 12.sp,),
-            title:Text('LogOut', style: TextStyle(fontSize: 12.sp),),
+            title:Text('LogOut', style: TextStyle(fontSize: 10.sp, color: Colors.blueGrey),),
             onTap: () {
               logout(context);
             },

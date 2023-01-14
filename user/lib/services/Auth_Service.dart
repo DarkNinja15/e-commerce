@@ -54,12 +54,14 @@ class Authentication {
 
       try {
         googleSignInAccount = await googleSignIn.signIn();
-      } on PlatformException {
+      } on PlatformException  catch (err) {
         // Mobile Network check...
+        String x = err.toString();
+        print(x);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             backgroundColor: Colors.redAccent,
-            content: Text('Cannot connect to internet. Try again !'),
+            content: Text('Something went wrong. Try again ! $x'),
           ),
         );
         return false;

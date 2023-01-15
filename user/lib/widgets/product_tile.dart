@@ -14,7 +14,7 @@ Widget productTile(String url, String Name, String Description, double price,
         borderRadius: BorderRadius.circular(12.sp),
         // border: Border.all(width: 1),
       ),
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 15,
         vertical: 12,
       ),

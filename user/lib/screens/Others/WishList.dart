@@ -74,26 +74,29 @@ class _WishListState extends State<WishList> {
       body: Container(
         alignment: Alignment.center,
         child: AspectRatio(
-          aspectRatio: 440/725,
+          aspectRatio: 440 / 725,
           child: isLoading
               ? const Loading()
               : wishListedProducts.isEmpty
                   ? Center(
-                    child: Stack(
-                      alignment: Alignment.center,
+                      child: Stack(
+                        alignment: Alignment.center,
                         children: [
-                          Image(image: AssetImage('assets/void.png')),
+                          const Image(image: AssetImage('assets/void.png')),
                           Container(
                             color: Colors.teal.withOpacity(0.6),
                             child: const Text(
                               'Nothing to show\n\nAdd items you like',
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 25, color: Colors.white, letterSpacing: 5),
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                  letterSpacing: 5),
                             ),
                           )
                         ],
                       ),
-                  )
+                    )
                   : MasonryGridView.count(
                       shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),
@@ -108,8 +111,7 @@ class _WishListState extends State<WishList> {
                             wishListedProducts[i].desc,
                             wishListedProducts[i].price,
                             wishListedProducts[i].discount,
-                            context
-                        );
+                            context);
                       }),
         ),
       ),

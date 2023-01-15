@@ -9,7 +9,6 @@ import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Intro-Screens/Splash_Screen.dart';
 import 'package:user/services/Database_Service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'dart:io' show Platform;
 import 'package:sizer/sizer.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(
@@ -50,18 +49,17 @@ class MyApp extends StatelessWidget {
           create: (_) => UserProvider(),
         ),
       ],
-      child: Sizer(
-          builder: (context, orientation, deviceType){
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                scaffoldBackgroundColor: const Color.fromRGBO(238, 246, 250, 1.0),
-                brightness: Brightness.light,
-                primarySwatch: Colors.teal,
-                primaryColor: Colors.teal,
-              ),
-              home: const SplashScreen(),
-            );
+      child: Sizer(builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: const Color.fromRGBO(238, 246, 250, 1.0),
+            brightness: Brightness.light,
+            primarySwatch: Colors.teal,
+            primaryColor: Colors.teal,
+          ),
+          home: const SplashScreen(),
+        );
       }),
     );
   }

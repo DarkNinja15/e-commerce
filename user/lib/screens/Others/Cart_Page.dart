@@ -175,15 +175,14 @@ class _MyCartState extends State<MyCart> {
         )));
   }
 
-  Widget deletebutton(int i){
-    return  IconButton(
+  Widget deletebutton(int i) {
+    return IconButton(
         onPressed: () {
           deletefromcart(i, context);
         },
         icon: Icon(
           Icons.delete_outline_outlined,
-          color:
-              Colors.redAccent.shade200,
+          color: Colors.redAccent.shade200,
         ));
   }
 
@@ -218,21 +217,22 @@ class _MyCartState extends State<MyCart> {
       ),
       body: carts.isEmpty
           ? Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image(image: AssetImage('assets/void.png')),
-            Container(
-              color: Colors.teal.withOpacity(0.6),
-              child: const Text(
-                'Nothing to show\n\nAdd items you like',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25, color: Colors.white, letterSpacing: 5),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  const Image(image: AssetImage('assets/void.png')),
+                  Container(
+                    color: Colors.teal.withOpacity(0.6),
+                    child: const Text(
+                      'Nothing to show\n\nAdd items you like',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 25, color: Colors.white, letterSpacing: 5),
+                    ),
+                  )
+                ],
               ),
             )
-          ],
-        ),
-      )
           : SingleChildScrollView(
               child: Column(
                 children: [
@@ -292,7 +292,9 @@ class _MyCartState extends State<MyCart> {
                                     setState(() {});
                                   },
                                 ),
-                                SizedBox(width: 1.w,),
+                                SizedBox(
+                                  width: 1.w,
+                                ),
                                 Container(
                                   height: width * 0.24,
                                   width: width * 0.24,
@@ -314,8 +316,8 @@ class _MyCartState extends State<MyCart> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        width: width*0.49,
+                                      SizedBox(
+                                        width: width * 0.49,
                                         child: Text(
                                           carts[i].name,
                                           style: TextStyle(
@@ -347,19 +349,17 @@ class _MyCartState extends State<MyCart> {
                                                       TextOverflow.ellipsis))
                                         ],
                                       ),
-                                     Container(
-                                       width: width*0.49,
-
-                                       child: Row(
-                                         mainAxisAlignment:
-                                         MainAxisAlignment.spaceBetween,
-                                         children: [
-                                           counter(carts[i].quantity, i),
-                                           deletebutton(i),
-                                         ],
-                                       ),
-                                     )
-
+                                      SizedBox(
+                                        width: width * 0.49,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            counter(carts[i].quantity, i),
+                                            deletebutton(i),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 )

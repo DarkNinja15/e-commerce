@@ -3,9 +3,11 @@ import 'package:user/screens/Intro-Screens/Register_Screen.dart';
 import 'package:user/screens/Intro-Screens/forgot_password_screen.dart';
 import 'package:user/widgets/loading.dart';
 import 'package:user/widgets/textfield.dart';
+import '../../provider/user_provider.dart';
 import '../../services/Auth_Service.dart';
 import '../../shared/shared_properties.dart';
 import '../Navigation_Page.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,6 +26,10 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
     emailcontroller.dispose();
     passwordcontroller.dispose();
+  }
+
+  addData() async {
+    await Provider.of<UserProvider>(context, listen: false).refreshUser();
   }
 
   @override
@@ -186,6 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                                   context: context)
                               .then((val) {
                             if (val == true) {
+                              addData();
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

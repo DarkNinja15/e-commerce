@@ -37,11 +37,11 @@ class _NavigationPageState extends State<NavigationPage> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                  color: Color.fromRGBO(255, 176, 57, 1),
+                  color: const Color.fromRGBO(255, 176, 57, 1),
                   spreadRadius: 0.5.sp,
                   blurRadius: 1.sp)
             ],
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(24), topRight: Radius.circular(24)),
             color: Colors.white,
           ),
@@ -55,7 +55,7 @@ class _NavigationPageState extends State<NavigationPage> {
                   });
                 },
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
                   height: MediaQuery.of(context).size.height * 0.05,
@@ -66,7 +66,7 @@ class _NavigationPageState extends State<NavigationPage> {
                           children: [
                             Icon(Icons.home_filled,
                                 size: 17.sp,
-                                color: Color.fromRGBO(255, 176, 57, 1)),
+                                color: const Color.fromRGBO(255, 176, 57, 1)),
                             SizedBox(height: 0.05.h),
                             Container(
                               width: 1.5.w,
@@ -80,7 +80,10 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(6),
-                          child: Icon(Icons.home_outlined, size: 17.sp,),
+                          child: Icon(
+                            Icons.home_outlined,
+                            size: 17.sp,
+                          ),
                         ),
                 ),
               ),
@@ -91,9 +94,7 @@ class _NavigationPageState extends State<NavigationPage> {
                   });
                 },
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white
-                  ),
+                  decoration: const BoxDecoration(color: Colors.white),
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: width * 0.25,
                   child: _selectedIndex == 1
@@ -103,7 +104,7 @@ class _NavigationPageState extends State<NavigationPage> {
                             Icon(
                               Icons.category,
                               size: 17.sp,
-                              color: Color.fromRGBO(255, 176, 57, 1),
+                              color: const Color.fromRGBO(255, 176, 57, 1),
                             ),
                             const SizedBox(height: 3),
                             Container(
@@ -118,7 +119,10 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(6),
-                          child:Icon(Icons.category_outlined,  size: 17.sp,)),
+                          child: Icon(
+                            Icons.category_outlined,
+                            size: 17.sp,
+                          )),
                 ),
               ),
               GestureDetector(
@@ -128,7 +132,7 @@ class _NavigationPageState extends State<NavigationPage> {
                   });
                 },
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
                   // margin: EdgeInsets.fromLTRB(0, 0, 40, 0),
@@ -140,7 +144,7 @@ class _NavigationPageState extends State<NavigationPage> {
                           children: [
                             Icon(Icons.favorite,
                                 size: 17.sp,
-                                color: Color.fromRGBO(255, 176, 57, 1)),
+                                color: const Color.fromRGBO(255, 176, 57, 1)),
                             const SizedBox(height: 3),
                             Container(
                               width: 1.5.w,
@@ -153,7 +157,11 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(6),
-                          child:Icon(Icons.favorite_outline_outlined, size: 17.sp,),  ),
+                          child: Icon(
+                            Icons.favorite_outline_outlined,
+                            size: 17.sp,
+                          ),
+                        ),
                 ),
               ),
               GestureDetector(
@@ -163,7 +171,7 @@ class _NavigationPageState extends State<NavigationPage> {
                   });
                 },
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.transparent,
                   ),
                   height: MediaQuery.of(context).size.height * 0.05,
@@ -172,9 +180,11 @@ class _NavigationPageState extends State<NavigationPage> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person,
-                                color: Color.fromRGBO(255, 176, 57, 1),
-                              size: 17.sp,),
+                            Icon(
+                              Icons.person,
+                              color: const Color.fromRGBO(255, 176, 57, 1),
+                              size: 17.sp,
+                            ),
                             const SizedBox(height: 3),
                             Container(
                               width: 1.5.w,
@@ -187,7 +197,10 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                       : Container(
                           padding: const EdgeInsets.all(10),
-                          child: Icon(Icons.person_outline_outlined, size: 17.sp,)),
+                          child: Icon(
+                            Icons.person_outline_outlined,
+                            size: 17.sp,
+                          )),
                 ),
               ),
             ],

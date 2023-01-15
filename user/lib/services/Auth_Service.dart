@@ -54,10 +54,10 @@ class Authentication {
 
       try {
         googleSignInAccount = await googleSignIn.signIn();
-      } on PlatformException  catch (err) {
+      } on PlatformException catch (err) {
         // Mobile Network check...
         String x = err.toString();
-        print(x);
+        // print(x);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,

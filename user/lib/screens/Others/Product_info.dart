@@ -18,8 +18,6 @@ class ProductInfo extends StatefulWidget {
 }
 
 class _ProductInfoState extends State<ProductInfo> {
-
-
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).getUser;
@@ -114,7 +112,11 @@ class _ProductInfoState extends State<ProductInfo> {
               width: MediaQuery.of(context).size.width * 0.7,
               child: Text(
                 widget.prod.name,
-                style: const TextStyle(fontSize: 30, color: Colors.teal, fontStyle: FontStyle.italic, letterSpacing: 2.5),
+                style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.teal,
+                    fontStyle: FontStyle.italic,
+                    letterSpacing: 2.5),
               ),
             ),
             Container(
@@ -124,7 +126,12 @@ class _ProductInfoState extends State<ProductInfo> {
               child: Text(
                 widget.prod.desc,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20, color: Colors.grey, fontStyle: FontStyle.italic, letterSpacing: 2, fontWeight: FontWeight.w300),
+                style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.w300),
               ),
             ),
             const Divider(),
@@ -215,16 +222,17 @@ class _ProductInfoState extends State<ProductInfo> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyCart(),
+                      builder: (context) => const MyCart(),
                     ),
                   );
                 } else if (res == 'removed') {
+                  // ignore: unused_local_variable
                   final res = await DatabaseService()
                       .addProdToCart(widget.prod.id, context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyCart(),
+                      builder: (context) => const MyCart(),
                     ),
                   );
                 } else {

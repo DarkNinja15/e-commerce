@@ -198,12 +198,13 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 'Change Profile Pic',
                 style: TextStyle(
-                  color: Color.fromRGBO(255, 176, 57, 1),
-                  fontSize: 8.sp
-                ),
+                    color: const Color.fromRGBO(255, 176, 57, 1),
+                    fontSize: 8.sp),
               ),
             ),
-            SizedBox(height: 2.h,),
+            SizedBox(
+              height: 2.h,
+            ),
             Container(
               width: double.infinity,
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

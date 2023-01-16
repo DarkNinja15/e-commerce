@@ -22,10 +22,10 @@ class Authentication {
 
   // getting user details
   Future<UserModel> getUserDetails() async {
-    User currentUser = FirebaseAuth.instance.currentUser!;
+    String? uid  = FirebaseAuth.instance.currentUser?.uid;
     DocumentSnapshot snap = await FirebaseFirestore.instance
         .collection('users')
-        .doc(currentUser.uid)
+        .doc(uid)
         .get();
     return UserModel.fromSnap(snap);
   }

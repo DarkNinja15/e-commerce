@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:user/models/user_model.dart';
 import 'package:user/provider/user_provider.dart';
 import 'package:user/screens/Others/order_history_screen.dart';
 import 'package:user/screens/Others/terms.dart';
+import 'package:user/services/Auth_Service.dart';
+import 'package:user/services/Database_Service.dart';
 import 'package:user/widgets/logout.dart';
 
 class Drawerc extends StatefulWidget {
@@ -14,6 +18,7 @@ class Drawerc extends StatefulWidget {
 }
 
 class _DrawercState extends State<Drawerc> {
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).getUser;
@@ -34,7 +39,7 @@ class _DrawercState extends State<Drawerc> {
           ),
           SizedBox(height: 10.sp),
           Text(
-            'Welcome   ${user.userName}',
+            'Welcome   ${user?.userName}',
             style: TextStyle(
               fontWeight: FontWeight.w300,
               letterSpacing: 3.5,

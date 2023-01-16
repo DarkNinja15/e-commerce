@@ -69,6 +69,7 @@ class DatabaseService {
     DocumentSnapshot snap = await userCollection.doc(uid).get();
     var temp = snap.data() as Map;
     userData = temp;
+    return temp;
   }
 
   // retrieving products from database

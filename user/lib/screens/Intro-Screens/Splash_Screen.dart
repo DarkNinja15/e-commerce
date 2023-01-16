@@ -1,7 +1,12 @@
 // ignore_for_file: file_names
 
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:user/services/Auth_Service.dart';
+import '../../provider/user_provider.dart';
 import '../../services/Shared_Pref.dart';
 import '../navigation_bar_pages/Navigation_Page.dart';
 import 'login_page.dart';

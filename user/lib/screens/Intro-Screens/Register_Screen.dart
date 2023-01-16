@@ -6,7 +6,7 @@ import 'package:user/shared/shared_properties.dart';
 import 'package:user/widgets/loading.dart';
 import '../../services/Auth_Service.dart';
 import '../../widgets/textfield.dart';
-import '../Navigation_Page.dart';
+import '../navigation_bar_pages/Navigation_Page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);

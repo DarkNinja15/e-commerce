@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:user/screens/Navigation_Page.dart';
+import 'package:user/screens/navigation_bar_pages/Navigation_Page.dart';
 
 void Order_Succes(BuildContext ctx) {
   showDialog(

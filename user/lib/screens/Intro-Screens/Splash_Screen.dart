@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../services/Shared_Pref.dart';
-import '../Navigation_Page.dart';
+import '../navigation_bar_pages/Navigation_Page.dart';
 import 'login_page.dart';
 
 class SplashScreen extends StatefulWidget {

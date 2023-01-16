@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'HomePage.dart';
-import 'Others/All_Categories.dart';
-import 'Others/ProfilePage.dart';
-import 'Others/WishList.dart';
+import 'All_Categories.dart';
+import 'ProfilePage.dart';
+import 'WishList.dart';
 import 'package:sizer/sizer.dart';
 
 class NavigationPage extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:user/provider/user_provider.dart';
-import 'package:user/screens/Navigation_Page.dart';
+import 'package:user/screens/navigation_bar_pages/Navigation_Page.dart';
 import 'package:user/services/Database_Service.dart';
 import 'package:user/shared/shared_properties.dart';
 import 'package:user/widgets/radio_button.dart';
@@ -119,15 +119,16 @@ class _MyCartState extends State<MyCart> {
       },
       child: Container(
           margin: const EdgeInsets.all(4),
-          height: 5.h,
-          width: 5.h,
+          height: 6.w,
+          width: 6.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(width: 0.7, color: Colors.teal),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.remove,
             color: Colors.teal,
+            size: 4.w,
           )),
     );
   }
@@ -150,15 +151,16 @@ class _MyCartState extends State<MyCart> {
       },
       child: Container(
           margin: const EdgeInsets.all(4),
-          height: 5.h,
-          width: 5.h,
+          height: 6.w,
+          width: 6.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: Colors.teal,
           ),
-          child: const Icon(
+          child: Icon(
             Icons.add,
             color: Colors.white,
+            size: 4.w,
           )),
     );
   }
@@ -166,8 +168,8 @@ class _MyCartState extends State<MyCart> {
   Widget screen(int ct) {
     return Container(
         margin: const EdgeInsets.all(4),
-        height: 5.h,
-        width: 5.h,
+        height: 6.w,
+        width: 6.w,
         child: Center(
             child: Text(
           ct.toString(),
@@ -273,7 +275,7 @@ class _MyCartState extends State<MyCart> {
                             margin: EdgeInsets.all(width * 0.020),
                             padding: EdgeInsets.all(width * 0.020),
                             width: width,
-                            height: 21.h,
+                            height: 18.h,
                             child: Row(
                               children: [
                                 InkWell(

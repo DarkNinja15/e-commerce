@@ -11,9 +11,9 @@ import 'package:user/screens/Others/Cart_Page.dart';
 import 'package:user/screens/Others/Product_info.dart';
 import 'package:user/screens/Others/search_page.dart';
 import 'package:user/widgets/drawer.dart';
-import '../provider/user_provider.dart';
-import '../widgets/My_Widgets.dart';
-import '../widgets/product_tile.dart';
+import '../../provider/user_provider.dart';
+import '../../widgets/My_Widgets.dart';
+import '../../widgets/product_tile.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sizer/sizer.dart';
 

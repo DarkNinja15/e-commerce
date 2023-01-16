@@ -6,7 +6,7 @@ import 'package:user/widgets/textfield.dart';
 import '../../provider/user_provider.dart';
 import '../../services/Auth_Service.dart';
 import '../../shared/shared_properties.dart';
-import '../Navigation_Page.dart';
+import '../navigation_bar_pages/Navigation_Page.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {

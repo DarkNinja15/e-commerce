@@ -27,7 +27,7 @@ class DatabaseService {
       await userCollection.doc(uid).set({
         "userUid": user?.uid,
         "userName": user?.displayName,
-        "phoneNo": user?.phoneNumber,
+        "phoneNo": user?.phoneNumber ?? " ",
         "address": " ",
         "email": user?.email,
         "profilePicUrl": user?.photoURL,

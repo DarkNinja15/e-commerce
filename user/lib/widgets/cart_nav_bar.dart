@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:user/screens/checkout_page.dart';
-
+import '../shared/shared_properties.dart';
 import '../models/product_model.dart';
 
 Widget Nav(BuildContext ctx, int amount, List<Product> prod,
@@ -28,6 +28,10 @@ Widget Nav(BuildContext ctx, int amount, List<Product> prod,
         ),
         GestureDetector(
           onTap: () {
+            if(isSelected.contains(1)==false){
+              Shared().snackbar2('Please Select at least One Product', ctx, Colors.redAccent);
+              return;
+            }
             Navigator.pushReplacement(
                 ctx,
                 MaterialPageRoute(

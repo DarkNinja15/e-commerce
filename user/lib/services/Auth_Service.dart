@@ -21,14 +21,14 @@ class Authentication {
   }
 
   // getting user details
-  Future<UserModel> getUserDetails() async {
-    String? uid  = FirebaseAuth.instance.currentUser?.uid;
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .get();
-    return UserModel.fromSnap(snap);
-  }
+  // Future<UserModel> getUserDetails() async {
+  //   String? uid  = FirebaseAuth.instance.currentUser?.uid;
+  //   DocumentSnapshot snap = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(uid)
+  //       .get();
+  //   return UserModel.fromSnap(snap);
+  // }
 
   // sign in with google
   static Future<bool?> signInWithGoogle({required BuildContext context}) async {

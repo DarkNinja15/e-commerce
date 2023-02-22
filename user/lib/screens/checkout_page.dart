@@ -308,7 +308,17 @@ class _CheckoutState extends State<Checkout> {
                     ],
                   ),
                   InkWell(
-                    onTap: _checkout,
+                    onTap: (){
+                      if(namecontroller.text.isEmpty
+                      || emailcontroller.text.isEmpty
+                      || phonecontroller.text.isEmpty
+                      || addresscontroller.text.isEmpty
+                      ){
+                        Shared().snackbar2('Please Fill all the Details.', context, Colors.redAccent);
+                        return;
+                      }
+                      _checkout;
+                    },
                     child: Container(
                       height: 5.h,
                       width: double.infinity,
